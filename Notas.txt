@@ -1,0 +1,21 @@
+Flujo de páginas:
+
+home
+selection
+filter
+slots
+canvas
+print
+
+
+
+servicios:
+
+deck:
+  - me va a dar acceso a la lista completa de cartas.
+  - me da servicios de selección manual. Puedo agregar y quitar a demanda de una subselección de cartas (sólo se almacenaría una lista de ids)
+  - me da servicios de solución final. Dada la lista de cartas y una industria te arma el pitch.
+  - wish list:
+    - podés tener más (recordar) de una selección o de una solución final.
+    - eventualmente se puede implementar una suerte de localstore con selecciones o resultados finales con un nombre que dijita el usuario.
+

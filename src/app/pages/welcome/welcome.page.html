@@ -1,0 +1,30 @@
+<ion-content fullscreen scroll-y="false">
+
+    <ion-slides pager="true">
+      <ion-slide>
+        <div class="slider-background" style="background-image: url({{images[0]}});"></div>
+        <div class="slider-caption">
+          <h3>Página 1</h3>
+          <p>algo de texto</p>
+        </div>
+      </ion-slide>
+
+      <ion-slide>
+        <div class="slider-background" style="background-image: url({{images[1]}});"></div>
+        <div class="slider-caption">
+          <h3>Página 2</h3>
+          <p>algo más de texto</p>
+        </div>
+      </ion-slide>
+
+      <ion-slide>
+        <div class="slider-background" style="background-image: url({{images[2]}});"></div>
+        <div class="slider-caption">
+          <h3>Página 3</h3>
+          <p><ion-button (click)="enter()">Comenzar <ion-icon slot="end" name="arrow-forward"></ion-icon></ion-button> </p>
+        </div>
+        
+      </ion-slide>
+    </ion-slides>
+
+</ion-content>
