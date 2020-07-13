@@ -1,6 +1,7 @@
 import { Component, HostBinding } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscriber } from 'rxjs';
+import { DeckService } from 'src/app/services/deck.service';
 
 @Component({
     selector: 'home-page',
@@ -15,6 +16,7 @@ export class HomePage {
     
     constructor(
         public router: Router,
+        public deck: DeckService,
     ) {
         this.toilet_card_fade = "";
         // this.onToiletSelectedSubscriber = new Subscriber<any>(this.onToiletSelected.bind(this));

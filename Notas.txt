@@ -1,11 +1,11 @@
 Flujo de páginas:
 
-home
-selection
-filter
-slots
-canvas
-print
+home -> (selection, filter, slots)
+selection -> canvas
+filter -> canvas
+slots -> canvas
+canvas -> print
+print -> home
 
 
 
@@ -18,4 +18,5 @@ deck:
   - wish list:
     - podés tener más (recordar) de una selección o de una solución final.
     - eventualmente se puede implementar una suerte de localstore con selecciones o resultados finales con un nombre que dijita el usuario.
+
 

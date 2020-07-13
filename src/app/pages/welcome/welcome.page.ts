@@ -15,11 +15,11 @@ export class WelcomePage {
         public router: Router,
         public cookies: CookieService
     ) {
-        // if (this.cookies.get("skip-welcome") == "yes") {
-        //     console.log("skipping-welcome...");
-        //     this.router.navigate(["/home"]);
-        // }
-        console.error("Saqué esto momentáneamente para el video");
+        if (this.cookies.get("skip-welcome") == "yes") {
+            console.log("skipping-welcome...");
+            this.router.navigate(["/home"]);
+        }
+        // console.error("Saqué esto momentáneamente para el video");
     }
 
     enter() {
