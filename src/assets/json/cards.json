@@ -1,430 +1,563 @@
-{
-    "blue": [
-        {
-            "card":"1",
-            "name":"Marketplace",
-            "prev":"a través de un",
-            "desc":"Ofrece un espacio de encuentro (físico o virtual) que facilite las transacciones entre oferentes y demandantes."
-        },
-        {
-            "card":"2",
-            "name":"Plataforma Multilateral",
-            "prev":"a través de una",
-            "desc":"Atrae y facilita las interacciones entre al menos 2 grupos interdependientes de clientes o usuarios."
-        },
-        {
-            "card":"3",
-            "name":"Mayorista",
-            "prev":"de manera",
-            "desc":"Venta en grandes cantidades (al mayoreo), generalmente a clientes corporativos o a otros revendedores."
-        },
-        {
-            "card":"4",
-            "name":"Minorista",
-            "prev":"de manera",
-            "desc":"Intermediario entre productor y consumidor final que se caracteriza por vender al por menor a personas y hogares."
-        },
-        {
-            "card":"5",
-            "name":"Cola larga del mercado",
-            "prev":"a la",
-            "desc":"Centra el foco en vender un número mayor de productos, con menor volumen de ventas, a un creciente número de compradores que prefieren productos o servicios de nicho."
-        },
-        {
-            "card":"6",
-            "name":"Base de la pirámide",
-            "prev":"a la",
-            "desc":"A través de este modelo, la idea es integrar a las personas de menores ingresos en los procesos de las empresas, ya sea como clientes, proveedores, o distribuidores."
-        },
-        {
-            "card":"7",
-            "name":"Entre pares (P2P)",
-            "prev":"",
-            "desc":"Surge bajo la lógica de la economía colaborativa y se basa en el concepto de compartir contenidos, servicios o valor entre pares."
-        },
-        {
-            "card":"8",
-            "name":"Crowdfunding",
-            "prev":"en modalidad de",
-            "desc":"Modelo que permite la financiación de proyectos a través de microcontribuciones económicas brindadas por grandes masas de individuos."
-        },
-        {
-            "card":"9",
-            "name":"Crowdsourcing",
-            "prev":"en modalidad de",
-            "desc":"Modelo donde se involucra a la comunidad en la creación de valor."
-        },
-        {
-            "card":"10",
-            "name":"Co-diseño",
-            "prev":"en modalidad de",
-            "desc":"Modelo en el cual la empresa proveedora y los clientes trabajan en conjunto para lograr el mejor producto que sirva a los intereses compartidos."
-        },
-        {
-            "card":"11",
-            "name":"Hágalo Usted mismo",
-            "prev":"incentivando el",
-            "desc":"Consiste en vender productos o servicios, como parte de proyectos que puedan ser completados por el propio consumidor, ahorrándole dinero al hacerlo ellos mismos."
-        },
-        {
-            "card":"12",
-            "name":"Marca blanca",
-            "prev":"como",
-            "desc":"Modelo en el que un producto o servicio es vendido sin marca a otras empresas que agregan su marca y lo venden como propio al consumidor final."
-        },
-        {
-            "card":"13",
-            "name":"Premium",
-            "prev":"al mercado",
-            "desc":"Ofrecer productos o servicios de alta gama para un público que valora atributos diferenciales o gozar de un determinado status por adquirirlos."
-        },
-        {
-            "card":"14",
-            "name":"Edición limitada",
-            "prev":"como",
-            "desc":"Crear una oferta limitada que nunca aumenta para satisfacer la demanda, de manera de volverla más valiosa y exclusiva."
-        },
-        {
-            "card":"15",
-            "name":"Clubes de compra",
-            "prev":"mediante la conformación de",
-            "desc":"Plataformas que canalizan ofertas agregadas a los particulares, quienes acceden a descuentos significativos, si cumplen determinadas condiciones."
-        },
-        {
-            "card":"16",
-            "name":"Second hand (usados)",
-            "prev":"al mercado de",
-            "desc":"Ofrecer artículos que han sido usados por dueños anteriores."
-        },
-        {
-            "card":"17",
-            "name":"Red social",
-            "prev":"mediante la conformación de una",
-            "desc":"Consiste en crear un ámbito virtual favorable para que las personas creen y compartan contenidos, propiciando el intercambio y la participación asidua"
-        }
-    ],
-    "red": [
-        {
-            "card":"18",
-            "name":"Carnada y anzuelo",
-            "prev":"bajo un modelo de",
-            "desc":"Consiste en vender un producto principal a un margen reducido (carnada) y la venta de insumos (consumibles) necesarios para su funcionamiento, a un precio elevado."
-        },
-        {
-            "card":"19",
-            "name":"Consultoría",
-            "prev":"bajo un modelo de",
-            "desc":"Servicio de asesoramiento a empresas o instituciones por contar con un conocimiento calificado y específico en una área determinada."
-        },
-        {
-            "card":"20",
-            "name":"Inteligencia de negocios",
-            "prev":"proveyendo",
-            "desc":"Consiste en vender las herramientas, sistemas y procesos de análisis de datos; o la información que surge de los anteriores para la mejor toma de decisiones."
-        },
-        {
-            "card":"21",
-            "name":"Data como servicio",
-            "prev":"proveyendo",
-            "desc":"Valor mediante la recopilación de datos de los clientes y su preparación de manera beneficiosa (analítica y filtrado) para uso interno o para terceros interesados."
-        },
-        {
-            "card":"22",
-            "name":"Servitización",
-            "prev":"basado en la",
-            "desc":"Consiste en vender la función del producto, en lugar del producto en sí mismo (pago por uso vs. ser dueño del producto)."
-        },
-        {
-            "card":"23",
-            "name":"Open Source",
-            "prev":"bajo un modelo",
-            "desc":"Modelo de 'código abierto' que permite que cualquiera utilice, distribuya y modifique la propiedad intelectual o código original del producto, para volverlo a ofrecer en el mercado."
-        },
-        {
-            "card":"24",
-            "name":"Curaduría",
-            "prev":"bajo un modelo de",
-            "desc":"Seleccionar (filtrar), categorizar y poner a disposición una oferta 'curada' de productos o contenidos para un público con poco tiempo e interés de hacerlo por sí mismo."
-        },
-        {
-            "card":"25",
-            "name":"Clasificados",
-            "prev":"bajo un modelo de",
-            "desc":"Venta de espacios para la publicación de avisos o directorios pero donde la transacción se realiza por fuera de la plataforma o medio de publicación."
-        },
-        {
-            "card":"26",
-            "name":"Agregador",
-            "prev":"bajo un modelo de",
-            "desc":"Compilar la oferta de diferentes fuentes en un mismo lugar, con el objetivo de reducirle tiempo y esfuerzo al usuario."
-        },
-        {
-            "card":"27",
-            "name":"Combos",
-            "prev":"agrupada en",
-            "desc":"Consiste en unir productos o servicios para venderlos como una sola unidad combinada, generalmente a menor precio."
-        },
-        {
-            "card":"28",
-            "name":"Delivery (última milla)",
-            "prev":"bajo un modelo de",
-            "desc":"Resolver el viaje del producto entre partes actuantes."
-        },
-        {
-            "card":"29",
-            "name":"Diseño de autor",
-            "prev":"de",
-            "desc":"Ofrecer productos basados en un estilo propio, la inspiración e identidad de un diseñador a un público que aprecia aquello distintivo."
-        },
-        {
-            "card":"30",
-            "name":"Customización",
-            "prev":"con",
-            "desc":"Modelo en el cual se ofrecen productos o servicios a medida según las características del consumidor."
-        },
-        {
-            "card":"31",
-            "name":"Creación de contenidos",
-            "prev":"bajo un modelo de",
-            "desc":"Creación de textos, imágenes, videos, audios, infografías, etc, como producto en sí mismo, o como servicio para que conduzca tráfico y atraigan a potenciales clientes"
-        },
-        {
-            "card":"32",
-            "name":"Reciclaje",
-            "prev":"basado en el",
-            "desc":"Modelo que funda sus pilares en el uso de desechos o subproductos para incorporarlos en un mismo u otro proceso productivo, generando una economía circular."
-        },
-        {
-            "card":"33",
-            "name":"Revalorización",
-            "prev":"basado en la",
-            "desc":"Transformación creativa de productos para crear otros bienes de consumo con mayor valor al del material original (sin perder la identidad que el objeto tenía antes de su nueva función)."
-        },
-        {
-            "card":"34",
-            "name":"Rediseño",
-            "prev":"basado en el",
-            "desc":"Modelo de la economía circular donde se diseñan productos, procesos y servicios, poniendo especial énfasis en la optimización de los recursos utilizados y en la minimización de residuos."
-        },
-        {
-            "card":"35",
-            "name":"Ventanilla única",
-            "prev":"bajo un modelo de",
-            "desc":"Ofrecer la conveniencia de encontrar múltiples productos, servicios, o información, en un solo lugar, evitando al consumidor tener que recurrir a diferentes lugares, lo que le ahorra tiempo y esfuerzo."
-        }
-    ],    
-    "green": [
-        {
-            "card":"36",
-            "name":"Desintermediación",
-            "prev":"procesos de",
-            "desc":"Brindar soluciones que logran acercar la oferta y la demanda en mercados donde intervienen demasiados actores."
-        },
-        {
-            "card":"37",
-            "name":"Intermediación",
-            "prev":"procesos de",
-            "desc":"Actividad que una persona u organización realiza para atraer y mantener clientes o aportar valor a lo largo de una cadena de provisión, producción o distribución."
-        },
-        {
-            "card":"38",
-            "name":"Tercerización",
-            "prev":"procesos de",
-            "desc":"Se basa en el cumplimiento de tareas especializadas por parte de una empresa, para otras empresas que deciden tercerizarlas."
-        },
-        {
-            "card":"39",
-            "name":"Consignación",
-            "prev":"procesos de",
-            "desc":"Modelo que evita el costo de compra de mercadería y la inmovilización de capital asociado al mantenimiento de stock, incorporando productos de múltiples vendedores a su punto de venta, a cambio de una comisión."
-        },
-        {
-            "card":"40",
-            "name":"Autoservicio",
-            "prev":"procesos de",
-            "desc":"Modelo de negocio en el cual el cliente final se provee por sí mismo el producto o servicio ofrecido, realizando todos los pasos necesarios para efectuar la compra."
-        },
-        {
-            "card":"41",
-            "name":"Automatización",
-            "prev":"procesos de",
-            "desc":"Modelo de negocio en el cual se transfieren tareas habitualmente realizadas por humanos a computadoras y/o algoritmos."
-        },
-        {
-            "card":"42",
-            "name":"Fraccionamiento",
-            "prev":"procesos de",
-            "desc":"Consiste en llevar determinados productos desde la escala industrial (o mayorista) a la escala de consumo (o minorista)."
-        },
-        {
-            "card":"43",
-            "name":"e-commerce",
-            "prev":"un",
-            "desc":"La venta de productos o servicios a través de canales online eliminando costos asociados a una infraestructura física de locales o sucursales"
-        },
-        {
-            "card":"44",
-            "name":"Triangulación (dropshipping)",
-            "prev":"procesos de",
-            "desc":"Consiste en vender productos, sin contar con un inventario, intermediando entre productor y consumidor."
-        },
-        {
-            "card":"45",
-            "name":"Tienda en tienda",
-            "prev":"la creación de una",
-            "desc":"Modelo de venta minorista donde el propietario de una marca ocupa un espacio en la tienda de otro minorista que lo habilita a mostrar y ofrecer sus productos de manera independiente."
-        },
-        {
-            "card":"46",
-            "name":"On demand",
-            "prev":"un servicio",
-            "desc":"Este modelo se basa en la provisión de productos y servicios a demanda del consumidor, en un tiempo inmediato o relativamente corto."
-        },
-        {
-            "card":"47",
-            "name":"Franquicia",
-            "prev":"la creación de una",
-            "desc":"Replicar un modelo de negocio exitoso a partir de la estandarización de procesos y una propuesta de valor validada"
-        },
-        {
-            "card":"48",
-            "name":"Marketing multinivel",
-            "prev":"un sistema de",
-            "desc":"Sistema de venta directa que se basa en la comercialización de productos de alguna marca, a través de una red de vendedores y distribuidores independientes, jerarquizados en niveles."
-        },
-        {
-            "card":"49",
-            "name":"Programa de afiliados",
-            "prev":"la creación de un",
-            "desc":"Establece algún tipo de comisión o recompensa para los proveedores, empresas o personas que atraigan potenciales clientes o pedidos para su oferta o local de ventas."
-        },
-        {
-            "card":"50",
-            "name":"Software como servicio",
-            "prev":"la modalidad de",
-            "desc":"Modelo basado en la 'nube' (internet) que consiste en alquilar el uso de un software, en lugar de vender licencias."
-        },
-        {
-            "card":"51",
-            "name":"Basado en la nube",
-            "prev":"un servicio",
-            "desc":"Modelo basado en infraestructura de internet para ofrecer software, plataformas, almacenamiento y otros servicios de acceso remoto, evitando la necesidad de invertir en capacidades propias."
-        },
-        {
-            "card":"52",
-            "name":"Servicio a producto",
-            "prev":"la transformación de",
-            "desc":"Es adoptado por empresas proveedoras de servicios que ofrecen paquetes predeterminados (en términos de alcance, precio y plazos), reemplazando a los servicios customizados."
-        }
-    ],
-    "yellow": [
-        {
-            "card":"53",
-            "name":"Comisión por ventas",
-            "prev":"la",
-            "desc":"Cobrar una participación en las ventas (generalmente un %) para recompensar los esfuerzos de ayudar a vender o anunciar un producto o servicio."
-        },
-        {
-            "card":"54",
-            "name":"Reventa",
-            "prev":"la",
-            "desc":"Modelo consistente en la compra temporal de bienes para ser revendidos a un precio mayor."
-        },
-        {
-            "card":"55",
-            "name":"Alquiler",
-            "prev":"acuerdos de",
-            "desc":"Adquirir o crear productos para arrendarlos por tiempo u ocasiones de uso, en lugar de venderlos."
-        },
-        {
-            "card":"56",
-            "name":"Licenciamiento",
-            "prev":"un sistema de",
-            "desc":"Relación comercial mediante contrato, a través del cual se otorga permiso para explotar la imagen de marca o un diseño determinado a cambio de royalties (regalías)."
-        },
-        {
-            "card":"57",
-            "name":"Suscripción",
-            "prev":"un sistema de",
-            "desc":"Consiste en el cobro de un precio recurrente de suscripción, a cambio de recibir o tener acceso a determinado producto o servicio."
-        },
-        {
-            "card":"58",
-            "name":"Membresía",
-            "prev":"un sistema de",
-            "desc":"Similar al modelo de suscripción, el modelo de membresía apunta también a la permanencia del miembro en adhesión a un sistema, comunidad o club."
-        },
-        {
-            "card":"59",
-            "name":"Subasta",
-            "prev":"un sistema de",
-            "desc":"Consiste en ofrecer la venta de un bien al comprador que esté dispuesto a pagar la mayor cantidad de dinero a cambio del producto ('mejor postor')"
-        },
-        {
-            "card":"60",
-            "name":"Trueque",
-            "prev":"intercambios mediante",
-            "desc":"Probablemente el modelo de negocios más antiguo de la humanidad, surge ante la necesidad de tener acceso a bienes y servicios que no están al alcance, ofreciendo a cambio aquellos que sí lo estan."
-        },
-        {
-            "card":"61",
-            "name":"Gratis",
-            "prev":"transacciones",
-            "desc":"Modelo que ofrece valor de manera gratuita a un determinado segmento de usuarios, y que se suele financiar por otras formas de monetización alternativas al valor aportado."
-        },
-        {
-            "card":"62",
-            "name":"Freemium",
-            "prev":"un sistema",
-            "desc":"Modelo mayormente utilizado en productos tecnológicos donde es posible agrupar funcionalidades básicas (dadas gratis) y cobrar por las avanzadas."
-        },
-        {
-            "card":"63",
-            "name":"Donaciones",
-            "prev":"la captación de",
-            "desc":"Se caracteriza por recibir contribuciones voluntarias por ofrecer una solución social o ambiental que es trascendente (en forma directa o no) para el o los donantes."
-        },
-        {
-            "card":"64",
-            "name":"Tarifa plana",
-            "prev":"un sistema de",
-            "desc":"Refiere a una estrategia de precios donde se cobra una tarifa fija o plana por un producto o servicio, independientemente de su uso, materiales, u horas de trabajo necesarias."
-        },
-        {
-            "card":"65",
-            "name":"Publicidad",
-            "prev":"la venta de",
-            "desc":"Generar ingresos por la venta de espacios publicitarios a diferentes anunciantes."
-        },
-        {
-            "card":"66",
-            "name":"Bajo precio",
-            "prev":"transacciones de",
-            "desc":"Estrategia de precios basada en un negocio de volumen, donde se busca una pequeña ganancia por producto individual pero beneficiada por una gran cantidad de unidades vendidas y alta rotación del inventario."
-        },
-        {
-            "card":"67",
-            "name":"Microtransacciones",
-            "prev":"múltiples",
-            "desc":"Modelo de negocio fuertemente asociado a los juegos y aplicaciones en el que los usuarios pueden comprar productos virtuales a través de micropagos, proporcionando una fuente de ingresos para los desarrolladores."
-        },
-        {
-            "card":"68",
-            "name":"Basado en performance",
-            "prev":"un sistema",
-            "desc":"Consiste en la prestación de servicios cuya generación de ingresos está condicionada a un resultado determinado a ser logrado."
-        },
-        {
-            "card":"69",
-            "name":"Pago por uso",
-            "prev":"un sistema de",
-            "desc":"Cobrar a los clientes en base a la cantidad de servicio que utilizan, medida sea en tiempo o en volumen consumido."
-        },
-        {
-            "card":"70",
-            "name":"Arbitraje",
-            "prev":"diferencias de",
-            "desc":"Práctica de tomar ventaja de una diferencia de precio entre dos o más mercados, convirtiéndolo en una ganancia para quien logre concretar los acuerdos."
-        }
-    ]
-}
+[
+    {
+        "color":"blue",
+        "card":"1",
+        "deck":"1",
+        "name":"Marketplace",
+        "prev":"a través de un",
+        "desc":"Ofrece un espacio de encuentro (físico o virtual) que facilite las transacciones entre oferentes y demandantes."
+    },
+    {
+        "color":"blue",
+        "card":"2",
+        "deck":"1",
+        "name":"Plataforma Multilateral",
+        "prev":"a través de una",
+        "desc":"Atrae y facilita las interacciones entre al menos 2 grupos interdependientes de clientes o usuarios."
+    },
+    {
+        "color":"blue",
+        "card":"3",
+        "deck":"1",
+        "name":"Mayorista",
+        "prev":"de manera",
+        "desc":"Venta en grandes cantidades (al mayoreo), generalmente a clientes corporativos o a otros revendedores."
+    },
+    {
+        "color":"blue",
+        "card":"4",
+        "deck":"1",
+        "name":"Minorista",
+        "prev":"de manera",
+        "desc":"Intermediario entre productor y consumidor final que se caracteriza por vender al por menor a personas y hogares."
+    },
+    {
+        "color":"blue",
+        "card":"5",
+        "deck":"1",
+        "name":"Cola larga del mercado",
+        "prev":"a la",
+        "desc":"Centra el foco en vender un número mayor de productos, con menor volumen de ventas, a un creciente número de compradores que prefieren productos o servicios de nicho."
+    },
+    {
+        "color":"blue",
+        "card":"6",
+        "deck":"1",
+        "name":"Base de la pirámide",
+        "prev":"a la",
+        "desc":"A través de este modelo, la idea es integrar a las personas de menores ingresos en los procesos de las empresas, ya sea como clientes, proveedores, o distribuidores."
+    },
+    {
+        "color":"blue",
+        "card":"7",
+        "deck":"1",
+        "name":"Entre pares (P2P)",
+        "prev":"",
+        "desc":"Surge bajo la lógica de la economía colaborativa y se basa en el concepto de compartir contenidos, servicios o valor entre pares."
+    },
+    {
+        "color":"blue",
+        "card":"8",
+        "deck":"1",
+        "name":"Crowdfunding",
+        "prev":"en modalidad de",
+        "desc":"Modelo que permite la financiación de proyectos a través de microcontribuciones económicas brindadas por grandes masas de individuos."
+    },
+    {
+        "color":"blue",
+        "card":"9",
+        "deck":"1",
+        "name":"Crowdsourcing",
+        "prev":"en modalidad de",
+        "desc":"Modelo donde se involucra a la comunidad en la creación de valor."
+    },
+    {
+        "color":"blue",
+        "card":"10",
+        "deck":"1",
+        "name":"Co-diseño",
+        "prev":"en modalidad de",
+        "desc":"Modelo en el cual la empresa proveedora y los clientes trabajan en conjunto para lograr el mejor producto que sirva a los intereses compartidos."
+    },
+    {
+        "color":"blue",
+        "card":"11",
+        "deck":"1",
+        "name":"Hágalo Usted mismo",
+        "prev":"incentivando el",
+        "desc":"Consiste en vender productos o servicios, como parte de proyectos que puedan ser completados por el propio consumidor, ahorrándole dinero al hacerlo ellos mismos."
+    },
+    {
+        "color":"blue",
+        "card":"12",
+        "deck":"1",
+        "name":"Marca blanca",
+        "prev":"como",
+        "desc":"Modelo en el que un producto o servicio es vendido sin marca a otras empresas que agregan su marca y lo venden como propio al consumidor final."
+    },
+    {
+        "color":"blue",
+        "card":"13",
+        "deck":"1",
+        "name":"Premium",
+        "prev":"al mercado",
+        "desc":"Ofrecer productos o servicios de alta gama para un público que valora atributos diferenciales o gozar de un determinado status por adquirirlos."
+    },
+    {
+        "color":"blue",
+        "card":"14",
+        "deck":"1",
+        "name":"Edición limitada",
+        "prev":"como",
+        "desc":"Crear una oferta limitada que nunca aumenta para satisfacer la demanda, de manera de volverla más valiosa y exclusiva."
+    },
+    {
+        "color":"blue",
+        "card":"15",
+        "deck":"1",
+        "name":"Clubes de compra",
+        "prev":"mediante la conformación de",
+        "desc":"Plataformas que canalizan ofertas agregadas a los particulares, quienes acceden a descuentos significativos, si cumplen determinadas condiciones."
+    },
+    {
+        "color":"blue",
+        "card":"16",
+        "deck":"1",
+        "name":"Second hand (usados)",
+        "prev":"al mercado de",
+        "desc":"Ofrecer artículos que han sido usados por dueños anteriores."
+    },
+    {
+        "color":"blue",
+        "card":"17",
+        "deck":"1",
+        "name":"Red social",
+        "prev":"mediante la conformación de una",
+        "desc":"Consiste en crear un ámbito virtual favorable para que las personas creen y compartan contenidos, propiciando el intercambio y la participación asidua"
+    },
+    {
+        "color":"red",
+        "card":"18",
+        "deck":"1",
+        "name":"Carnada y anzuelo",
+        "prev":"bajo un modelo de",
+        "desc":"Consiste en vender un producto principal a un margen reducido (carnada) y la venta de insumos (consumibles) necesarios para su funcionamiento, a un precio elevado."
+    },
+    {
+        "color":"red",
+        "card":"19",
+        "deck":"1",
+        "name":"Consultoría",
+        "prev":"bajo un modelo de",
+        "desc":"Servicio de asesoramiento a empresas o instituciones por contar con un conocimiento calificado y específico en una área determinada."
+    },
+    {
+        "color":"red",
+        "card":"20",
+        "deck":"1",
+        "name":"Inteligencia de negocios",
+        "prev":"proveyendo",
+        "desc":"Consiste en vender las herramientas, sistemas y procesos de análisis de datos; o la información que surge de los anteriores para la mejor toma de decisiones."
+    },
+    {
+        "color":"red",
+        "card":"21",
+        "deck":"1",
+        "name":"Data como servicio",
+        "prev":"proveyendo",
+        "desc":"Valor mediante la recopilación de datos de los clientes y su preparación de manera beneficiosa (analítica y filtrado) para uso interno o para terceros interesados."
+    },
+    {
+        "color":"red",
+        "card":"22",
+        "deck":"1",
+        "name":"Servitización",
+        "prev":"basado en la",
+        "desc":"Consiste en vender la función del producto, en lugar del producto en sí mismo (pago por uso vs. ser dueño del producto)."
+    },
+    {
+        "color":"red",
+        "card":"23",
+        "deck":"1",
+        "name":"Open Source",
+        "prev":"bajo un modelo",
+        "desc":"Modelo de 'código abierto' que permite que cualquiera utilice, distribuya y modifique la propiedad intelectual o código original del producto, para volverlo a ofrecer en el mercado."
+    },
+    {
+        "color":"red",
+        "card":"24",
+        "deck":"1",
+        "name":"Curaduría",
+        "prev":"bajo un modelo de",
+        "desc":"Seleccionar (filtrar), categorizar y poner a disposición una oferta 'curada' de productos o contenidos para un público con poco tiempo e interés de hacerlo por sí mismo."
+    },
+    {
+        "color":"red",
+        "card":"25",
+        "deck":"1",
+        "name":"Clasificados",
+        "prev":"bajo un modelo de",
+        "desc":"Venta de espacios para la publicación de avisos o directorios pero donde la transacción se realiza por fuera de la plataforma o medio de publicación."
+    },
+    {
+        "color":"red",
+        "card":"26",
+        "deck":"1",
+        "name":"Agregador",
+        "prev":"bajo un modelo de",
+        "desc":"Compilar la oferta de diferentes fuentes en un mismo lugar, con el objetivo de reducirle tiempo y esfuerzo al usuario."
+    },
+    {
+        "color":"red",
+        "card":"27",
+        "deck":"1",
+        "name":"Combos",
+        "prev":"agrupada en",
+        "desc":"Consiste en unir productos o servicios para venderlos como una sola unidad combinada, generalmente a menor precio."
+    },
+    {
+        "color":"red",
+        "card":"28",
+        "deck":"1",
+        "name":"Delivery (última milla)",
+        "prev":"bajo un modelo de",
+        "desc":"Resolver el viaje del producto entre partes actuantes."
+    },
+    {
+        "color":"red",
+        "card":"29",
+        "deck":"1",
+        "name":"Diseño de autor",
+        "prev":"de",
+        "desc":"Ofrecer productos basados en un estilo propio, la inspiración e identidad de un diseñador a un público que aprecia aquello distintivo."
+    },
+    {
+        "color":"red",
+        "card":"30",
+        "deck":"1",
+        "name":"Customización",
+        "prev":"con",
+        "desc":"Modelo en el cual se ofrecen productos o servicios a medida según las características del consumidor."
+    },
+    {
+        "color":"red",
+        "card":"31",
+        "deck":"1",
+        "name":"Creación de contenidos",
+        "prev":"bajo un modelo de",
+        "desc":"Creación de textos, imágenes, videos, audios, infografías, etc, como producto en sí mismo, o como servicio para que conduzca tráfico y atraigan a potenciales clientes"
+    },
+    {
+        "color":"red",
+        "card":"32",
+        "deck":"1",
+        "name":"Reciclaje",
+        "prev":"basado en el",
+        "desc":"Modelo que funda sus pilares en el uso de desechos o subproductos para incorporarlos en un mismo u otro proceso productivo, generando una economía circular."
+    },
+    {
+        "color":"red",
+        "card":"33",
+        "deck":"1",
+        "name":"Revalorización",
+        "prev":"basado en la",
+        "desc":"Transformación creativa de productos para crear otros bienes de consumo con mayor valor al del material original (sin perder la identidad que el objeto tenía antes de su nueva función)."
+    },
+    {
+        "color":"red",
+        "card":"34",
+        "deck":"1",
+        "name":"Rediseño",
+        "prev":"basado en el",
+        "desc":"Modelo de la economía circular donde se diseñan productos, procesos y servicios, poniendo especial énfasis en la optimización de los recursos utilizados y en la minimización de residuos."
+    },
+    {
+        "color":"red",
+        "card":"35",
+        "deck":"1",
+        "name":"Ventanilla única",
+        "prev":"bajo un modelo de",
+        "desc":"Ofrecer la conveniencia de encontrar múltiples productos, servicios, o información, en un solo lugar, evitando al consumidor tener que recurrir a diferentes lugares, lo que le ahorra tiempo y esfuerzo."
+    },
+    {
+        "color":"green",
+        "card":"36",
+        "deck":"1",
+        "name":"Desintermediación",
+        "prev":"procesos de",
+        "desc":"Brindar soluciones que logran acercar la oferta y la demanda en mercados donde intervienen demasiados actores."
+    },
+    {
+        "color":"green",
+        "card":"37",
+        "deck":"1",
+        "name":"Intermediación",
+        "prev":"procesos de",
+        "desc":"Actividad que una persona u organización realiza para atraer y mantener clientes o aportar valor a lo largo de una cadena de provisión, producción o distribución."
+    },
+    {
+        "color":"green",
+        "card":"38",
+        "deck":"1",
+        "name":"Tercerización",
+        "prev":"procesos de",
+        "desc":"Se basa en el cumplimiento de tareas especializadas por parte de una empresa, para otras empresas que deciden tercerizarlas."
+    },
+    {
+        "color":"green",
+        "card":"39",
+        "deck":"1",
+        "name":"Consignación",
+        "prev":"procesos de",
+        "desc":"Modelo que evita el costo de compra de mercadería y la inmovilización de capital asociado al mantenimiento de stock, incorporando productos de múltiples vendedores a su punto de venta, a cambio de una comisión."
+    },
+    {
+        "color":"green",
+        "card":"40",
+        "deck":"1",
+        "name":"Autoservicio",
+        "prev":"procesos de",
+        "desc":"Modelo de negocio en el cual el cliente final se provee por sí mismo el producto o servicio ofrecido, realizando todos los pasos necesarios para efectuar la compra."
+    },
+    {
+        "color":"green",
+        "card":"41",
+        "deck":"1",
+        "name":"Automatización",
+        "prev":"procesos de",
+        "desc":"Modelo de negocio en el cual se transfieren tareas habitualmente realizadas por humanos a computadoras y/o algoritmos."
+    },
+    {
+        "color":"green",
+        "card":"42",
+        "deck":"1",
+        "name":"Fraccionamiento",
+        "prev":"procesos de",
+        "desc":"Consiste en llevar determinados productos desde la escala industrial (o mayorista) a la escala de consumo (o minorista)."
+    },
+    {
+        "color":"green",
+        "card":"43",
+        "deck":"1",
+        "name":"e-commerce",
+        "prev":"un",
+        "desc":"La venta de productos o servicios a través de canales online eliminando costos asociados a una infraestructura física de locales o sucursales"
+    },
+    {
+        "color":"green",
+        "card":"44",
+        "deck":"1",
+        "name":"Triangulación (dropshipping)",
+        "prev":"procesos de",
+        "desc":"Consiste en vender productos, sin contar con un inventario, intermediando entre productor y consumidor."
+    },
+    {
+        "color":"green",
+        "card":"45",
+        "deck":"1",
+        "name":"Tienda en tienda",
+        "prev":"la creación de una",
+        "desc":"Modelo de venta minorista donde el propietario de una marca ocupa un espacio en la tienda de otro minorista que lo habilita a mostrar y ofrecer sus productos de manera independiente."
+    },
+    {
+        "color":"green",
+        "card":"46",
+        "deck":"1",
+        "name":"On demand",
+        "prev":"un servicio",
+        "desc":"Este modelo se basa en la provisión de productos y servicios a demanda del consumidor, en un tiempo inmediato o relativamente corto."
+    },
+    {
+        "color":"green",
+        "card":"47",
+        "deck":"1",
+        "name":"Franquicia",
+        "prev":"la creación de una",
+        "desc":"Replicar un modelo de negocio exitoso a partir de la estandarización de procesos y una propuesta de valor validada"
+    },
+    {
+        "color":"green",
+        "card":"48",
+        "deck":"1",
+        "name":"Marketing multinivel",
+        "prev":"un sistema de",
+        "desc":"Sistema de venta directa que se basa en la comercialización de productos de alguna marca, a través de una red de vendedores y distribuidores independientes, jerarquizados en niveles."
+    },
+    {
+        "color":"green",
+        "card":"49",
+        "deck":"1",
+        "name":"Programa de afiliados",
+        "prev":"la creación de un",
+        "desc":"Establece algún tipo de comisión o recompensa para los proveedores, empresas o personas que atraigan potenciales clientes o pedidos para su oferta o local de ventas."
+    },
+    {
+        "color":"green",
+        "card":"50",
+        "deck":"1",
+        "name":"Software como servicio",
+        "prev":"la modalidad de",
+        "desc":"Modelo basado en la 'nube' (internet) que consiste en alquilar el uso de un software, en lugar de vender licencias."
+    },
+    {
+        "color":"green",
+        "card":"51",
+        "deck":"1",
+        "name":"Basado en la nube",
+        "prev":"un servicio",
+        "desc":"Modelo basado en infraestructura de internet para ofrecer software, plataformas, almacenamiento y otros servicios de acceso remoto, evitando la necesidad de invertir en capacidades propias."
+    },
+    {
+        "color":"green",
+        "card":"52",
+        "deck":"1",
+        "name":"Servicio a producto",
+        "prev":"la transformación de",
+        "desc":"Es adoptado por empresas proveedoras de servicios que ofrecen paquetes predeterminados (en términos de alcance, precio y plazos), reemplazando a los servicios customizados."
+    },
+    {
+        "color":"yellow",
+        "card":"53",
+        "deck":"1",
+        "name":"Comisión por ventas",
+        "prev":"la",
+        "desc":"Cobrar una participación en las ventas (generalmente un %) para recompensar los esfuerzos de ayudar a vender o anunciar un producto o servicio."
+    },
+    {
+        "color":"yellow",
+        "card":"54",
+        "deck":"1",
+        "name":"Reventa",
+        "prev":"la",
+        "desc":"Modelo consistente en la compra temporal de bienes para ser revendidos a un precio mayor."
+    },
+    {
+        "color":"yellow",
+        "card":"55",
+        "deck":"1",
+        "name":"Alquiler",
+        "prev":"acuerdos de",
+        "desc":"Adquirir o crear productos para arrendarlos por tiempo u ocasiones de uso, en lugar de venderlos."
+    },
+    {
+        "color":"yellow",
+        "card":"56",
+        "deck":"1",
+        "name":"Licenciamiento",
+        "prev":"un sistema de",
+        "desc":"Relación comercial mediante contrato, a través del cual se otorga permiso para explotar la imagen de marca o un diseño determinado a cambio de royalties (regalías)."
+    },
+    {
+        "color":"yellow",
+        "card":"57",
+        "deck":"1",
+        "name":"Suscripción",
+        "prev":"un sistema de",
+        "desc":"Consiste en el cobro de un precio recurrente de suscripción, a cambio de recibir o tener acceso a determinado producto o servicio."
+    },
+    {
+        "color":"yellow",
+        "card":"58",
+        "deck":"1",
+        "name":"Membresía",
+        "prev":"un sistema de",
+        "desc":"Similar al modelo de suscripción, el modelo de membresía apunta también a la permanencia del miembro en adhesión a un sistema, comunidad o club."
+    },
+    {
+        "color":"yellow",
+        "card":"59",
+        "deck":"1",
+        "name":"Subasta",
+        "prev":"un sistema de",
+        "desc":"Consiste en ofrecer la venta de un bien al comprador que esté dispuesto a pagar la mayor cantidad de dinero a cambio del producto ('mejor postor')"
+    },
+    {
+        "color":"yellow",
+        "card":"60",
+        "deck":"1",
+        "name":"Trueque",
+        "prev":"intercambios mediante",
+        "desc":"Probablemente el modelo de negocios más antiguo de la humanidad, surge ante la necesidad de tener acceso a bienes y servicios que no están al alcance, ofreciendo a cambio aquellos que sí lo estan."
+    },
+    {
+        "color":"yellow",
+        "card":"61",
+        "deck":"1",
+        "name":"Gratis",
+        "prev":"transacciones",
+        "desc":"Modelo que ofrece valor de manera gratuita a un determinado segmento de usuarios, y que se suele financiar por otras formas de monetización alternativas al valor aportado."
+    },
+    {
+        "color":"yellow",
+        "card":"62",
+        "deck":"1",
+        "name":"Freemium",
+        "prev":"un sistema",
+        "desc":"Modelo mayormente utilizado en productos tecnológicos donde es posible agrupar funcionalidades básicas (dadas gratis) y cobrar por las avanzadas."
+    },
+    {
+        "color":"yellow",
+        "card":"63",
+        "deck":"1",
+        "name":"Donaciones",
+        "prev":"la captación de",
+        "desc":"Se caracteriza por recibir contribuciones voluntarias por ofrecer una solución social o ambiental que es trascendente (en forma directa o no) para el o los donantes."
+    },
+    {
+        "color":"yellow",
+        "card":"64",
+        "deck":"1",
+        "name":"Tarifa plana",
+        "prev":"un sistema de",
+        "desc":"Refiere a una estrategia de precios donde se cobra una tarifa fija o plana por un producto o servicio, independientemente de su uso, materiales, u horas de trabajo necesarias."
+    },
+    {
+        "color":"yellow",
+        "card":"65",
+        "deck":"1",
+        "name":"Publicidad",
+        "prev":"la venta de",
+        "desc":"Generar ingresos por la venta de espacios publicitarios a diferentes anunciantes."
+    },
+    {
+        "color":"yellow",
+        "card":"66",
+        "deck":"1",
+        "name":"Bajo precio",
+        "prev":"transacciones de",
+        "desc":"Estrategia de precios basada en un negocio de volumen, donde se busca una pequeña ganancia por producto individual pero beneficiada por una gran cantidad de unidades vendidas y alta rotación del inventario."
+    },
+    {
+        "color":"yellow",
+        "card":"67",
+        "deck":"1",
+        "name":"Microtransacciones",
+        "prev":"múltiples",
+        "desc":"Modelo de negocio fuertemente asociado a los juegos y aplicaciones en el que los usuarios pueden comprar productos virtuales a través de micropagos, proporcionando una fuente de ingresos para los desarrolladores."
+    },
+    {
+        "color":"yellow",
+        "card":"68",
+        "deck":"1",
+        "name":"Basado en performance",
+        "prev":"un sistema",
+        "desc":"Consiste en la prestación de servicios cuya generación de ingresos está condicionada a un resultado determinado a ser logrado."
+    },
+    {
+        "color":"yellow",
+        "card":"69",
+        "deck":"1",
+        "name":"Pago por uso",
+        "prev":"un sistema de",
+        "desc":"Cobrar a los clientes en base a la cantidad de servicio que utilizan, medida sea en tiempo o en volumen consumido."
+    },
+    {
+        "color":"yellow",
+        "card":"70",
+        "deck":"1",
+        "name":"Arbitraje",
+        "prev":"diferencias de",
+        "desc":"Práctica de tomar ventaja de una diferencia de precio entre dos o más mercados, convirtiéndolo en una ganancia para quien logre concretar los acuerdos."
+    }
+]
+

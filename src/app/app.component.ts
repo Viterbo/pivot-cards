@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, HostListener, HostBinding } from '@angular/core';
 
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { AppService } from './services/common/app.service';
 
 @Component({
   selector: 'app-root',
@@ -10,18 +11,36 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
-  constructor(
-    private platform: Platform,
-    private splashScreen: SplashScreen,
-    private statusBar: StatusBar
-  ) {
-    this.initializeApp();
-  }
 
-  initializeApp() {
-    this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
-      this.splashScreen.hide();
-    });
-  }
+    @HostBinding('class') class = 'box';
+    
+    constructor(
+        public app: AppService,
+        private platform: Platform,
+        private splashScreen: SplashScreen,
+        private statusBar: StatusBar
+    ) {
+        this.initializeApp();
+    }
+
+    initializeApp() {
+        this.platform.ready().then(() => {
+            this.statusBar.styleDefault();
+            this.splashScreen.hide();
+            this.app.init("v1.0.0");
+        });
+
+        this.app.onWindowResize.subscribe(d => {
+            console.log("onWindowResize: ", d);
+        });
+        this.onWindowsResize();
+    }
+
+
+    @HostListener('window:resize')
+    onWindowsResize() {
+        this.app.onWindowsResize();
+        this.class = this.app.device.class;
+    }
+    
 }

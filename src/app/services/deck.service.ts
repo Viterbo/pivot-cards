@@ -2,6 +2,18 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
+
+export interface Card {
+    color: string,
+    card: string, 
+    desc: string,
+    name: string,
+    prev: string,
+    deck: string
+}
+
+export type Deck = Array<Card>;
+
 @Injectable()
 export class DeckService {
     
@@ -11,23 +23,102 @@ export class DeckService {
     });
 
     public onSelected:Subject<any> = new Subject();
+    public deck:Deck;
     
     constructor(
         public http: HttpClient,
     ) {
-        this.http.get("assets/json/cards.json").subscribe(
-            (value) => { console.log("complete", value)},
-            (value) => { console.log("error", value)}
+        this.isselected = {};
+        this.availables = [];
+        this.selection = [];
+        this.subset = [];
+        this.canvas = [];
+        this.http.get<Deck>("assets/json/cards.json").subscribe(
+            (value) => {
+                this.deck = value;
+                this.sortDeck(this.deck);
+                this.availables = this.deck.slice();
+                console.log("DeckService:", this);
+                this.setLoaded(value);
+            },
+            (value) => {
+                console.error("error", value);
+            }
         );
     }
-/*
-  - me va a dar acceso a la lista completa de cartas.
-  - me da servicios de selección manual. Puedo agregar y quitar a demanda de una subselección de cartas (sólo se almacenaría una lista de ids)
-  - me da servicios de solución final. Dada la lista de cartas y una industria te arma el pitch.
-  - wish list:
-    - podés tener más (recordar) de una selección o de una solución final.
-    - eventualmente se puede implementar una suerte de localstore con selecciones o resultados finales con un nombre que dijita el usuario.
 
-*/
+    sortDeck(deck: Deck) {
+        deck.sort((a,b) => {
+            if (parseInt(a.card) < parseInt(b.card)) {
+                return -1;
+            }
+            if (parseInt(a.card) > parseInt(b.card)) {
+                return 1;
+            }
+            return 0;
+        })        
+    }
+
+    cardId(c:Card): string {
+        return "deck-"+c.deck+".card-"+c.card;
+    }
+
+    // subselection ------------------
+    isselected: {[key:string]:boolean};
+    selection: Deck;
+    availables: Deck;
+
+    resetSelection() {
+        this.availables = this.deck.slice();
+        this.selection = [];
+        this.isselected = {};
+    }
+
+    selectCard(c:Card) {
+        this.availables = this.availables.filter((ejemplar) => ejemplar.card != c.card );
+        this.selection.push(c);
+        this.isselected[this.cardId(c)] = true;
+        console.log("selectCard()->:", this.selection, this.availables);
+    }
+
+    deselectCard(c:Card) {
+        this.selection = this.selection.filter((ejemplar) => ejemplar.card != c.card );
+        this.availables.push(c);
+        this.sortDeck(this.availables);
+        this.isselected[this.cardId(c)] = false;
+        console.log("deselectCard()->:", this.selection, this.availables);
+    }
+
+    isCardSelected(c:Card) {
+        return this.isselected[this.cardId(c)];
+    }
+
+    // canvas and pitch -------------------------
+    subset: Deck;
+    canvas: Deck;
+
+    resetCanvas() {
+        this.subset = this.availables.slice();
+        this.canvas = [];
+    }
+
+    addToCanvas(c:Card) {
+        this.subset = this.subset.filter((ejemplar) => ejemplar.card != c.card );
+        this.canvas.push(c);
+        console.log("addToCanvas()->:", this.canvas, this.subset);
+    }
+
+    removeFromCanvas(c:Card) {
+        this.canvas = this.canvas.filter((ejemplar) => ejemplar.card != c.card );
+        this.subset.push(c);
+        this.sortDeck(this.subset);
+        console.log("removeFromCanvas()->:", this.canvas, this.subset);
+    }
+
+    /*
+    - wish list:
+        - podés tener más (recordar) de una selección o de una solución canvas.
+        - eventualmente se puede implementar una suerte de localstore con selecciones o resultados canvases con un nombre que dijita el usuario.
+    */
 
 }

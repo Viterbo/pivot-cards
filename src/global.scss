@@ -25,7 +25,16 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
+// -- Font Aewsome
+// https://stackoverflow.com/a/51785216/2274525
+$fa-font-path: "~@fortawesome/fontawesome-free/webfonts" !default;
+@import "~@fortawesome/fontawesome-free/scss/fontawesome";
+@import "~@fortawesome/fontawesome-free/scss/regular";
+@import "~@fortawesome/fontawesome-free/scss/solid";
 
+
+
+// fixes -----------
 ion-grid.center-in-page {
     height: 100%;
     display: flex;
@@ -35,4 +44,9 @@ ion-grid.center-in-page {
 
 .flex-grow-1, .flex-grow {
     flex-grow: 1;
+}
+
+// ion-grid padding fixes 
+ion-grid, ion-col {
+    padding: 0;
 }

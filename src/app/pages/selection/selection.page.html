@@ -7,11 +7,34 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+
+
+    <pivot-deck
+        [deck]="service.deck"
+        (onSelectChange)="onSelectChange($event)"
+        (onFinish)="onFinish($event)"
+        ></pivot-deck>
+
+
+    <!-- 
     <ion-grid class="center-in-page flex-grow">
+        <ion-row class="flex-grow ion-align-items-center ion-justify-content-center">
+            <ion-col class="ion-align-self-center ion-text-center">
+                <pivot-deck deck="service.deck"></pivot-deck>
+            </ion-col>
+        </ion-row>
+
+        <ion-row class="flex-grow ion-align-items-center ion-justify-content-center">
+            <ion-col class="ion-align-self-center ion-text-center">
+                <pivot-deck></pivot-deck>
+            </ion-col>
+        </ion-row>
+
         <ion-row class="flex-grow ion-align-items-center ion-justify-content-center">
             <ion-col class="ion-align-self-center ion-text-center">
                 <ion-button color="primary" (click)="onCardClick()">Canvas</ion-button>
             </ion-col>
         </ion-row>        
     </ion-grid>
+    -->
 </ion-content>

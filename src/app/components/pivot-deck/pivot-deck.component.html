@@ -1,0 +1,7 @@
+<div>
+    <pivot-card
+        *ngFor="let c of deck"
+        [card]="c"
+        (onClick)="onCardClick($event)"
+    ></pivot-card>
+</div>

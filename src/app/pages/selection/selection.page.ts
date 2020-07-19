@@ -16,7 +16,7 @@ export class SelectionPage {
     
     constructor(
         public router: Router,
-        public deck: DeckService,
+        public service: DeckService,
     ) {
         this.toilet_card_fade = "";
         // this.onToiletSelectedSubscriber = new Subscriber<any>(this.onToiletSelected.bind(this));
@@ -24,6 +24,7 @@ export class SelectionPage {
 
     ngOnInit() {
         // this.toilets.onSelected.subscribe(this.onToiletSelectedSubscriber);
+        console.log("SelectionPage.ngOnInit() service: ", this.service);
     }
 
 
@@ -31,10 +32,14 @@ export class SelectionPage {
         // this.onToiletSelectedSubscriber.unsubscribe();
     }
 
+    onFinish() {
+        console.log("SelectionPage.onFinish()",[]);
+    }
+
     
-    onCardClick(card) {
-        console.log("onCardClick",[card]);
-        this.router.navigate(['/canvas']); 
+    onSelectChange(card) {
+        console.log("SelectionPage.onSelectChange()",[card]);
+        // this.router.navigate(['/canvas']); 
     }
 
 }
