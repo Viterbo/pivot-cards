@@ -50,3 +50,42 @@ ion-grid.center-in-page {
 ion-grid, ion-col {
     padding: 0;
 }
+
+
+// colors ----------------------------
+
+.ion-color-blue {
+    --ion-color-base: var(--ion-color-blue, #3880ff) !important;
+    --ion-color-base-rgb: var(--ion-color-blue-rgb, 56, 128, 255) !important;
+    --ion-color-contrast: var(--ion-color-blue-contrast, #fff) !important;
+    --ion-color-contrast-rgb: var(--ion-color-blue-contrast-rgb, 255, 255, 255) !important;
+    --ion-color-shade: var(--ion-color-blue-shade, #3171e0) !important;
+    --ion-color-tint: var(--ion-color-blue-tint, #4c8dff) !important;
+}
+
+.ion-color-green {
+    --ion-color-base: var(--ion-color-green, #2dd36f) !important;
+    --ion-color-base-rgb: var(--ion-color-green-rgb, 45, 211, 111) !important;
+    --ion-color-contrast: var(--ion-color-green-contrast, #fff) !important;
+    --ion-color-contrast-rgb: var(--ion-color-green-contrast-rgb, 255, 255, 255) !important;
+    --ion-color-shade: var(--ion-color-green-shade, #28ba62) !important;
+    --ion-color-tint: var(--ion-color-green-tint, #42d77d) !important;
+}
+
+.ion-color-red {
+    --ion-color-base: var(--ion-color-red, #eb445a) !important;
+    --ion-color-base-rgb: var(--ion-color-red-rgb, 235, 68, 90) !important;
+    --ion-color-contrast: var(--ion-color-red-contrast, #fff) !important;
+    --ion-color-contrast-rgb: var(--ion-color-red-contrast-rgb, 255, 255, 255) !important;
+    --ion-color-shade: var(--ion-color-red-shade, #cf3c4f) !important;
+    --ion-color-tint: var(--ion-color-red-tint, #ed576b) !important;
+}
+
+.ion-color-yellow {
+    --ion-color-base: var(--ion-color-yellow, #ffc409) !important;
+    --ion-color-base-rgb: var(--ion-color-yellow-rgb, 255, 196, 9) !important;
+    --ion-color-contrast: var(--ion-color-yellow-contrast, #000) !important;
+    --ion-color-contrast-rgb: var(--ion-color-yellow-contrast-rgb, 0, 0, 0) !important;
+    --ion-color-shade: var(--ion-color-yellow-shade, #e0ac08) !important;
+    --ion-color-tint: var(--ion-color-yellow-tint, #ffca22) !important;
+}

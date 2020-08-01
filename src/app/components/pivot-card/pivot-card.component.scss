@@ -1,0 +1,70 @@
+:host {
+    display: flex;
+    height: 100%;
+}
+
+img.icon {
+    display: none;
+    height: 20px;
+}
+
+ion-card-header {
+    --ion-color-base: var(--ion-color-shade, --ion-color-base) !important; 
+    background-color: var(--ion-color-base) !important; 
+}
+
+div.background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    right: -29px;
+    bottom: 5px;
+    background-repeat: no-repeat;
+    background-position: bottom right;
+    background-size: auto 68%;
+    opacity: 0.3;
+}
+
+div.card-title {
+    text-align: left;
+    font-size: large;
+    font-weight: bold;
+}
+
+
+ion-card.ion-color-blue {
+    img.icon.icon-blue {
+        display: inline-block;
+    }
+    div.background {
+        background-image: url(src/assets/img/categoria-azul-tipito.png);
+    }
+}
+
+ion-card.ion-color-yellow {
+    img.icon.icon-yellow {
+        display: inline-block;
+    }
+    div.background {
+        background-image: url(src/assets/img/categoria-amarillo-dinero.png);
+    }
+}
+
+ion-card.ion-color-red {
+    img.icon.icon-red {
+        display: inline-block;
+    }
+    div.background {
+        background-image: url(src/assets/img/categoria-rojo-bombita.png);
+    }
+}
+
+ion-card.ion-color-green {
+    img.icon.icon-green {
+        display: inline-block;
+    }
+    div.background {
+        background-image: url(src/assets/img/categoria-verde-engranajes.png);
+    }
+}
+

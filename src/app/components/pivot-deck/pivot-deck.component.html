@@ -1,7 +1,35 @@
-<div>
-    <pivot-card
-        *ngFor="let c of deck"
-        [card]="c"
-        (onClick)="onCardClick($event)"
-    ></pivot-card>
-</div>
+<!--
+
+<ion-slides *ngIf="turn" [options]="slideOpts" vpeResizeDetector>
+    <ion-slide *ngFor="let c of deck">
+        <pivot-card
+            [card]="c"
+            (onClick)="onCardClick($event)"
+        ></pivot-card>
+    </ion-slide>
+</ion-slides>
+<ion-slides *ngIf="!turn" [options]="slideOpts" vpeResizeDetector>
+    <ion-slide *ngFor="let c of deck">
+        <pivot-card
+            [card]="c"
+            (onClick)="onCardClick($event)"
+        ></pivot-card>
+    </ion-slide>
+</ion-slides>
+
+-->
+<ion-grid vpeResizeDetector>
+    <ion-row>
+        <ion-col>
+            <ion-slides *ngIf="visible" [options]="slideOpts">
+                <ion-slide *ngFor="let c of deck">
+                    <pivot-card
+                        [card]="c"
+                        (onClick)="onCardClick($event)"
+                    ></pivot-card>
+                </ion-slide>
+            </ion-slides>
+        </ion-col>
+    </ion-row>
+</ion-grid>
+

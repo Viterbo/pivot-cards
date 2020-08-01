@@ -4,6 +4,7 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppService } from './services/common/app.service';
+import { VpeComponentsService } from './components/vpe-components.service';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +19,8 @@ export class AppComponent {
         public app: AppService,
         private platform: Platform,
         private splashScreen: SplashScreen,
-        private statusBar: StatusBar
+        private statusBar: StatusBar,
+        private components: VpeComponentsService
     ) {
         this.initializeApp();
     }
@@ -31,16 +33,18 @@ export class AppComponent {
         });
 
         this.app.onWindowResize.subscribe(d => {
-            console.log("onWindowResize: ", d);
+            this.components.windowHasResized(d);
         });
-        this.onWindowsResize();
+        this.onWindowsResize({});
     }
 
-
     @HostListener('window:resize')
-    onWindowsResize() {
+    onWindowsResize(event) {
+        console.log("onWindowsResize(event)", [event]);
         this.app.onWindowsResize();
         this.class = this.app.device.class;
     }
+
+
     
 }
