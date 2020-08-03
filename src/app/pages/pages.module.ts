@@ -9,9 +9,11 @@ import { SlotsPage } from './slots/slots.page';
 import { WelcomePage } from './welcome/welcome.page';
 import { PivotComponentsModule } from '../components/components.module';
 import { CommonServicesModule } from '../services/common/common.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
     imports: [
+        FormsModule,
         CommonModule,
         CommonServicesModule,
         PivotComponentsModule

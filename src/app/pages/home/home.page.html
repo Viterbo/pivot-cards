@@ -6,8 +6,18 @@
 
 <ion-content [fullscreen]="true">
 
-    <ion-grid class="center-in-page flex-grow">
-        <ion-row class="flex-grow ion-align-items-center ion-justify-content-center">
+    <ion-grid class="flex-grow">
+        <ion-row class="ion-padding">
+            <ion-col></ion-col>
+            <ion-col class="ion-text-center ion-padding">
+                <ion-item>
+                    <ion-label position="floating">Tipo de industria</ion-label>
+                    <ion-input ngDefaultControl [(ngModel)]="deck.industria"></ion-input>
+                </ion-item>
+            </ion-col>
+            <ion-col></ion-col>
+        </ion-row>
+        <ion-row class="ion-align-items-center ion-justify-content-center ion-padding">
             <ion-col class="ion-align-self-center ion-text-center">
                 <ion-button color="primary" (click)="onCardClick(1)">Dinámica 1</ion-button>
             </ion-col>

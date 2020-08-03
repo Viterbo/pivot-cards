@@ -18,6 +18,8 @@ export class HomePage {
     toilet_card_fade:string;
     private onWindowResize: Subscriber<any>;
     
+    public industria;
+
     constructor(
         public app: AppService,
         public router: Router,
@@ -46,6 +48,7 @@ export class HomePage {
     
     onCardClick(card) {
         console.log("onCardClick",[card]);
+        console.log("app.global:",[this.app.global]);
         // this.router.navigate(['/home']);
         switch(card){
             case 1: return this.router.navigate(['/selection']); 

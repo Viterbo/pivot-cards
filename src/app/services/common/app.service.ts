@@ -29,7 +29,7 @@ export class AppService {
     public onWindowResize:Subject<Device> = new Subject();
     // router : Router;
     // route : ActivatedRoute;
-    private global: {[key:string]:any};
+    public global: {[key:string]:any} = {};
     state : string;
     prev_state : string = "none";
     device: Device = {};

@@ -7,10 +7,36 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-    <ion-grid class="center-in-page flex-grow">
-        <ion-row class="flex-grow ion-align-items-center ion-justify-content-center">
-            <ion-col class="ion-align-self-center ion-text-center">
-                <ion-button color="primary" (click)="onCardClick()">Canvas</ion-button>
+    <ion-grid>
+        <ion-row  class="ion-padding">
+            <ion-col></ion-col>
+            <ion-col class="ion-text-center">
+                <ion-item>
+                    <ion-label position="floating">Tipo de industria</ion-label>
+                    <ion-input ngDefaultControl [(ngModel)]="deck.industria"></ion-input>
+                </ion-item>
+            </ion-col>
+            <ion-col>
+                <ion-button color="primary" (click)="runSlots()">Jugar</ion-button>
+            </ion-col>
+        </ion-row>
+        <ion-row  class="ion-padding">
+            <ion-col class="ion-justify-content-evenly">
+                <card-slot #slot_red (onInit)="registerSlot('red', slot_red)" color="red" (onChange)="onCardChange('red', $event)"></card-slot>
+            </ion-col>
+            <ion-col class="ion-justify-content-evenly">
+                <card-slot #slot_blue (onInit)="registerSlot('blue', slot_blue)" color="blue" (onChange)="onCardChange('blue', $event)"></card-slot>
+            </ion-col>
+            <ion-col class="ion-justify-content-evenly">
+                <card-slot #slot_green (onInit)="registerSlot('green', slot_green)" color="green" (onChange)="onCardChange('green', $event)"></card-slot>
+            </ion-col>
+            <ion-col class="ion-justify-content-evenly">
+                <card-slot #slot_yellow (onInit)="registerSlot('yellow', slot_yellow)" color="yellow" (onChange)="onCardChange('yellow', $event)"></card-slot>
+            </ion-col>
+        </ion-row>        
+        <ion-row  class="ion-padding">
+            <ion-col class="ion-text-center">
+                <ion-button color="primary" (click)="toCanvas()">Canvas</ion-button>
             </ion-col>
         </ion-row>        
     </ion-grid>

@@ -1,0 +1,18 @@
+<div class="slot-viewport" vpeResizeDetector>
+    <!--
+    <div class="slot-container" *ngFor="let c of deck">
+        <pivot-card
+            *ngIf="c == deck[0]"
+            [card]="c"
+            (onClick)="onCardClick(e)"
+        ></pivot-card>
+    </div>
+
+    -->
+    <div class="slot-container" *ngIf="deck?.length>0" >
+        <pivot-card
+            [card]="deck[0]"
+            (onClick)="onCardClick(e)"
+        ></pivot-card>
+    </div>
+</div>

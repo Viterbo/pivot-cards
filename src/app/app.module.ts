@@ -13,6 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { PivotComponentsModule } from './components/components.module';
 import { PagesModule } from './pages/pages.module';
 import { CommonServicesModule } from './services/common/common.module';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -26,7 +27,8 @@ import { CommonServicesModule } from './services/common/common.module';
     PagesModule,
     PivotComponentsModule,
     CommonServicesModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [
     StatusBar,

@@ -4,14 +4,18 @@ import { PivotCardComponent } from './pivot-card/pivot-card.component';
 import { PivotDeckComponent } from './pivot-deck/pivot-deck.component';
 import { VpeComponentsService, VpeAbstractComponent } from './vpe-components.service';
 import { VpeResizeDetector } from './vpe-resize-detector.directive';
+import { FormsModule } from '@angular/forms';
+import { CardSlotComponent } from './card-slot/card-slot.component';
 
 @NgModule({
     imports: [
-        CommonModule
+        CommonModule,
+        FormsModule
     ],
     declarations: [
         PivotCardComponent,
         PivotDeckComponent,
+        CardSlotComponent,
         VpeResizeDetector
     ],
     entryComponents: [
@@ -20,7 +24,7 @@ import { VpeResizeDetector } from './vpe-resize-detector.directive';
         VpeComponentsService,
     ],
     exports: [
-        
+        CardSlotComponent,
         PivotCardComponent,
         PivotDeckComponent
     ]

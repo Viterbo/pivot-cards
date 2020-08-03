@@ -33,7 +33,7 @@ export class PivotCardComponent extends VpeAbstractComponent implements OnInit, 
 
     _click() {
         console.log("_click", [this.card]);
-        // this.onclick.next(this.feature);
+        this.onclick.next(this.card);
     }
 
 }

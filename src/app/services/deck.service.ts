@@ -24,6 +24,8 @@ export class DeckService {
 
     public onSelected:Subject<any> = new Subject();
     public deck:Deck;
+
+    public industria: string;
     
     constructor(
         public http: HttpClient,
@@ -49,6 +51,14 @@ export class DeckService {
 
     sortDeck(deck: Deck) {
         deck.sort((a,b) => {
+            /*
+            if (a.color == 'red' && b.color == 'blue') {
+                return -1;
+            }
+            if (b.color == 'red' && a.color == 'blue') {
+                return 1;
+            }
+            */
             if (parseInt(a.card) < parseInt(b.card)) {
                 return -1;
             }
@@ -61,6 +71,18 @@ export class DeckService {
 
     cardId(c:Card): string {
         return "deck-"+c.deck+".card-"+c.card;
+    }
+
+    // colors ------------------------
+    async filterColor(color:string) {
+        //console.log("filterColor() color: ", color, "-------------");
+        await this.waitLoaded;
+        let deck = this.deck.filter(card => {
+            // console.log(card.color, color, card.color == color);
+            return card.color == color;
+        });
+        //console.log("filterColor() color: ", color, "-------------");
+        return deck;
     }
 
     // subselection ------------------
