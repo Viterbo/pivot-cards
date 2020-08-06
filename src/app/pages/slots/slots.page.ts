@@ -52,7 +52,7 @@ export class SlotsPage {
         - function onCardChange
         - setear las 4 cartas como resultado final en el deck
         - pedir que me de el pitch nuevo
-        - necesito mostrar elñ pitch nuevo
+        - necesito mostrar el pitch nuevo
         */
 
 
