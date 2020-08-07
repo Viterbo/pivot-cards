@@ -14,6 +14,7 @@ export class SlotsPage {
 
     page: string = "slots";
     toilet_card_fade:string;
+    pitch: string;
     // private onToiletSelectedSubscriber: Subscriber<any>;
     // @ViewChild(CardSlotComponent) slot_red: CardSlotComponent;
     // @ViewChild(CardSlotComponent) slot_blue: CardSlotComponent;
@@ -28,6 +29,7 @@ export class SlotsPage {
     ) {
         this.slots = {};
         this.toilet_card_fade = "";
+        this.pitch = "";
         // this.onToiletSelectedSubscriber = new Subscriber<any>(this.onToiletSelected.bind(this));
     }
 
@@ -44,19 +46,26 @@ export class SlotsPage {
         this.router.navigate(['/canvas']); 
     }
 
-    
+    timer = null;
+    updateResultado() {
+        console.log("updateResultado()");
+        clearTimeout(this.timer);
+        this.timer = setTimeout(_ => {
+            console.log("updateResultado() timeout");
+            this.deck.resetCanvas();
+            this.deck.addToCanvas(this.slots.red.getCard());
+            this.deck.addToCanvas(this.slots.blue.getCard());
+            this.deck.addToCanvas(this.slots.green.getCard());
+            this.deck.addToCanvas(this.slots.yellow.getCard());
+            this.pitch = this.deck.getPitch();
+        }, 10);
+    }
+
     onCardChange(color, card) {
-        console.log("onCardClick",[color, card]);
-        /*
-        - Abrir src/app/pages/slots/slots.page.ts
-        - function onCardChange
-        - setear las 4 cartas como resultado final en el deck
-        - pedir que me de el pitch nuevo
-        - necesito mostrar el pitch nuevo
-        */
-
-
-
+        console.log("onCardChange",[color, card]);
+        if (card) {
+            this.updateResultado();
+        }       
     }
 
     registerSlot(name:string, slot: CardSlotComponent) {
@@ -69,5 +78,7 @@ export class SlotsPage {
         this.slots.green.run();
         this.slots.yellow.run();
     }
+
+    
 
 }

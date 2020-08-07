@@ -11,7 +11,30 @@
         <ion-grid class="center-in-page flex-grow">
             <ion-row class="flex-grow ion-align-items-center ion-justify-content-center">
                 <ion-col class="ion-align-self-center ion-text-center">
-                    <ion-button color="primary" (click)="onCardClick()">Print</ion-button>
+                    
+                    
+
+                    <ion-grid class="flex-grow">
+                        <ion-row style="margin-bottom: 100px;" class="flex-grow ion-align-items-center ion-justify-content-center">
+                            <ion-col class="ion-align-self-center ion-text-center">
+                                Previsualización del canvas y del pitch casi tal cual como va a salir en la hoja A4
+                            </ion-col>
+                        </ion-row>
+                        <ion-row class="flex-grow ion-align-items-center ion-justify-content-center">
+                            <ion-col class="ion-align-self-center ion-text-center">
+                                <ion-button color="primary" (click)="back()">Volver</ion-button>
+                            </ion-col>
+                            <ion-col class="ion-align-self-center ion-text-center">
+                                <ion-button color="primary" (click)="print()">Print</ion-button>
+                            </ion-col>
+                            <ion-col class="ion-align-self-center ion-text-center">
+                                <ion-button color="primary" (click)="goHome()">Home</ion-button>
+                            </ion-col>
+                        </ion-row>        
+                    </ion-grid>
+
+
+
                 </ion-col>
             </ion-row>        
         </ion-grid>

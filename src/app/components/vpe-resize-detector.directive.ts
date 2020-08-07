@@ -47,11 +47,10 @@ export class VpeResizeDetector implements OnChanges, OnDestroy, AfterViewInit {
     ) {
         this.handler = <ResizeHandler>this._handler;
         this.onResizeSubscriber = new Subscriber<string>(this.triggerResize.bind(this));
-        console.log("*VpeResizeDetector.constructor()*");
     }
 
     triggerResize(device:Device) {        
-        console.log("VpeResizeDetector.triggerResize()");
+        // console.log("VpeResizeDetector.triggerResize()");
         this.resizeEvent = {
             device: device,
             width: this.element.nativeElement.offsetWidth,
@@ -71,7 +70,7 @@ export class VpeResizeDetector implements OnChanges, OnDestroy, AfterViewInit {
     }
     
     ngAfterViewInit() {
-        console.log("VpeResizeDetector.ngAfterViewInit()");
+        // console.log("VpeResizeDetector.ngAfterViewInit()");
         this.components.onResize.subscribe(this.onResizeSubscriber);
         this.triggerResize(this.components.device);
     }    

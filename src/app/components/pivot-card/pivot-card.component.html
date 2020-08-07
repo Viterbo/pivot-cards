@@ -1,7 +1,7 @@
-<ion-card (click)="_click()"  [color]="card.color">
+<ion-card class="main-card" (click)="_click()"  [color]="card.color">
     <div class="background"></div>
     <ion-card-header>
-        <div class="card-title">{{card.card}} - {{card.name}}</div>
+        <div class="card-title">{{card.card}} {{card.card?'-':''}} {{card.name}}</div>
         <!--
         <ion-grid>
             

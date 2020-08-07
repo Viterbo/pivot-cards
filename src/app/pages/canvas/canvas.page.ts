@@ -26,15 +26,20 @@ export class CanvasPage {
         // this.toilets.onSelected.subscribe(this.onToiletSelectedSubscriber);
     }
 
-
     ngOnDestroy() {
         // this.onToiletSelectedSubscriber.unsubscribe();
     }
 
-    
-    onCardClick(card) {
-        console.log("onCardClick",[card]);
-        this.router.navigate(['/home']);
+    back() {
+        window.history.back();
     }
 
+    print() {
+        alert("Imprimir hoja A4 con canvas y pitch")
+    }
+
+    goHome() {
+        this.router.navigate(['/home']);
+    }
+    
 }

@@ -1,6 +1,15 @@
 :host {
     display: flex;
     height: 100%;
+    width: 100%;
+}
+
+ion-card.main-card {
+    flex-grow: 1;
+}
+
+div.content {
+    min-height: 70px;
 }
 
 img.icon {

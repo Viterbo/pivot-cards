@@ -21,6 +21,8 @@ export class CardSlotComponent extends VpeAbstractComponent implements OnInit, O
     @Output() public onChange:Subject<Card> = new Subject();
     deck: Deck;
 
+    card: Card;
+
     slideOpts = {
         slidesPerView: 4,
         freeMode: true,
@@ -43,6 +45,15 @@ export class CardSlotComponent extends VpeAbstractComponent implements OnInit, O
     updateColor() {
         setTimeout(async _ => {
             this.deck = await this.service.filterColor(this.color);
+            this.card = {
+                card: "",
+                color: this.color,
+                deck: "",
+                desc: "",
+                name: "",
+                prev: ""
+            }
+    
             // console.log("this.deck", this.deck);
         }, 0);
     }
@@ -58,6 +69,7 @@ export class CardSlotComponent extends VpeAbstractComponent implements OnInit, O
     ngOnInit() {
         // deck
         this.onInit.next(this);
+        this.onChange.next(null);
     }
 
     onCardClick(card) {
@@ -65,20 +77,24 @@ export class CardSlotComponent extends VpeAbstractComponent implements OnInit, O
         // this.onclick.next(this.feature);
     }
 
+    getCard(): Card {
+        return this.card;
+    }
+
     shuffle(array) {
         var currentIndex = array.length, temporaryValue, randomIndex;
       
         // While there remain elements to shuffle...
-        while (0 !== currentIndex) {
-      
-          // Pick a remaining element...
-          randomIndex = Math.floor(Math.random() * currentIndex);
-          currentIndex -= 1;
-      
-          // And swap it with the current element.
-          temporaryValue = array[currentIndex];
-          array[currentIndex] = array[randomIndex];
-          array[randomIndex] = temporaryValue;
+        while (currentIndex > 0) {
+        
+            // Pick a remaining element...
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+        
+            // And swap it with the current element.
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
         }
       
         return array;
@@ -87,8 +103,9 @@ export class CardSlotComponent extends VpeAbstractComponent implements OnInit, O
     run() {
         // console.log(this.color, "antes: ", this.deck[0].card);
         this.shuffle(this.deck);
+        this.card = this.deck[0];
         // console.log(this.color, "luego: ", this.deck[0].card);
-        this.onChange.next(this.deck[0]);
+        this.onChange.next(this.card);
     }
 
 }

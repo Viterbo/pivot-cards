@@ -33,11 +33,16 @@
             <ion-col class="ion-justify-content-evenly">
                 <card-slot #slot_yellow (onInit)="registerSlot('yellow', slot_yellow)" color="yellow" (onChange)="onCardChange('yellow', $event)"></card-slot>
             </ion-col>
-        </ion-row>        
-        <ion-row  class="ion-padding">
+        </ion-row>
+        <ion-row class="ion-padding">
+            <ion-col class="ion-text-center">
+                {{pitch}}
+            </ion-col>
+        </ion-row>
+        <ion-row class="ion-padding">
             <ion-col class="ion-text-center">
                 <ion-button color="primary" (click)="toCanvas()">Canvas</ion-button>
             </ion-col>
-        </ion-row>        
+        </ion-row>
     </ion-grid>
 </ion-content>
