@@ -44,7 +44,8 @@ export class CardSlotComponent extends VpeAbstractComponent implements OnInit, O
 
     updateColor() {
         setTimeout(async _ => {
-            this.deck = await this.service.filterColor(this.color);
+            await this.service.waitLoaded;
+            this.deck = this.service.filterColor(this.color);
             this.card = {
                 card: "",
                 color: this.color,
@@ -72,10 +73,10 @@ export class CardSlotComponent extends VpeAbstractComponent implements OnInit, O
         this.onChange.next(null);
     }
 
-    onCardClick(card) {
-        console.log("_click", [card]);
-        // this.onclick.next(this.feature);
-    }
+    // onCardClick(card) {
+    //     console.log("_click", [card]);
+    //     // this.onclick.next(this.feature);
+    // }
 
     getCard(): Card {
         return this.card;

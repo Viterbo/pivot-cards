@@ -18,8 +18,7 @@ export class PivotDeckComponent extends VpeAbstractComponent implements OnInit, 
 
     @Input() deck: Deck;
     @Input() cardWidth: number;
-    @Output() public onSelectChange:Subject<Card> = new Subject();
-    @Output() public onFinish:Subject<Card> = new Subject();
+    @Output() public onCardClick:Subject<Card> = new Subject();
 
     slides:number;
     turn: boolean;
@@ -51,11 +50,11 @@ export class PivotDeckComponent extends VpeAbstractComponent implements OnInit, 
         }
         this.turn = true;
         this.visible = true;
-        console.log("PivotDeckComponent.constructor()");
+        // console.log("PivotDeckComponent.constructor()");
     }
 
     onResize(e: ResizeEvent) {
-        console.log("PivotDeckComponent.onResize()", [e]);
+        // console.log("PivotDeckComponent.onResize()", [e]);
         // console.log("this.element.nativeElement.width:", this.element.nativeElement.width); 
         // console.log("this.cardWidth:", this.cardWidth); 
         
@@ -66,7 +65,7 @@ export class PivotDeckComponent extends VpeAbstractComponent implements OnInit, 
         // console.log("this.slides:", this.slides); 
         this.slideOpts.slidesPerView = this.slides;
         // console.log("this.slideref: ------------> ", [this.slideref]); 
-        console.log("this.slideOpts.slidesPerView:", this.slideOpts.slidesPerView);
+        // console.log("this.slideOpts.slidesPerView:", this.slideOpts.slidesPerView);
         this.resetView();
     }
 
@@ -78,24 +77,13 @@ export class PivotDeckComponent extends VpeAbstractComponent implements OnInit, 
     }
 
     ngOnInit() {
-        console.log("PivotDeckComponent.ngOnInit()");
+        // console.log("PivotDeckComponent.ngOnInit()");
     }
 
     _click(card:Card) {
-        console.log("_click", [card]);
-        // this.onSelectChange.next(this.feature);
-        // this.onFinish.next(this.feature);
+        console.log("PivotDeckComponent._click()", [card]);
+        this.onCardClick.next(card);
     }
 
-    onCardClick(card:Card) {
-        console.log("PivotDeckComponent.ngOnInit()", card);
-        if (this.service.isCardSelected(card)) {
-            this.service.deselectCard(card);
-        } else {
-            this.service.selectCard(card);
-        }
-        
-        this.onSelectChange.next(card);
-    }
 
 }

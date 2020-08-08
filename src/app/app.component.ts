@@ -35,12 +35,12 @@ export class AppComponent {
         this.app.onWindowResize.subscribe(d => {
             this.components.windowHasResized(d);
         });
-        this.onWindowsResize({});
+        this.onWindowsResize();
     }
 
     @HostListener('window:resize')
-    onWindowsResize(event) {
-        console.log("onWindowsResize(event)", [event]);
+    onWindowsResize() {
+        console.log("onWindowsResize(event)");
         this.app.onWindowsResize();
         this.class = this.app.device.class;
     }

@@ -25,7 +25,7 @@
                 <ion-slide *ngFor="let c of deck">
                     <pivot-card
                         [card]="c"
-                        (onClick)="onCardClick($event)"
+                        (click)="_click(c)"
                     ></pivot-card>
                 </ion-slide>
             </ion-slides>

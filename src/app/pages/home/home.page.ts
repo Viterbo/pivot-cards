@@ -50,6 +50,8 @@ export class HomePage {
         console.log("onCardClick",[card]);
         console.log("app.global:",[this.app.global]);
         // this.router.navigate(['/home']);
+        this.deck.resetCanvas();
+        this.deck.resetSelection();
         switch(card){
             case 1: return this.router.navigate(['/selection']); 
             case 2: return this.router.navigate(['/filter']); 

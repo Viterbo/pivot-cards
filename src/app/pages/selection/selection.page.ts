@@ -1,7 +1,7 @@
 import { Component, HostBinding } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscriber } from 'rxjs';
-import { DeckService } from 'src/app/services/deck.service';
+import { DeckService, Deck, Card } from 'src/app/services/deck.service';
 
 @Component({
     selector: 'selection-page',
@@ -11,35 +11,96 @@ import { DeckService } from 'src/app/services/deck.service';
 export class SelectionPage {
 
     page: string = "selection";
-    toilet_card_fade:string;
+    filter_color: string;
+    availables_filtered: Deck;
+    selection_filtered: Deck;
     // private onToiletSelectedSubscriber: Subscriber<any>;
     
     constructor(
         public router: Router,
         public service: DeckService,
     ) {
-        this.toilet_card_fade = "";
-        // this.onToiletSelectedSubscriber = new Subscriber<any>(this.onToiletSelected.bind(this));
+        this.filterColor('all');
     }
 
-    ngOnInit() {
-        // this.toilets.onSelected.subscribe(this.onToiletSelectedSubscriber);
-        console.log("SelectionPage.ngOnInit() service: ", this.service);
+    get availables(): Deck {
+        if (this.filter_color != 'all') {
+            if (this.availables_filtered) {
+                return this.availables_filtered;
+            } else {
+                setTimeout(_ => {
+                    this.availables_filtered = this.service.filterColor(this.filter_color, this.service.availables);
+                });
+                return this.selection_filtered;
+            }
+        } 
+        return this.service.availables;
     }
 
+    get selection(): Deck {
+        if (this.filter_color != 'all') {
+            if (this.selection_filtered) {
+                return this.selection_filtered;
+            } else {
+                setTimeout(_ => {
+                    this.selection_filtered = this.service.filterColor(this.filter_color, this.service.selection);
+                });
+                return this.selection_filtered;
+            }
+        } 
+        return this.service.selection;
+    }
 
-    ngOnDestroy() {
-        // this.onToiletSelectedSubscriber.unsubscribe();
+    get showGoToCanvas() {
+        return this.service.isSelectionOK();
+    }
+
+    ionViewWillEnter() {
+        this.filterColor('all');
     }
 
     onFinish() {
-        console.log("SelectionPage.onFinish()",[]);
+        console.debug("SelectionPage.onFinish()",[]);
     }
 
-    
-    onSelectChange(card) {
-        console.log("SelectionPage.onSelectChange()",[card]);
-        // this.router.navigate(['/canvas']); 
+    _click(e) {
+        console.debug("_click", [e]);
+    }
+
+    filterColor(color) {
+        // console.debug("PivotDeckComponent.filterColor()", color);
+        this.filter_color = color;
+        this.availables_filtered = this.service.filterColor(this.filter_color, this.service.availables);
+        this.selection_filtered = this.service.filterColor(this.filter_color, this.service.selection);
+    }
+
+    ordenarSeleccion() {
+        this.service.sortDeck(this.service.selection);
+        this.selection_filtered = this.service.filterColor(this.filter_color, this.service.selection);
+    }
+
+    debug: boolean;
+    onCardClick(card:Card) {
+        console.debug("PivotDeckComponent.onCardClick()", card);
+        setTimeout(_ => {
+            if (this.service.isCardSelected(card)) {
+                this.service.deselectCard(card);
+            } else {
+                this.service.selectCard(card);
+            }
+            this.debug = true;
+            this.availables_filtered = this.service.filterColor(this.filter_color, this.service.availables);
+            this.selection_filtered = this.service.filterColor(this.filter_color, this.service.selection);
+            this.debug = false;    
+        });
+    }
+
+    goToCanvas() {
+        this.router.navigate(['/canvas']); 
+    }
+
+    goHome() {
+        this.router.navigate(['/home']); 
     }
 
 }

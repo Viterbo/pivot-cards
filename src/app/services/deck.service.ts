@@ -34,6 +34,7 @@ export class DeckService {
         this.availables = [];
         this.selection = [];
         this.subset = [];
+        this.selection_ok = false;
         this.http.get<Deck>("assets/json/cards.json").subscribe(
             (value) => {
                 this.deck = value;
@@ -51,6 +52,14 @@ export class DeckService {
 
     sortDeck(deck: Deck) {
         deck.sort((a,b) => {
+            
+            if (parseInt(a.deck) < parseInt(b.deck)) {
+                return -1;
+            }
+            if (parseInt(a.deck) > parseInt(b.deck)) {
+                return 1;
+            }
+
             /*
             if (a.color == 'red' && b.color == 'blue') {
                 return -1;
@@ -66,7 +75,7 @@ export class DeckService {
                 return 1;
             }
             return 0;
-        })        
+        });
     }
 
     cardId(c:Card): string {
@@ -74,15 +83,15 @@ export class DeckService {
     }
 
     // colors ------------------------
-    async filterColor(color:string) {
+    filterColor(color:string, dech:Deck = this.deck) {
         //console.log("filterColor() color: ", color, "-------------");
-        await this.waitLoaded;
-        let deck = this.deck.filter(card => {
+        // await this.waitLoaded;
+        let filtered_deck = dech.filter(card => {
             // console.log(card.color, color, card.color == color);
             return card.color == color;
         });
         //console.log("filterColor() color: ", color, "-------------");
-        return deck;
+        return filtered_deck;
     }
 
     // subselection ------------------
@@ -94,13 +103,15 @@ export class DeckService {
         this.availables = this.deck.slice();
         this.selection = [];
         this.isselected = {};
+        this.selection_ok = false;
     }
 
     selectCard(c:Card) {
         this.availables = this.availables.filter((ejemplar) => ejemplar.card != c.card );
         this.selection.push(c);
         this.isselected[this.cardId(c)] = true;
-        console.log("selectCard()->:", this.selection, this.availables);
+        this.updateIsSelectionOk();
+        console.debug("selectCard()", [this.selection], [this.availables]);
     }
 
     deselectCard(c:Card) {
@@ -108,11 +119,33 @@ export class DeckService {
         this.availables.push(c);
         this.sortDeck(this.availables);
         this.isselected[this.cardId(c)] = false;
-        console.log("deselectCard()->:", this.selection, this.availables);
+        this.updateIsSelectionOk();
+        console.debug("deselectCard()", [this.selection], [this.availables]);
     }
 
     isCardSelected(c:Card) {
         return this.isselected[this.cardId(c)];
+    }
+
+    selection_ok:any;
+    isSelectionOK() {
+        if (this.selection_ok == null) {
+            this.selection_ok = false;
+            setTimeout(this.updateIsSelectionOk.bind(this));
+        }
+        return this.selection_ok;
+    }
+    
+    private updateIsSelectionOk() {
+        this.selection_ok = false;
+        if (
+            this.filterColor('red', this.selection).length > 0 &&
+            this.filterColor('blue', this.selection).length > 0 &&
+            this.filterColor('green', this.selection).length > 0 &&
+            this.filterColor('yellow', this.selection).length > 0
+        ) {
+            this.selection_ok = true;
+        }        
     }
 
     // canvas and pitch -------------------------
