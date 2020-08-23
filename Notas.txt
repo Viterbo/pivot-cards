@@ -1,3 +1,24 @@
+---------- TODO ----------
+- canvas page: 
+  - view
+    - cartas encimadas
+    - canvas
+    - pitch
+      - muestra
+      - edición
+  - deck.service
+    - shift(string:'all'|'red'...)
+    - unshift(string:'all'|'red'...)
+  - buttons
+    - rotar cartas de un color (prev & next)
+    - card go to canvas (click sobre la carta)
+    - card go to deck   (click sobre la carta)
+    - editar pitch
+    - imprimir en A4
+  - Drag & Drop
+
+
+
 Flujo de páginas:
 
 home -> (selection, filter, slots)
@@ -7,16 +28,24 @@ slots -> canvas
 canvas -> print
 print -> home
 
+Documento:
+https://docs.google.com/document/d/1g0eSy1rpbcMqdyDctv9rQ3imgduWOKiAHzMfDyjm1m8/edit#heading=h.ujgqjwh3wxxl
 
 
-servicios:
+ENTREGAS:
 
-deck:
-  - me va a dar acceso a la lista completa de cartas.
-  - me da servicios de selección manual. Puedo agregar y quitar a demanda de una subselección de cartas (sólo se almacenaría una lista de ids)
-  - me da servicios de solución final. Dada la lista de cartas y una industria te arma el pitch.
-  - wish list:
-    - podés tener más (recordar) de una selección o de una solución final.
-    - eventualmente se puede implementar una suerte de localstore con selecciones o resultados finales con un nombre que dijita el usuario.
+Primera: 24 agosto
+Canvas y Drag & Drop
 
+Segunda: 14 de setiembre
+Todas las Dinámicas
+
+Tercera: 5 de octubre.
+Todo
+
+
+
+resetCanvas()
+addToCanvas(c:Card) 
+removeFromCanvas(c:Card)
 

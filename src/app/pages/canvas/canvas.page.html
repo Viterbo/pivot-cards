@@ -15,11 +15,62 @@
                     
 
                     <ion-grid class="flex-grow">
+
+                        <!-- 
                         <ion-row style="margin-bottom: 100px;" class="flex-grow ion-align-items-center ion-justify-content-center">
                             <ion-col class="ion-align-self-center ion-text-center">
-                                Previsualización editable del canvas y del pitch casi tal cual como va a salir en la hoja A4
                             </ion-col>
                         </ion-row>
+                        -->
+
+                        <!-- Cartas de cada color -->
+                        <ion-row  class="ion-padding">
+                            <ion-col class="ion-justify-content-evenly">
+                                <card-slot #slot_red (onInit)="registerSlot('red', slot_red)" color="red" [deck]="deck.selection" autoselect="true" (onChange)="onCardChange('red', $event)"></card-slot>
+                            </ion-col>
+                            <ion-col class="ion-justify-content-evenly">
+                                <card-slot #slot_blue (onInit)="registerSlot('blue', slot_blue)" color="blue" [deck]="deck.selection" autoselect="true" (onChange)="onCardChange('blue', $event)"></card-slot>
+                            </ion-col>
+                            <ion-col class="ion-justify-content-evenly">
+                                <card-slot #slot_green (onInit)="registerSlot('green', slot_green)" color="green" [deck]="deck.selection" autoselect="true" (onChange)="onCardChange('green', $event)"></card-slot>
+                            </ion-col>
+                            <ion-col class="ion-justify-content-evenly">
+                                <card-slot #slot_yellow (onInit)="registerSlot('yellow', slot_yellow)" color="yellow" [deck]="deck.selection" autoselect="true" (onChange)="onCardChange('yellow', $event)"></card-slot>
+                            </ion-col>
+                        
+                        </ion-row>
+                                        
+                        <!-- Botones de rotar cartas -->
+                        <ion-row  class="ion-padding">
+                            <ion-col class="ion-justify-content-evenly">
+                                <ion-button color="red" (click)="prev('red')">&lt;</ion-button>
+                                <ion-button color="red" (click)="next('red')">&gt;</ion-button>
+                            </ion-col>
+                            <ion-col class="ion-justify-content-evenly">
+                                <ion-button color="blue" (click)="prev('blue')">&lt;</ion-button>
+                                <ion-button color="blue" (click)="next('blue')">&gt;</ion-button>
+                            </ion-col>
+                            <ion-col class="ion-justify-content-evenly">
+                                <ion-button color="green" (click)="prev('green')">&lt;</ion-button>
+                                <ion-button color="green" (click)="next('green')">&gt;</ion-button>
+                            </ion-col>
+                            <ion-col class="ion-justify-content-evenly">
+                                <ion-button color="yellow" (click)="prev('yellow')">&lt;</ion-button>
+                                <ion-button color="yellow" (click)="next('yellow')">&gt;</ion-button>
+                            </ion-col>
+                        </ion-row>
+                    
+                        <!-- Canvas -->
+
+                        <!-- Pitch -->
+                        <ion-row class="ion-padding">
+                            <ion-col class="ion-text-center">
+                                {{pitch}}
+                            </ion-col>
+                        </ion-row>
+
+
+                        <!-- Botones del footer -->
                         <ion-row class="flex-grow ion-align-items-center ion-justify-content-center">
                             <ion-col class="ion-align-self-center ion-text-center">
                                 <ion-button color="primary" (click)="back()">Volver</ion-button>
@@ -30,7 +81,8 @@
                             <ion-col class="ion-align-self-center ion-text-center">
                                 <ion-button color="primary" (click)="goHome()">Home</ion-button>
                             </ion-col>
-                        </ion-row>        
+                        </ion-row>
+
                     </ion-grid>
 
 

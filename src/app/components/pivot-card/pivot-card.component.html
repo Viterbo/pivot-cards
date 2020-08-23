@@ -1,33 +1,9 @@
-<ion-card class="main-card"   [color]="card.color">
+<ion-card class="main-card" [color]="color">
     <div class="background"></div>
     <ion-card-header>
-        <div class="card-title">{{card.card}} {{card.card?'-':''}} {{card.name}}</div>
-        <!--
-        <ion-grid>
-            
-
-
-(click)="_click()"
-
-            
-            <ion-row>
-                <ion-col class="ion-text-start" size="11">
-                    <b>{{card.card}} - {{card.name}}</b>
-                </ion-col>
-                
-                <ion-col class="ion-text-end" class="text-success">
-                    <img class="icon icon-yellow" src="assets/img/categoria-amarillo-dinero.png">
-                    <img class="icon icon-blue" src="assets/img/categoria-azul-tipito.png">
-                    <img class="icon icon-red" src="assets/img/categoria-rojo-bombita.png">
-                    <img class="icon icon-green" src="assets/img/categoria-verde-engranajes.png">
-                </ion-col>
-               
-            </ion-row>
-             
-        </ion-grid>
-        -->
+        <div class="card-title">{{card?.card}} {{card?.card?'-':''}} {{card?.name}}</div>
     </ion-card-header>
     <ion-card-content>
-        <div class="content ion-margin-top"><b>{{card.desc}}</b></div>
+        <div class="content ion-margin-top"><b>{{card?.desc}}</b></div>
     </ion-card-content>
 </ion-card>

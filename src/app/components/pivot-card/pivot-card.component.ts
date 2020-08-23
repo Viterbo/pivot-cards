@@ -23,6 +23,11 @@ export class PivotCardComponent extends VpeAbstractComponent implements OnInit, 
         super();
     }
 
+    get color() {
+        if (this.card) return this.card.color; 
+        return "default";
+    }
+
     onResize(e: ResizeEvent) {
         //console.log("PivotCardComponent.onResize()", e);
     }

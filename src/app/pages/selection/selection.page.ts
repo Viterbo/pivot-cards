@@ -79,6 +79,10 @@ export class SelectionPage {
         this.selection_filtered = this.service.filterColor(this.filter_color, this.service.selection);
     }
 
+    ordenarAvailables() {
+        this.service.sortDeck(this.service.availables);
+    }
+
     debug: boolean;
     onCardClick(card:Card) {
         console.debug("PivotDeckComponent.onCardClick()", card);
@@ -103,4 +107,11 @@ export class SelectionPage {
         this.router.navigate(['/home']); 
     }
 
+    shift() {
+        this.service.shift(this.availables);
+    }
+
+    unshift() {
+        this.service.unshift(this.availables);
+    }
 }

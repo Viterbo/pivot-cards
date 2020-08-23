@@ -16,7 +16,13 @@
             <ion-col class="ion-align-self-center ion-text-left">
                 
                 <ion-button color="primary" (click)="goHome()">Home</ion-button>
-
+                &nbsp;
+                &nbsp;
+                <ion-button color="primary" (click)="unshift()">anterior</ion-button>
+                <ion-button color="primary" (click)="shift()">siguiente</ion-button>
+                &nbsp;
+                &nbsp;
+                <ion-button color="primary" (click)="ordenarAvailables($event)">Ordenar</ion-button>
             </ion-col>
 
             <ion-col class="ion-align-self-center ion-text-right">

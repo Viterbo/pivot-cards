@@ -73,10 +73,10 @@ export class SlotsPage {
     }
 
     runSlots() {
-        this.slots.red.run();
-        this.slots.blue.run();
-        this.slots.green.run();
-        this.slots.yellow.run();
+        this.slots.red.shuffle();
+        this.slots.blue.shuffle();
+        this.slots.green.shuffle();
+        this.slots.yellow.shuffle();
     }
 
     

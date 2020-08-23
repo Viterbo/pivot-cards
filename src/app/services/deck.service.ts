@@ -83,15 +83,25 @@ export class DeckService {
     }
 
     // colors ------------------------
-    filterColor(color:string, dech:Deck = this.deck) {
+    filterColor(color:string, deck:Deck = this.deck) {
         //console.log("filterColor() color: ", color, "-------------");
         // await this.waitLoaded;
-        let filtered_deck = dech.filter(card => {
+        let filtered_deck = deck.filter(card => {
             // console.log(card.color, color, card.color == color);
             return card.color == color;
         });
         //console.log("filterColor() color: ", color, "-------------");
         return filtered_deck;
+    }
+
+    shift(deck:Deck = this.deck) {
+        deck.push(deck.shift());
+        return deck;
+    }
+
+    unshift(deck:Deck = this.deck) {
+        deck.unshift(deck.pop());
+        return deck;
     }
 
     // subselection ------------------
@@ -116,11 +126,30 @@ export class DeckService {
 
     deselectCard(c:Card) {
         this.selection = this.selection.filter((ejemplar) => ejemplar.card != c.card );
+        //*/
+        // la anterior más cercana
+        let i = 0;
+        // let anterior = Number(parseInt(c.card) - 1).toString();
+        
+        let num = parseInt(c.card) - 1;
+        let best = 0;
+        while(i<this.availables.length-1 && parseInt(this.availables[i].card) != num) {
+            if (parseInt(this.availables[i].card) >= best && parseInt(this.availables[i].card) < num) {
+                best = parseInt(this.availables[i].card);
+            };
+            i++;
+        }
+        if (parseInt(this.availables[i].card) == num) {
+            best = i+1;
+        }
+        this.availables.splice(best, 0, c);
+        /*/
         this.availables.push(c);
         this.sortDeck(this.availables);
+        //*/
         this.isselected[this.cardId(c)] = false;
         this.updateIsSelectionOk();
-        console.debug("deselectCard()", [this.selection], [this.availables]);
+        console.debug("deselectCard()", c.card, best, [this.selection], [this.availables]);
     }
 
     isCardSelected(c:Card) {
