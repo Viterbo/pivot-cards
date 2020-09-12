@@ -1,4 +1,6 @@
-<ion-header>
+<!--  -->
+    
+    <ion-header>
     <ion-toolbar>
         <img class="brand-image" [ngClass]="class" src="assets/img/Pívot-azul.png"/>
     </ion-toolbar>
@@ -26,19 +28,15 @@
             <ion-col></ion-col>
         </ion-row>
         <ion-row class="ion-align-items-center ion-justify-content-center ion-padding">
-            <ion-col class="ion-align-self-center ion-text-center">
-                <ion-button color="primary" (click)="onCardClick(1)">Dinámica 1</ion-button>
+            <ion-col class="ion-align-self-center ion-text-center">                
+                <button mat-raised-button color="primary" (click)="onCardClick(1)">Dinámica 1</button>
             </ion-col>
             <ion-col class="ion-align-self-center ion-text-center">
-                <ion-button color="primary" (click)="onCardClick(2)">Dinámica 2</ion-button>
+                <button mat-raised-button color="primary" (click)="onCardClick(2)">Dinámica 2</button>
             </ion-col>
             <ion-col class="ion-align-self-center ion-text-center">
-                <ion-button color="primary" (click)="onCardClick(3)">Dinámica 3</ion-button>
+                <button mat-raised-button color="primary" (click)="onCardClick(3)">Dinámica 3</button>
             </ion-col>
-        </ion-row>        
+        </ion-row>
     </ion-grid>
-    <!--
-
-        
-    -->
 </ion-content>
