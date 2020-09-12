@@ -17,6 +17,7 @@ export class HomePage {
     page: string = "home";
     toilet_card_fade:string;
     private onWindowResize: Subscriber<any>;
+    show_errors:boolean;
     
     public industria;
 
@@ -37,6 +38,7 @@ export class HomePage {
     }
 
     ngOnInit() {
+        this.show_errors = false;
         this.app.onWindowResize.subscribe(this.onWindowResize);
     }
 
@@ -47,8 +49,11 @@ export class HomePage {
 
     
     onCardClick(card) {
-        console.log("onCardClick",[card]);
-        console.log("app.global:",[this.app.global]);
+        console.log("onCardClick",card);
+        if (!this.deck.industria) {
+            this.show_errors = true;
+            return;
+        }
         // this.router.navigate(['/home']);
         this.deck.resetCanvas();
         this.deck.resetSelection();
@@ -58,5 +63,9 @@ export class HomePage {
             case 3: return this.router.navigate(['/slots']); 
         }
     }
+
+    // onInput(algo) {
+    //     console.log("onInput()", algo);
+    // }
 
 }

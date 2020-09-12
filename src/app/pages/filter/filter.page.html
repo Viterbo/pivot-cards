@@ -1,4 +1,4 @@
-<ion-header [translucent]="true">
+<ion-header>
     <ion-toolbar>
         <ion-title>
             {{page}}
@@ -7,11 +7,22 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-    <ion-grid class="center-in-page flex-grow">
+
+    <ion-grid class="flex-grow">
+    
+        <!-- formulario -->
+
+        <!-- lista de cartas filtradas -->
+
+        <!-- botones-->
+
+    
         <ion-row class="flex-grow ion-align-items-center ion-justify-content-center">
             <ion-col class="ion-align-self-center ion-text-center">
-                <ion-button color="primary" (click)="onCardClick()">Canvas</ion-button>
+                <ion-button color="primary" (click)="gotoCanvas()">Canvas</ion-button>
             </ion-col>
-        </ion-row>        
+        </ion-row>   
+        
+        
     </ion-grid>
 </ion-content>

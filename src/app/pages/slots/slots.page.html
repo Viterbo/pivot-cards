@@ -1,4 +1,4 @@
-<ion-header [translucent]="true">
+<ion-header>
     <ion-toolbar>
         <ion-title>
             {{page}}
@@ -41,7 +41,7 @@
         </ion-row>
         <ion-row class="ion-padding">
             <ion-col class="ion-text-center">
-                <ion-button color="primary" (click)="toCanvas()">Canvas</ion-button>
+                <ion-button color="primary" [hidden]="!showGoToCanvas" (click)="toCanvas()">Canvas</ion-button>
             </ion-col>
         </ion-row>
     </ion-grid>

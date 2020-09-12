@@ -1,0 +1,14 @@
+ion-col.cuadrante {
+    background-color: var(--ion-color-base, red );
+    background-color: rgba(var(--ion-color-base-rgb), 0.2);
+    min-height: 130px;
+}
+
+ion-grid.grid-interno {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    & > ion-row {
+      flex-grow: 1;
+    }
+}

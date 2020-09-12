@@ -1,4 +1,4 @@
-<ion-header [translucent]="true">
+<ion-header>
     <ion-toolbar>
         <ion-title>
             {{page}}
@@ -8,21 +8,30 @@
 
 <ion-content [fullscreen]="true">
 
+    
+
+
+    <!--
 
     <ion-grid class="flex-grow">
+
+        <ion-row class="ion-padding">
+            <ion-col></ion-col>
+            <ion-col class="ion-text-center ion-padding">
+                <ion-item>
+                    <ion-label position="floating">Tipo de industria</ion-label>
+                    <ion-input ngDefaultControl [(ngModel)]="deck.industria"></ion-input>
+                </ion-item>
+            </ion-col>
+            <ion-col></ion-col>
+        </ion-row>
 
         <ion-row class="flex-grow ion-align-items-center ion-justify-content-center ion-margin-top ion-margin-horizontal">
 
             <ion-col class="ion-align-self-center ion-text-left">
                 
                 <ion-button color="primary" (click)="goHome()">Home</ion-button>
-                &nbsp;
-                &nbsp;
-                <ion-button color="primary" (click)="unshift()">anterior</ion-button>
-                <ion-button color="primary" (click)="shift()">siguiente</ion-button>
-                &nbsp;
-                &nbsp;
-                <ion-button color="primary" (click)="ordenarAvailables($event)">Ordenar</ion-button>
+
             </ion-col>
 
             <ion-col class="ion-align-self-center ion-text-right">
@@ -64,31 +73,23 @@
         <ion-row class="flex-grow ion-align-items-center ion-justify-content-center ion-margin-top ion-margin-horizontal">
             <ion-col class="ion-align-self-center ion-text-left">
                 
-                <ion-label [hidden]="service.selection.length < 0"><b>Total: {{service.selection.length}}</b></ion-label>
+                <ion-label [hidden]="deck.selection.length < 0"><b>Total: {{deck.selection.length}}</b></ion-label>
 
                 <ion-label [hidden]="filter_color != 'all'"><b> (</b></ion-label>
-                <ion-label [hidden]="filter_color != 'all'" color="red" ><b>{{service.filterColor('red', service.selection).length}}</b></ion-label>
-                <ion-label [hidden]="filter_color != 'all'" color="blue"><b>, {{service.filterColor('blue', service.selection).length}}</b></ion-label>
-                <ion-label [hidden]="filter_color != 'all'" color="green"><b>, {{service.filterColor('green', service.selection).length}}</b></ion-label>
-                <ion-label [hidden]="filter_color != 'all'" color="yellow"><b>, {{service.filterColor('yellow', service.selection).length}}</b></ion-label>
+                <ion-label [hidden]="filter_color != 'all'" color="red" ><b>{{deck.filterColor('red', deck.selection).length}}</b></ion-label>
+                <ion-label [hidden]="filter_color != 'all'" color="blue"><b>, {{deck.filterColor('blue', deck.selection).length}}</b></ion-label>
+                <ion-label [hidden]="filter_color != 'all'" color="green"><b>, {{deck.filterColor('green', deck.selection).length}}</b></ion-label>
+                <ion-label [hidden]="filter_color != 'all'" color="yellow"><b>, {{deck.filterColor('yellow', deck.selection).length}}</b></ion-label>
                 <ion-label [hidden]="filter_color != 'all'"><b>)</b></ion-label>
 
                 <br/>
                 <ion-label [color]="filter_color" [hidden]="filter_color == 'all'"><b>Sub-total: {{selection.length}}</b><br/></ion-label>
 
-
-            <!--
-                <ion-label color="red" [hidden]="filter_color != 'all'"><b>Sub-total: {{service.filterColor('red', service.selection).length}}</b><br/></ion-label>
-                <ion-label color="blue" [hidden]="filter_color != 'all'"><b>Sub-total: {{service.filterColor('blue', service.selection).length}}</b><br/></ion-label>
-                <ion-label color="green" [hidden]="filter_color != 'all'"><b>Sub-total: {{service.filterColor('green', service.selection).length}}</b><br/></ion-label>
-                <ion-label color="yellow" [hidden]="filter_color != 'all'"><b>Sub-total: {{service.filterColor('yellow', service.selection).length}}</b><br/></ion-label>
-
-            -->
                 
             </ion-col>
             <ion-col class="ion-align-self-center ion-text-right" [hidden]="selection.length == 0">
                 
-                <ion-button color="primary" (click)="ordenarSeleccion($event)">Ordenar</ion-button>
+                <ion-button color="primary" (click)="ordenarSeleccion()">Ordenar</ion-button>
 
             </ion-col>            
         </ion-row>
@@ -116,30 +117,6 @@
     </ion-grid>    
 
 
-
-
-
-    <!-- 
-    <ion-grid class="center-in-page flex-grow">
-        <ion-row class="flex-grow ion-align-items-center ion-justify-content-center ion-margin-top">
-            <ion-col class="ion-align-self-center ion-text-center">
-                <pivot-deck deck="service.deck"></pivot-deck>
-            </ion-col>
-        </ion-row>
-
-        <ion-row class="flex-grow ion-align-items-center ion-justify-content-center ion-margin-top">
-            <ion-col class="ion-align-self-center ion-text-center">
-                <pivot-deck></pivot-deck>
-            </ion-col>
-        </ion-row>
-
-        <ion-row class="flex-grow ion-align-items-center ion-justify-content-center ion-margin-top">
-            <ion-col class="ion-align-self-center ion-text-center">
-                <ion-button color="primary" (click)="onCardClick()">Canvas</ion-button>
-            </ion-col>
-        </ion-row>        
-    </ion-grid>
     -->
-
 
 </ion-content>

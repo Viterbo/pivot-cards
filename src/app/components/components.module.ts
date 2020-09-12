@@ -6,9 +6,11 @@ import { VpeComponentsService, VpeAbstractComponent } from './vpe-components.ser
 import { VpeResizeDetector } from './vpe-resize-detector.directive';
 import { FormsModule } from '@angular/forms';
 import { CardSlotComponent } from './card-slot/card-slot.component';
+import { IonicModule } from '@ionic/angular';
 
 @NgModule({
     imports: [
+        IonicModule,
         CommonModule,
         FormsModule
     ],

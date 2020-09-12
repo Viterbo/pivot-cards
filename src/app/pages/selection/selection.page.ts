@@ -18,23 +18,34 @@ export class SelectionPage {
     
     constructor(
         public router: Router,
-        public service: DeckService,
+        public deck: DeckService,
     ) {
+        this.availables_filtered = [];
+        this.selection_filtered = [];
         this.filterColor('all');
     }
 
+    //*/
+    get availables(): Deck {
+        return this.availables_filtered;
+    }
+
+    get selection(): Deck {
+        return this.selection_filtered;
+    }
+    /*/
     get availables(): Deck {
         if (this.filter_color != 'all') {
             if (this.availables_filtered) {
                 return this.availables_filtered;
             } else {
                 setTimeout(_ => {
-                    this.availables_filtered = this.service.filterColor(this.filter_color, this.service.availables);
+                    this.availables_filtered = this.deck.filterColor(this.filter_color, this.deck.availables);
                 });
                 return this.selection_filtered;
             }
         } 
-        return this.service.availables;
+        return this.deck.availables;
     }
 
     get selection(): Deck {
@@ -43,16 +54,17 @@ export class SelectionPage {
                 return this.selection_filtered;
             } else {
                 setTimeout(_ => {
-                    this.selection_filtered = this.service.filterColor(this.filter_color, this.service.selection);
+                    this.selection_filtered = this.deck.filterColor(this.filter_color, this.deck.selection);
                 });
                 return this.selection_filtered;
             }
         } 
-        return this.service.selection;
+        return this.deck.selection;
     }
+    //*/
 
     get showGoToCanvas() {
-        return this.service.isSelectionOK();
+        return this.deck.isSelectionOK();
     }
 
     ionViewWillEnter() {
@@ -70,31 +82,54 @@ export class SelectionPage {
     filterColor(color) {
         // console.debug("PivotDeckComponent.filterColor()", color);
         this.filter_color = color;
-        this.availables_filtered = this.service.filterColor(this.filter_color, this.service.availables);
-        this.selection_filtered = this.service.filterColor(this.filter_color, this.service.selection);
+        // this.availables_filtered = this.deck.filterColor(this.filter_color, this.deck.availables);
+        // this.selection_filtered = this.deck.filterColor(this.filter_color, this.deck.selection);
+        this.updateFiltered(this.availables_filtered, this.deck.availables);
+        this.updateFiltered(this.selection_filtered, this.deck.selection);
     }
 
     ordenarSeleccion() {
-        this.service.sortDeck(this.service.selection);
-        this.selection_filtered = this.service.filterColor(this.filter_color, this.service.selection);
+        this.deck.sortDeck(this.deck.selection);
+        // this.selection_filtered = this.deck.filterColor(this.filter_color, this.deck.selection);
+        this.updateFiltered(this.selection_filtered, this.deck.selection);
     }
 
     ordenarAvailables() {
-        this.service.sortDeck(this.service.availables);
+        this.deck.sortDeck(this.deck.availables);
+        this.updateFiltered(this.availables_filtered, this.deck.availables);
+    }
+
+    updateFiltered(filtered:Deck, deck:Deck) {
+        filtered.splice(0,filtered.length);
+        for (let i=0; i<deck.length; i++) {
+            let card = deck[i];
+            if (card.color == this.filter_color || this.filter_color == 'all') {
+                filtered.push(card);
+            }
+        }
+        return filtered;
     }
 
     debug: boolean;
     onCardClick(card:Card) {
         console.debug("PivotDeckComponent.onCardClick()", card);
         setTimeout(_ => {
-            if (this.service.isCardSelected(card)) {
-                this.service.deselectCard(card);
+            if (this.deck.isCardSelected(card)) {
+                this.deck.deselectCard(card);
             } else {
-                this.service.selectCard(card);
+                this.deck.selectCard(card);
             }
             this.debug = true;
-            this.availables_filtered = this.service.filterColor(this.filter_color, this.service.availables);
-            this.selection_filtered = this.service.filterColor(this.filter_color, this.service.selection);
+
+            // acá está el problema --------------
+            this.updateFiltered(this.availables_filtered, this.deck.availables);
+            this.updateFiltered(this.selection_filtered, this.deck.selection);
+            // this.availables_filtered = this.deck.filterColor(this.filter_color, this.deck.availables);
+            // this.selection_filtered = this.deck.filterColor(this.filter_color, this.deck.selection);
+            // ------------------------------------
+
+
+
             this.debug = false;    
         });
     }
@@ -108,10 +143,10 @@ export class SelectionPage {
     }
 
     shift() {
-        this.service.shift(this.availables);
+        this.deck.shift(this.availables);
     }
 
     unshift() {
-        this.service.unshift(this.availables);
+        this.deck.unshift(this.availables);
     }
 }

@@ -41,14 +41,41 @@ ion-grid.center-in-page {
     align-items: center;
     justify-content: center;
 }
+// ion-slide > pivot-card {
+//     height: 100%;
+// }
 
 .flex-grow-1, .flex-grow {
     flex-grow: 1;
 }
 
 // ion-grid padding fixes 
-ion-grid, ion-col {
-    padding: 0;
+ion-grid.no-padding {
+    &, & > ion-row, & > ion-row > ion-col {
+        --ion-padding: 0px;
+        --ion-grid-row-padding-md: 0px;
+        --ion-grid-column-padding-md: 0px;
+        --ion-grid-padding-md: 0px;
+        --ion-grid-padding: 0px;
+        --ion-grid-padding-lg: 0px;
+        --ion-grid-padding-md: 0px;
+        --ion-grid-padding-sm: 0px;
+        --ion-grid-padding-xl: 0px;
+        --ion-grid-padding-xs: 0px;
+        &.ion-padding {
+            --ion-padding: 16px;
+        }
+    }
+}
+
+// ion-grid with borders
+ion-grid.grid-border {
+    border-top: solid 1px var(--color, black);
+    border-left: solid 1px var(--color, black);
+    ion-col {
+        border-bottom: solid 1px var(--color, black);
+        border-right: solid 1px var(--color, black);        
+    }
 }
 
 hr {
@@ -57,7 +84,8 @@ hr {
 
 // colors ----------------------------
 
-.ion-color-blue {
+
+.ion-color-blue, [color=blue] {
     --ion-color-base: var(--ion-color-blue, #3880ff) !important;
     --ion-color-base-rgb: var(--ion-color-blue-rgb, 56, 128, 255) !important;
     --ion-color-contrast: var(--ion-color-blue-contrast, #fff) !important;
@@ -66,7 +94,7 @@ hr {
     --ion-color-tint: var(--ion-color-blue-tint, #4c8dff) !important;
 }
 
-.ion-color-green {
+.ion-color-green, [color=green] {
     --ion-color-base: var(--ion-color-green, #2dd36f) !important;
     --ion-color-base-rgb: var(--ion-color-green-rgb, 45, 211, 111) !important;
     --ion-color-contrast: var(--ion-color-green-contrast, #fff) !important;
@@ -75,7 +103,7 @@ hr {
     --ion-color-tint: var(--ion-color-green-tint, #42d77d) !important;
 }
 
-.ion-color-red {
+.ion-color-red, [color=red] {
     --ion-color-base: var(--ion-color-red, #eb445a) !important;
     --ion-color-base-rgb: var(--ion-color-red-rgb, 235, 68, 90) !important;
     --ion-color-contrast: var(--ion-color-red-contrast, #fff) !important;
@@ -84,7 +112,7 @@ hr {
     --ion-color-tint: var(--ion-color-red-tint, #ed576b) !important;
 }
 
-.ion-color-yellow {
+.ion-color-yellow, [color=yellow] {
     --ion-color-base: var(--ion-color-yellow, #ffc409) !important;
     --ion-color-base-rgb: var(--ion-color-yellow-rgb, 255, 196, 9) !important;
     --ion-color-contrast: var(--ion-color-yellow-contrast, #000) !important;

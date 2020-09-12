@@ -116,8 +116,27 @@ export class DeckService {
         this.selection_ok = false;
     }
 
+    findCardIndex(deck:Deck, card:Card) {
+        for(var i = 0; i < deck.length; i += 1) {
+            if(deck[i].card === card.card) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+
+    takeOutCardFromDeck(deck:Deck, card:Card) {
+        let index = this.findCardIndex(deck, card);
+        deck.splice(index, 1);
+        return deck;
+    }
+
     selectCard(c:Card) {
-        this.availables = this.availables.filter((ejemplar) => ejemplar.card != c.card );
+        this.takeOutCardFromDeck(this.availables, c);
+        // this.availables = this.availables.filter((ejemplar) => ejemplar.card != c.card );
+        // let index = this.findCardIndex(this.availables, c);
+        // this.availables.splice(index, 1);
         this.selection.push(c);
         this.isselected[this.cardId(c)] = true;
         this.updateIsSelectionOk();
@@ -125,31 +144,37 @@ export class DeckService {
     }
 
     deselectCard(c:Card) {
-        this.selection = this.selection.filter((ejemplar) => ejemplar.card != c.card );
-        //*/
+        // this.selection = this.selection.filter((ejemplar) => ejemplar.card != c.card );
+        this.takeOutCardFromDeck(this.selection, c);
+
+        /*/
         // la anterior más cercana
         let i = 0;
         // let anterior = Number(parseInt(c.card) - 1).toString();
         
         let num = parseInt(c.card) - 1;
         let best = 0;
+        let best_i = 0;
         while(i<this.availables.length-1 && parseInt(this.availables[i].card) != num) {
             if (parseInt(this.availables[i].card) >= best && parseInt(this.availables[i].card) < num) {
                 best = parseInt(this.availables[i].card);
+                best_i = i+1;
             };
             i++;
         }
         if (parseInt(this.availables[i].card) == num) {
-            best = i+1;
+            best_i = i+1;
         }
-        this.availables.splice(best, 0, c);
+
+        console.debug("deselectCard()", best_i, best, c.card, [this.availables[best_i-1].card, this.availables[best_i].card, this.availables[best_i+1].card]);
+        this.availables.splice(best_i, 0, c);
+        console.debug("deselectCard()", best_i, best, c.card, [this.availables[best_i-1].card, this.availables[best_i].card, this.availables[best_i+1].card]);
         /*/
         this.availables.push(c);
         this.sortDeck(this.availables);
         //*/
         this.isselected[this.cardId(c)] = false;
         this.updateIsSelectionOk();
-        console.debug("deselectCard()", c.card, best, [this.selection], [this.availables]);
     }
 
     isCardSelected(c:Card) {
@@ -182,27 +207,54 @@ export class DeckService {
     canvas: {[key:string]:Deck};
 
     resetCanvas() {
-        this.subset = this.availables.slice();
+        this.subset = this.selection.slice();
         this.canvas = {
             red:[],
             blue:[],
             green:[],
-            yellow:[],            
+            yellow:[],
         };
+        this.updateIsCanvasOk();
     }
 
-    addToCanvas(c:Card) {
+    addToCanvas(c:Card):boolean {
+        if (this.canvas[c.color].length >= 2) return false;
         this.subset = this.subset.filter((ejemplar) => ejemplar.card != c.card );
         this.canvas[c.color].push(c);
+        this.updateIsCanvasOk();
         console.log("addToCanvas()->:", this.canvas, [this.subset]);
+        return true;
     }
 
     removeFromCanvas(c:Card) {
         this.canvas[c.color] = this.canvas[c.color].filter((ejemplar) => ejemplar.card != c.card );
         this.subset.push(c);
         this.sortDeck(this.subset);
+        this.updateIsCanvasOk();
         console.log("removeFromCanvas()->:", this.canvas, [this.subset]);
     }
+
+    canvas_ok:any;
+    isCanvasOK() {
+        if (this.canvas_ok == null) {
+            this.canvas_ok = false;
+            setTimeout(this.updateIsCanvasOk.bind(this));
+        }
+        return this.canvas_ok;
+    }
+
+    private updateIsCanvasOk() {
+        this.canvas_ok = false;
+        if (
+            this.canvas.red.length > 0 && this.canvas.red.length <= 2 &&
+            this.canvas.blue.length > 0 && this.canvas.blue.length <= 2 &&
+            this.canvas.green.length > 0 && this.canvas.green.length <= 2 &&
+            this.canvas.yellow.length > 0 && this.canvas.yellow.length <= 2
+        ) {
+            this.canvas_ok = true;
+        }        
+    }
+
 
     public getPitch() {
         let pitch = "pitch";

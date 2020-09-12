@@ -32,8 +32,7 @@ export class FilterPage {
     }
 
     
-    onCardClick(card) {
-        console.log("onCardClick",[card]);
+    gotoCanvas() {
         this.router.navigate(['/canvas']); 
     }
 

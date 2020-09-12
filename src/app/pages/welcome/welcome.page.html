@@ -1,30 +1,19 @@
 <ion-content fullscreen scroll-y="false">
 
     <ion-slides pager="true">
-      <ion-slide>
-        <div class="slider-background" style="background-image: url({{images[0]}});"></div>
-        <div class="slider-caption">
-          <h3>Página 1</h3>
-          <p>algo de texto</p>
-        </div>
-      </ion-slide>
+        <ion-slide>
+            <img class="pivot" src="assets/img/Pívot-azul.png" />
+            <p class="texto pag-1">Este es un prototipo en construcción.</p>
+            <p class="texto pag-1">Esta es la <b>Página 1 de 2</b> de un posible Wizard de bienvenida. Para pasar a la siguiente página debe deslizar ésta hacia la izquierda.</p>
+            <p><ion-button (click)="enter()">Comenzar <ion-icon slot="end" name="arrow-forward"></ion-icon></ion-button> </p>
+        </ion-slide>
 
-      <ion-slide>
-        <div class="slider-background" style="background-image: url({{images[1]}});"></div>
-        <div class="slider-caption">
-          <h3>Página 2</h3>
-          <p>algo más de texto</p>
-        </div>
-      </ion-slide>
+        <ion-slide class="dark">
+            <img class="engranajes" src="assets/img/categoria-verde-engranajes.png" />
+            <p class="texto pag-2">Esta es la <b>Página 2 de 2</b>.</p>
+            <p><ion-button (click)="enter()">Comenzar <ion-icon slot="end" name="arrow-forward"></ion-icon></ion-button> </p>
+        </ion-slide>
 
-      <ion-slide>
-        <div class="slider-background" style="background-image: url({{images[2]}});"></div>
-        <div class="slider-caption">
-          <h3>Página 3</h3>
-          <p><ion-button (click)="enter()">Comenzar <ion-icon slot="end" name="arrow-forward"></ion-icon></ion-button> </p>
-        </div>
-        
-      </ion-slide>
     </ion-slides>
 
 </ion-content>

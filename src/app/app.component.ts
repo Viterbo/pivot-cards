@@ -40,7 +40,7 @@ export class AppComponent {
 
     @HostListener('window:resize')
     onWindowsResize() {
-        console.log("onWindowsResize(event)");
+        // console.log("onWindowsResize(event)");
         this.app.onWindowsResize();
         this.class = this.app.device.class;
     }

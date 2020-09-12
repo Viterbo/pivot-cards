@@ -1,4 +1,4 @@
-<ion-header [translucent]="true">
+<ion-header>
     <ion-toolbar>
         <ion-title>
             {{page}}
@@ -10,7 +10,7 @@
     <ion-grid class="center-in-page flex-grow">
         <ion-row class="flex-grow ion-align-items-center ion-justify-content-center">
             <ion-col class="ion-align-self-center ion-text-center">
-                <ion-button color="primary" (click)="onCardClick()">Home</ion-button>
+                <ion-button color="primary" (click)="gotoHome()">Home</ion-button>
             </ion-col>
         </ion-row>        
     </ion-grid>

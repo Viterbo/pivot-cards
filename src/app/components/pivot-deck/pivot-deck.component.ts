@@ -116,8 +116,8 @@ export class PivotDeckComponent extends VpeAbstractComponent implements OnInit, 
     }
 
     _click(card:Card) {
-        console.log("PivotDeckComponent._click()", [card]);
-        console.log("this.divView: ------------> ", this.ref.nativeElement.children[0].children[0].offsetWidth);
+        // console.log("PivotDeckComponent._click()", [card]);
+        // console.log("this.divView: ------------> ", this.ref.nativeElement.children[0].children[0].offsetWidth);
         
         this.onCardClick.next(card);
         // this.resetView();

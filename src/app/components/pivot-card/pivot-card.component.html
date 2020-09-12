@@ -1,9 +1,9 @@
-<ion-card class="main-card" [color]="color">
+<ion-card class="main-card" [color]="color" (click)="_click()">
     <div class="background"></div>
     <ion-card-header>
         <div class="card-title">{{card?.card}} {{card?.card?'-':''}} {{card?.name}}</div>
     </ion-card-header>
     <ion-card-content>
-        <div class="content ion-margin-top"><b>{{card?.desc}}</b></div>
+        <div *ngIf="show_desc" class="content ion-margin-top"><b>{{card?.desc}}</b></div>
     </ion-card-content>
 </ion-card>

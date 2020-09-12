@@ -1,7 +1,7 @@
 import { Component, HostBinding, AfterViewInit, OnInit, AfterViewChecked, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Subscriber } from 'rxjs';
-import { DeckService } from 'src/app/services/deck.service';
+import { DeckService, Card } from 'src/app/services/deck.service';
 import { CardSlotComponent } from 'src/app/components/card-slot/card-slot.component';
 
 @Component({
@@ -15,29 +15,50 @@ export class CanvasPage implements OnInit, OnDestroy, AfterViewInit, AfterViewCh
     slots: {[name:string]:CardSlotComponent};
     pitch: string;
     initialized: boolean;
+
+    selected: {[key:string]:number};
     
     constructor(
         public router: Router,
+        public route: ActivatedRoute,
         public deck: DeckService,
     ) {
-        console.log("this.deck", this.deck);
         this.pitch = "";
         this.slots = {};
+        this.selected = {
+            red: 0,
+            blue: 0,
+            green: 0,
+            yellow: 0,
+        };
         this.initialized = false;
+    }
+    
+    btnDisable(color:string) {
+        return this.selected[color] == 1;
+    }
 
-        // this.pitch = this.deck.getPitch();
+    btnHidden(color:string) {
+        return this.selected[color] == 0;
     }
 
     private init() {
         if (this.initialized) return;
         this.initialized = true;
-        console.log("* this.deck.sortDeck(this.deck.selection); !!!!!!!!!!!!!!");
-        this.deck.sortDeck(this.deck.selection);
+        console.debug("CanvasPage.init()");
+        this.route.queryParams.subscribe(params => {
+            console.debug("CanvasPage.init() params:", params);
+            if (params && params.keepcanvas) {
+                
+            } else {
+                this.deck.resetCanvas();
+                this.deck.sortDeck(this.deck.subset);
+                this.updateSelected();
+            }
+        });
     }
 
-
     ngAfterViewChecked() {
-        console.log("* ngAfterViewChecked()");
         this.init();
     }
 
@@ -47,10 +68,7 @@ export class CanvasPage implements OnInit, OnDestroy, AfterViewInit, AfterViewCh
 
     ngOnInit() {}
 
-    ngOnDestroy() {
-        console.log("* ngOnDestroy()");
-        
-    }
+    ngOnDestroy() {}
 
     back() {
         window.history.back();
@@ -72,7 +90,6 @@ export class CanvasPage implements OnInit, OnDestroy, AfterViewInit, AfterViewCh
     }
 
     onCardChange(color, card) {
-        console.log("CanvasPage.onCardChange()",[color, card]);
         if (!card) return;
     }
 
@@ -82,6 +99,33 @@ export class CanvasPage implements OnInit, OnDestroy, AfterViewInit, AfterViewCh
     
     prev(color:string) {
         this.slots[color].prev();
+    }
+
+    agregar(card:Card) {
+        console.log("CanvasPage.agregar", card);
+        this.deck.addToCanvas(card);
+        this.slots[card.color].update();
+        this.pitch = this.deck.getPitch();
+        this.updateSelected();
+    }
+    
+    descartar(card:Card) {
+        console.log("CanvasPage.descartar", card);
+        this.deck.removeFromCanvas(card);
+        this.slots[card.color].update();
+        this.pitch = this.deck.getPitch();
+        this.updateSelected();
+    }
+
+    onIndusstriaChange() {
+        this.pitch = this.deck.getPitch();
+    }
+
+    updateSelected() {
+        this.selected.red = this.deck.filterColor('red', this.deck.subset).length;
+        this.selected.blue = this.deck.filterColor('blue', this.deck.subset).length;
+        this.selected.green = this.deck.filterColor('green', this.deck.subset).length;
+        this.selected.yellow = this.deck.filterColor('yellow', this.deck.subset).length;
     }
     
 }

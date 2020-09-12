@@ -33,6 +33,10 @@ export class SlotsPage {
         // this.onToiletSelectedSubscriber = new Subscriber<any>(this.onToiletSelected.bind(this));
     }
 
+    get showGoToCanvas() {
+        return this.deck.isCanvasOK();
+    }
+
     ngOnInit() {
         // this.toilets.onSelected.subscribe(this.onToiletSelectedSubscriber);
     }
@@ -40,10 +44,6 @@ export class SlotsPage {
 
     ngOnDestroy() {
         // this.onToiletSelectedSubscriber.unsubscribe();
-    }
-
-    toCanvas() {
-        this.router.navigate(['/canvas']); 
     }
 
     timer = null;
@@ -78,7 +78,13 @@ export class SlotsPage {
         this.slots.green.shuffle();
         this.slots.yellow.shuffle();
     }
-
     
+    toCanvas() {
+        this.router.navigate(['/canvas'], {
+            queryParams: {
+                keepcanvas:true
+            }
+        }); 
+    }
 
 }

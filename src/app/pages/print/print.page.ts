@@ -32,8 +32,7 @@ export class PrintPage {
     }
 
     
-    onCardClick(card) {
-        console.log("onCardClick",[card]);
+    gotoHome() {
         this.router.navigate(['/home']);
     }
 

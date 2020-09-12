@@ -6,7 +6,7 @@ else
     COMMENT="save";
 fi
 
-
+rm /var/www/pivot-cards/pivot -fr
 
 
 git add -A

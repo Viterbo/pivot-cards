@@ -10,10 +10,12 @@ import { WelcomePage } from './welcome/welcome.page';
 import { PivotComponentsModule } from '../components/components.module';
 import { CommonServicesModule } from '../services/common/common.module';
 import { FormsModule } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
 
 @NgModule({
     imports: [
         FormsModule,
+        IonicModule,
         CommonModule,
         CommonServicesModule,
         PivotComponentsModule
