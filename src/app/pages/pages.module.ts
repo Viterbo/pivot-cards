@@ -19,12 +19,17 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { RouterModule } from '@angular/router';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatRippleModule } from '@angular/material/core';
 // Angular-Material ----------------------------------
 
 
 
 @NgModule({
     imports: [
+        RouterModule,
         FormsModule,
         IonicModule,
         CommonModule,
@@ -36,7 +41,10 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
         MatMenuModule, 
         MatToolbarModule, 
         MatIconModule,
-        MatCheckboxModule
+        MatCheckboxModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatRippleModule        
         // Angular-Material ----------------------------------
     ],
     declarations: [
@@ -67,7 +75,10 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
         MatMenuModule, 
         MatToolbarModule, 
         MatIconModule,
-        MatCheckboxModule
+        MatCheckboxModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatRippleModule        
         // Angular-Material ----------------------------------
     ]
 })

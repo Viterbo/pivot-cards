@@ -6,6 +6,8 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { DeckService } from './services/deck.service';
@@ -15,7 +17,6 @@ import { PagesModule } from './pages/pages.module';
 import { CommonServicesModule } from './services/common/common.module';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { VpeNavToolbarComponent } from './vpe-nav-toolbar/vpe-nav-toolbar.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -25,8 +26,9 @@ import { MatListModule } from '@angular/material/list';
 
 
 
+
 @NgModule({
-  declarations: [AppComponent, VpeNavToolbarComponent],
+  declarations: [AppComponent],
   entryComponents: [],
   imports: [
     HttpClientModule,
@@ -43,7 +45,8 @@ import { MatListModule } from '@angular/material/list';
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    NgbModule
   ],
   providers: [
     StatusBar,

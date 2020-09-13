@@ -25,13 +25,14 @@
   - BUG: Cuando se pasa al CANVAS, desaparece el pitch. estaría bueno que se mantenga.
   - poner un interruptor para que se pueda activar y desactivar que las cartas sobre el canvas, tengan o no tengan descripción.
 
-
-
-
-
-
-
-
+  <color name="primaryColor">#0082f9</color>
+  <color name="primaryLightColor">#68b1ff</color>
+  <color name="primaryDarkColor">#0057c5</color>
+  <color name="secondaryColor">#01b4fb</color>
+  <color name="secondaryLightColor">#69e6ff</color>
+  <color name="secondaryDarkColor">#0085c8</color>
+  <color name="primaryTextColor">#000000</color>
+  <color name="secondaryTextColor">#ffffff</color>
 
 
 

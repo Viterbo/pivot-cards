@@ -1,0 +1,22 @@
+<!-- 
+<div>vale por un input</div>
+-->
+<form>
+    <mat-form-field class="d-block">
+        <mat-label>Producto o Servicio {{ctrl.hasError('required') | json}}</mat-label>
+        
+        <input matInput [(ngModel)]="deck.industria" [formControl]="ctrl" [errorStateMatcher]="matcher"
+                        (input)="onValueChange($event)"
+                        placeholder="Ej: vestimenta"
+                        #setFocusField
+                        >
+
+        
+
+        <mat-error [hidden]="ctrl.status == 'VALID'">
+            <strong>complete</strong> este campo antes de continuar.
+        </mat-error>
+
+    </mat-form-field>
+
+</form>

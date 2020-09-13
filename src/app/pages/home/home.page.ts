@@ -51,6 +51,7 @@ export class HomePage {
     onCardClick(card) {
         console.log("onCardClick",card);
         if (!this.deck.industria) {
+            this.input.showErrors();
             this.show_errors = true;
             return;
         }
@@ -68,48 +69,29 @@ export class HomePage {
     //     console.log("onInput()", algo);
     // }
 
-    //  TEMP-----------------------------------------
-    task: Task = {
-        name: 'Indeterminate',
-        completed: false,
-        color: 'primary',
-        subtasks: [
-          {name: 'Primary', completed: false, color: 'primary'},
-          {name: 'Accent', completed: false, color: 'accent'},
-          {name: 'Warn', completed: false, color: 'warn'}
-        ]
-    };
-    
-    
-    allComplete: boolean = false;
-    
-    updateAllComplete() {
-      this.allComplete = this.task.subtasks != null && this.task.subtasks.every(t => t.completed);
-    }
-  
-    someComplete(): boolean {
-      if (this.task.subtasks == null) {
-        return false;
-      }
-      return this.task.subtasks.filter(t => t.completed).length > 0 && !this.allComplete;
-    }
-  
-    setAll(completed: boolean) {
-      this.allComplete = completed;
-      if (this.task.subtasks == null) {
-        return;
-      }
-      this.task.subtasks.forEach(t => t.completed = completed);
-    }    
-    //  TEMP-----------------------------------------
 
+    input: PivotIndustriaInputComponent;
+    onIndustriaInit(input: PivotIndustriaInputComponent) {
+        this.input = input;
+        // this.input.showErrors();
+    }
+
+    ctrl = new FormControl('', [
+        Validators.required,
+    ]);
+
+    matcher = new MyErrorStateMatcher();    
+}
+
+/** Error when invalid control is dirty, touched, or submitted. */
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+      const isSubmitted = form && form.submitted;
+      return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
 }
 
 
-import {ThemePalette} from '@angular/material/core';
-export interface Task {
-    name: string;
-    completed: boolean;
-    color: ThemePalette;
-    subtasks?: Task[];
-}
+import { ErrorStateMatcher } from '@angular/material/core';
+import { FormControl, Validators, FormGroupDirective, NgForm } from '@angular/forms';import { PivotIndustriaInputComponent } from 'src/app/components/pivot-industria-input/pivot-industria-input.component';
+

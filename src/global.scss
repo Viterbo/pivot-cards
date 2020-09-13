@@ -32,7 +32,8 @@ $fa-font-path: "~@fortawesome/fontawesome-free/webfonts" !default;
 @import "~@fortawesome/fontawesome-free/scss/regular";
 @import "~@fortawesome/fontawesome-free/scss/solid";
 
-
+// Material Themeing
+@import 'theme/pivot-theme.scss';
 
 // fixes -----------
 ion-grid.center-in-page {
@@ -82,15 +83,24 @@ hr {
     background-color: lightgrey;
 }
 
-// material fies  -----------------------------
+// material theme  -----------------------------
+/*
 .mat-checkbox-frame {
-    border-color: rgba(0,0,0,.7);
+    // border-color: rgba(0,0,0,.7);
 }
 .mat-checkbox-disabled .mat-checkbox-label {
-    color: rgba(100,100,100,.7);
+    // color: rgba(100,100,100,.7);
 }
-
-
+.mat-form-field-appearance-legacy  {
+    .mat-form-field-label {
+        border-color: rgba(0,0,0,.7);
+        color: rgba(0,0,0,.7);
+    }
+    .mat-form-field-underline {
+        background-color: rgba(0,0,0,.7);
+    }
+}
+*/
 // colors ----------------------------
 
 

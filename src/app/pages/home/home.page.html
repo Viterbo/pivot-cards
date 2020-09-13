@@ -1,42 +1,86 @@
-<!--  -->
-    
-    <ion-header>
-    <ion-toolbar>
-        <img class="brand-image" [ngClass]="class" src="assets/img/Pívot-azul.png"/>
-    </ion-toolbar>
+<ion-header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <img class="brand-image" [ngClass]="class" src="assets/img/Pívot-azul.png"/>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menuPrincipal" aria-controls="menuPrincipal" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+      
+            <div class="collapse navbar-collapse" id="menuPrincipal">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <button mat-button (click)="onCardClick(1)">Selección</button>
+                    </li>
+                    <li class="nav-item">
+                        <button mat-button (click)="onCardClick(2)">Filtro</button>
+                    </li>
+                    <li class="nav-item">
+                        <button mat-button (click)="onCardClick(3)">Tragamonedas</button>
+                    </li>
+                </ul>
+            </div>    
+        </div>
+    </nav>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="mat-app-background">
+    <div class="container">
+        <ion-grid class="flex-grow">
+            <ion-row class="ion-padding">
+                <ion-col></ion-col>
+                <ion-col class="ion-text-left ion-padding">
+                    <p>
+                        Completá aquí el Producto o Servicio que piensas ofrecer (por ejemplo: vestimenta, alojamiento, gastronomía, software)
+                    </p>
+                    <!-- -->
+                    <pivot-industria-input (onInit)="onIndustriaInit($event)"></pivot-industria-input>
+                    <!-- -->
+                    <!--
+                    <ion-item>
+                        <form class="example-form">
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Producto o Servicio</mat-label>
+                                
+                                <input matInput [(ngModel)]="deck.industria" [formControl]="ctrl" [errorStateMatcher]="matcher"
+                                                placeholder="Ej: vestimenta, alojamiento, gastronomía, software">
+                        
+                                
+                        
+                                <mat-error *ngIf="ctrl.hasError('required')">
+                                    <strong>complete</strong> este campo antes de continuar.
+                                </mat-error>      
+                        
+                            </mat-form-field>
+                        </form>
+                    </ion-item>
+                    -->
 
-    <ion-grid class="flex-grow">
-        <ion-row class="ion-padding">
-            <ion-col></ion-col>
-            <ion-col class="ion-text-left ion-padding">
-                <p>
-                    Completá aquí el Producto o Servicio que piensas ofrecer (por ejemplo: vestimenta, alojamiento, gastronomía, software)
-                </p>
-                <ion-item>
-                    <ion-label position="floating">Producto o Servicio</ion-label>
-                    <!--  (input)='onInput($event)' -->
-                    <ion-input
-                        ngDefaultControl [(ngModel)]="deck.industria"></ion-input>
-                </ion-item>
-                <ion-text color="danger" [hidden]="!show_errors || this.deck.industria">
-                    complete este campo antes de continuar.
-                </ion-text>
-            </ion-col> 
-            <ion-col></ion-col>
-        </ion-row>
-        <ion-row class="ion-align-items-center ion-justify-content-center ion-padding">
-            <ion-col class="ion-align-self-center ion-text-center">                
-                <button mat-raised-button color="primary" (click)="onCardClick(1)">Dinámica 1</button>
-            </ion-col>
-            <ion-col class="ion-align-self-center ion-text-center">
-                <button mat-raised-button color="primary" (click)="onCardClick(2)">Dinámica 2</button>
-            </ion-col>
-            <ion-col class="ion-align-self-center ion-text-center">
-                <button mat-raised-button color="primary" (click)="onCardClick(3)">Dinámica 3</button>
-            </ion-col>
-        </ion-row>
-    </ion-grid>
+                    <!-- 
+
+                    <ion-item>
+                        <ion-label position="floating">Producto o Servicio</ion-label>
+                        <ion-input
+                            ngDefaultControl [(ngModel)]="deck.industria"></ion-input>
+                    </ion-item>
+                    <ion-text color="danger" [hidden]="!show_errors || this.deck.industria">
+                        complete este campo antes de continuar.
+                    </ion-text>
+                    -->
+                </ion-col> 
+                <ion-col></ion-col>
+            </ion-row>
+            <ion-row class="ion-align-items-center ion-justify-content-between ion-padding">
+                <ion-col class="ion-align-self-center ion-text-start">                
+                    <button mat-raised-button color="primary" (click)="onCardClick(1)">Dinámica 1</button>
+                </ion-col>
+                <ion-col class="ion-align-self-center ion-text-center">
+                    <button mat-raised-button color="primary" (click)="onCardClick(2)">Dinámica 2</button>
+                </ion-col>
+                <ion-col class="ion-align-self-center ion-text-end">
+                    <button mat-raised-button color="primary" (click)="onCardClick(3)">Dinámica 3</button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
 </ion-content>

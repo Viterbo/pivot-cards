@@ -4,21 +4,49 @@ import { PivotCardComponent } from './pivot-card/pivot-card.component';
 import { PivotDeckComponent } from './pivot-deck/pivot-deck.component';
 import { VpeComponentsService, VpeAbstractComponent } from './vpe-components.service';
 import { VpeResizeDetector } from './vpe-resize-detector.directive';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CardSlotComponent } from './card-slot/card-slot.component';
 import { IonicModule } from '@ionic/angular';
+import { PivotBackBtnComponent } from './pivot-back-btn/pivot-back-btn.component';
+import { RouterModule } from '@angular/router';
+import { PivotIndustriaInputComponent } from './pivot-industria-input/pivot-industria-input.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRippleModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+
 
 @NgModule({
     imports: [
+        RouterModule,
         IonicModule,
         CommonModule,
-        FormsModule
+        FormsModule,
+        ReactiveFormsModule,
+        // Angular-Material ----------------------------------
+        MatCardModule, 
+        MatButtonModule, 
+        MatMenuModule, 
+        MatToolbarModule, 
+        MatIconModule,
+        MatCheckboxModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatRippleModule        
+        // Angular-Material ----------------------------------
     ],
     declarations: [
         PivotCardComponent,
         PivotDeckComponent,
         CardSlotComponent,
-        VpeResizeDetector
+        VpeResizeDetector,
+        PivotBackBtnComponent,
+        PivotIndustriaInputComponent
     ],
     entryComponents: [
     ],
@@ -28,7 +56,9 @@ import { IonicModule } from '@ionic/angular';
     exports: [
         CardSlotComponent,
         PivotCardComponent,
-        PivotDeckComponent
+        PivotDeckComponent,
+        PivotBackBtnComponent,
+        PivotIndustriaInputComponent
     ]
 })
 export class PivotComponentsModule {}
