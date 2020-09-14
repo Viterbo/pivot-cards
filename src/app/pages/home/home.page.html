@@ -9,7 +9,13 @@
       
             <div class="collapse navbar-collapse" id="menuPrincipal">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
+                    <li class="nav-item">
+                        <a mat-button href="https://saramendia.wixsite.com/misitio" target="_blank">Comprar</a>
+                    </li>
+                    <li class="nav-item">
+                        <button mat-button (click)="gotoCartas()">Cartas</button> 
+                    </li>
+                    <li class="nav-item">
                         <button mat-button (click)="onCardClick(1)">Selección</button>
                     </li>
                     <li class="nav-item">
@@ -27,11 +33,21 @@
 <ion-content [fullscreen]="true" class="mat-app-background">
     <div class="container">
         <ion-grid class="flex-grow">
+            <ion-row class="page-header">
+                <ion-col class="col-left ion-text-right">
+                    <img class="box" [ngClass]="class" src="assets/img/deck.png"/>
+                </ion-col>
+                <ion-col class="col-right ion-text-left">
+                    <h1>KIT para emprender</h1>
+                    <h2>70 Modelos de negocio explicados y combinables</h2>
+                    <p>Te ofrecemos explorar tres dinámicas posibles con nuestra <strong>herramienta interactiva online</strong></p>
+                </ion-col>
+            </ion-row>
             <ion-row class="ion-padding">
-                <ion-col></ion-col>
-                <ion-col class="ion-text-left ion-padding">
+                <ion-col size="2"></ion-col>
+                <ion-col size="8" class="ion-text-left ion-padding">
                     <p>
-                        Completá aquí el Producto o Servicio que piensas ofrecer (por ejemplo: vestimenta, alojamiento, gastronomía, software)
+                        Completá aquí el Producto o Servicio que piensas ofrecer<br>(por ejemplo: vestimenta, alojamiento, gastronomía, software)
                     </p>
                     <!-- -->
                     <pivot-industria-input (onInit)="onIndustriaInit($event)"></pivot-industria-input>
@@ -68,7 +84,7 @@
                     </ion-text>
                     -->
                 </ion-col> 
-                <ion-col></ion-col>
+                <ion-col size="2"></ion-col>
             </ion-row>
             <ion-row class="ion-align-items-center ion-justify-content-between ion-padding">
                 <ion-col class="ion-align-self-center ion-text-start">                

@@ -47,6 +47,11 @@ export class HomePage {
         this.onWindowResize.unsubscribe();
     }
 
+
+    gotoCartas() {
+        return this.router.navigate(['/cartas']); 
+    }
+
     
     onCardClick(card) {
         console.log("onCardClick",card);

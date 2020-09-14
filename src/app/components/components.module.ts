@@ -10,15 +10,25 @@ import { IonicModule } from '@ionic/angular';
 import { PivotBackBtnComponent } from './pivot-back-btn/pivot-back-btn.component';
 import { RouterModule } from '@angular/router';
 import { PivotIndustriaInputComponent } from './pivot-industria-input/pivot-industria-input.component';
+
+// Angular-Material ----------------------------------
 import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
+import { MatButtonModule} from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatRippleModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatRippleModule } from '@angular/material/core';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatTooltipModule } from '@angular/material/tooltip';
+// Angular-Material ----------------------------------
+
+import { PivotFourSlotsComponent } from './pivot-four-slots/pivot-four-slots.component';
+import { ColorCardListComponent } from './color-card-list/color-card-list.component';
+import { EditableTextComponent } from './editable-text/editable-text.component';
 
 
 @NgModule({
@@ -37,7 +47,10 @@ import { MatInputModule } from '@angular/material/input';
         MatCheckboxModule,
         MatFormFieldModule,
         MatInputModule,
-        MatRippleModule        
+        MatRippleModule,
+        MatBadgeModule,
+        MatSlideToggleModule,
+        MatTooltipModule            
         // Angular-Material ----------------------------------
     ],
     declarations: [
@@ -46,7 +59,10 @@ import { MatInputModule } from '@angular/material/input';
         CardSlotComponent,
         VpeResizeDetector,
         PivotBackBtnComponent,
-        PivotIndustriaInputComponent
+        PivotIndustriaInputComponent,
+        PivotFourSlotsComponent,
+        ColorCardListComponent,
+        EditableTextComponent
     ],
     entryComponents: [
     ],
@@ -58,7 +74,10 @@ import { MatInputModule } from '@angular/material/input';
         PivotCardComponent,
         PivotDeckComponent,
         PivotBackBtnComponent,
-        PivotIndustriaInputComponent
+        PivotIndustriaInputComponent,
+        PivotFourSlotsComponent,
+        ColorCardListComponent,
+        EditableTextComponent
     ]
 })
 export class PivotComponentsModule {}

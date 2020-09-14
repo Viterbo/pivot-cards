@@ -36,6 +36,7 @@ export class AppService {
     loading: boolean;
     countdown: number;
     _verison: string;
+    public history: History;
 
     constructor(
         private router: Router, 
@@ -44,6 +45,7 @@ export class AppService {
         private dom: DomService,
         public cookie: CookieService
     ) {
+        this.history = window.history;
         this.router.events.subscribe((event) => {
             if (event instanceof NavigationEnd) {
                 this.prev_state = this.state;

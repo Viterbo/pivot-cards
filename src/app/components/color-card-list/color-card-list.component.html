@@ -1,0 +1,5 @@
+<pivot-card
+    *ngFor="let card of filtered"
+    [card]="card"
+    (onclick)="cardClicked($event)"
+></pivot-card>

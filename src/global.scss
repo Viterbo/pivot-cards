@@ -35,6 +35,19 @@ $fa-font-path: "~@fortawesome/fontawesome-free/webfonts" !default;
 // Material Themeing
 @import 'theme/pivot-theme.scss';
 
+// Material icons font
+@import 'theme/material-icons.scss';
+
+
+// FONT: https://www.onlinewebfonts.com/download/c5bd605b45237a12c99133fa9d7cae49
+// @import url(//db.onlinewebfonts.com/c/c5bd605b45237a12c99133fa9d7cae49?family=HelveticaW01-Roman);
+
+@font-face {font-family: "HelveticaW01-Roman"; src: url("//db.onlinewebfonts.com/t/c5bd605b45237a12c99133fa9d7cae49.eot"); src: url("//db.onlinewebfonts.com/t/c5bd605b45237a12c99133fa9d7cae49.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/c5bd605b45237a12c99133fa9d7cae49.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/c5bd605b45237a12c99133fa9d7cae49.woff") format("woff"), url("//db.onlinewebfonts.com/t/c5bd605b45237a12c99133fa9d7cae49.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/c5bd605b45237a12c99133fa9d7cae49.svg#HelveticaW01-Roman") format("svg"); }
+
+* {
+    font-family: "HelveticaW01-Roman", sans-serif;
+}
+
 // fixes -----------
 ion-grid.center-in-page {
     height: 100%;
@@ -54,9 +67,16 @@ ion-grid.center-in-page {
 ion-grid.no-padding {
     &, & > ion-row, & > ion-row > ion-col {
         --ion-padding: 0px;
+        --ion-grid-row-padding: 0px;
+        --ion-grid-row-padding-sm: 0px;
         --ion-grid-row-padding-md: 0px;
+        --ion-grid-row-padding-lg: 0px;
+        --ion-grid-row-padding-xl: 0px;
+        --ion-grid-column-padding: 0px;
+        --ion-grid-column-padding-sm: 0px;
         --ion-grid-column-padding-md: 0px;
-        --ion-grid-padding-md: 0px;
+        --ion-grid-column-padding-lg: 0px;
+        --ion-grid-column-padding-xl: 0px;
         --ion-grid-padding: 0px;
         --ion-grid-padding-lg: 0px;
         --ion-grid-padding-md: 0px;
@@ -66,6 +86,30 @@ ion-grid.no-padding {
         &.ion-padding {
             --ion-padding: 16px;
         }
+    }
+}
+ion-row.no-padding {
+    &, & > ion-col {
+        --ion-padding: 0px;
+        --ion-grid-row-padding: 0px;
+        --ion-grid-row-padding-sm: 0px;
+        --ion-grid-row-padding-md: 0px;
+        --ion-grid-row-padding-lg: 0px;
+        --ion-grid-row-padding-xl: 0px;
+        --ion-grid-column-padding: 0px;
+        --ion-grid-column-padding-sm: 0px;
+        --ion-grid-column-padding-md: 0px;
+        --ion-grid-column-padding-lg: 0px;
+        --ion-grid-column-padding-xl: 0px;
+        --ion-grid-padding: 0px;
+        --ion-grid-padding-lg: 0px;
+        --ion-grid-padding-md: 0px;
+        --ion-grid-padding-sm: 0px;
+        --ion-grid-padding-xl: 0px;
+        --ion-grid-padding-xs: 0px;
+        &.ion-padding {
+            --ion-padding: 16px;
+        }        
     }
 }
 
@@ -83,24 +127,12 @@ hr {
     background-color: lightgrey;
 }
 
-// material theme  -----------------------------
-/*
-.mat-checkbox-frame {
-    // border-color: rgba(0,0,0,.7);
+// material fixes  -----------------------------
+a[mat-button] {
+    text-decoration: none;
 }
-.mat-checkbox-disabled .mat-checkbox-label {
-    // color: rgba(100,100,100,.7);
-}
-.mat-form-field-appearance-legacy  {
-    .mat-form-field-label {
-        border-color: rgba(0,0,0,.7);
-        color: rgba(0,0,0,.7);
-    }
-    .mat-form-field-underline {
-        background-color: rgba(0,0,0,.7);
-    }
-}
-*/
+
+
 // colors ----------------------------
 
 

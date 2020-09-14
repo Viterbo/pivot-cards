@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { CanvasPage } from './canvas/canvas.page';
 import { FilterPage } from './filter/filter.page';
@@ -11,6 +12,8 @@ import { PivotComponentsModule } from '../components/components.module';
 import { CommonServicesModule } from '../services/common/common.module';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
+import { CartasPage } from './cartas/cartas.page';
+
 
 // Angular-Material ----------------------------------
 import { MatCardModule } from '@angular/material/card';
@@ -19,10 +22,12 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { RouterModule } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatRippleModule } from '@angular/material/core';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatTooltipModule } from '@angular/material/tooltip';
 // Angular-Material ----------------------------------
 
 
@@ -44,7 +49,10 @@ import { MatRippleModule } from '@angular/material/core';
         MatCheckboxModule,
         MatFormFieldModule,
         MatInputModule,
-        MatRippleModule        
+        MatRippleModule,
+        MatBadgeModule,
+        MatSlideToggleModule,
+        MatTooltipModule            
         // Angular-Material ----------------------------------
     ],
     declarations: [
@@ -54,7 +62,8 @@ import { MatRippleModule } from '@angular/material/core';
         PrintPage,
         SelectionPage,
         SlotsPage,
-        WelcomePage
+        WelcomePage,
+        CartasPage
     ],
     entryComponents: [
     ],
@@ -69,17 +78,7 @@ import { MatRippleModule } from '@angular/material/core';
         SelectionPage,
         SlotsPage,
         WelcomePage,
-        // Angular-Material ----------------------------------
-        MatCardModule, 
-        MatButtonModule, 
-        MatMenuModule, 
-        MatToolbarModule, 
-        MatIconModule,
-        MatCheckboxModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatRippleModule        
-        // Angular-Material ----------------------------------
+        CartasPage
     ]
 })
 export class PagesModule {}

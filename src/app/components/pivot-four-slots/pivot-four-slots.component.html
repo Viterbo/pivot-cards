@@ -1,0 +1,88 @@
+<ion-grid class="main-grid no-padding">
+    <ion-row class="row-slots">
+        <ion-col class="ion-justify-content-evenly">
+            <ion-grid class="grid-interno no-padding">
+                <ion-row class="row-slot">
+                    <ion-col class="ion-justify-content-evenly">
+                        <card-slot
+                            #slot_red
+                            (onInit)="registerSlot('red', slot_red)"
+                            color="red"
+                            [deck]="deck"
+                            autoselect="true"
+                            (onclick)="onCardClick($event)"></card-slot>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="row-btns">
+                    <ion-col class="ion-justify-content-evenly ion-text-center">
+                        <ion-button [hidden]="btnHidden('red')" [disabled]="btnDisable('red')" color="red" (click)="prev('red')"><i class="material-icons">navigate_before</i></ion-button>
+                        <ion-button [hidden]="btnHidden('red')" [disabled]="btnDisable('red')" color="red" (click)="next('red')"><i class="material-icons">navigate_next</i></ion-button>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>                            
+        </ion-col>
+        <ion-col class="ion-justify-content-evenly">
+            <ion-grid class="grid-interno no-padding">
+                <ion-row class="row-slot">
+                    <ion-col class="ion-justify-content-evenly">
+                        <card-slot
+                            #slot_blue
+                            (onInit)="registerSlot('blue', slot_blue)"
+                            color="blue"
+                            [deck]="deck"
+                            autoselect="true"
+                            (onclick)="onCardClick($event)"></card-slot>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="row-btns">
+                    <ion-col class="ion-justify-content-evenly ion-text-center">
+                        <ion-button [hidden]="btnHidden('blue')" [disabled]="btnDisable('blue')" color="blue" (click)="prev('blue')"><i class="material-icons">navigate_before</i></ion-button>
+                        <ion-button [hidden]="btnHidden('blue')" [disabled]="btnDisable('blue')" color="blue" (click)="next('blue')"><i class="material-icons">navigate_next</i></ion-button>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>                            
+        </ion-col>
+        <ion-col class="ion-justify-content-evenly">
+            <ion-grid class="grid-interno no-padding">
+                <ion-row class="row-slot">
+                    <ion-col class="ion-justify-content-evenly">
+                        <card-slot
+                            #slot_green
+                            (onInit)="registerSlot('green', slot_green)"
+                            color="green"
+                            [deck]="deck"
+                            autoselect="true"
+                            (onclick)="onCardClick($event)"></card-slot>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="row-btns">
+                    <ion-col class="ion-justify-content-evenly ion-text-center">
+                        <ion-button [hidden]="btnHidden('green')" [disabled]="btnDisable('green')" color="green" (click)="prev('green')"><i class="material-icons">navigate_before</i></ion-button>
+                        <ion-button [hidden]="btnHidden('green')" [disabled]="btnDisable('green')" color="green" (click)="next('green')"><i class="material-icons">navigate_next</i></ion-button>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>                            
+        </ion-col>
+        <ion-col class="ion-justify-content-evenly">
+            <ion-grid class="grid-interno no-padding">
+                <ion-row class="row-slot">
+                    <ion-col class="ion-justify-content-evenly">
+                        <card-slot
+                            #slot_yellow
+                            (onInit)="registerSlot('yellow', slot_yellow)"
+                            color="yellow"
+                            [deck]="deck"
+                            autoselect="true"
+                            (onclick)="onCardClick($event)"></card-slot>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="row-btns">
+                    <ion-col class="ion-justify-content-evenly ion-text-center">
+                        <ion-button [hidden]="btnHidden('yellow')" [disabled]="btnDisable('yellow')" color="yellow" (click)="prev('yellow')"><i class="material-icons">navigate_before</i></ion-button>
+                        <ion-button [hidden]="btnHidden('yellow')" [disabled]="btnDisable('yellow')" color="yellow" (click)="next('yellow')"><i class="material-icons">navigate_next</i></ion-button>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>                            
+        </ion-col>
+    </ion-row>
+</ion-grid>

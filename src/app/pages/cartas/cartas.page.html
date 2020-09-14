@@ -1,0 +1,52 @@
+<ion-header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <pivot-back-btn (click)="app.history.back();"></pivot-back-btn>
+    </nav>
+</ion-header> 
+
+<ion-content [fullscreen]="true">
+
+    <ion-grid class="flex-grow">
+
+        <ion-row class="flex-grow ion-align-items-center ion-justify-content-center ion-margin-top ion-margin-horizontal">
+
+            <ion-col class="ion-align-self-center ion-text-left">
+                
+                <ion-button color="primary" (click)="goHome()">Home</ion-button>
+
+            </ion-col>
+
+            <ion-col class="ion-align-self-center ion-text-right">
+                
+                <ion-button color="dark" (click)="filterColor('all')">Ver todas las cartas</ion-button>
+                &nbsp;
+                &nbsp;
+                <ion-button color="red" (click)="filterColor('red')">Qué?</ion-button>
+                <ion-button color="blue" (click)="filterColor('blue')">Quién?</ion-button>
+                <ion-button color="green" (click)="filterColor('green')">Cómo?</ion-button>
+                <ion-button color="yellow" (click)="filterColor('yellow')">Cuánto?</ion-button>
+
+                
+            </ion-col>
+        </ion-row>
+
+        <ion-row class="flex-grow ion-align-items-center ion-justify-content-center ion-margin-top">
+            <ion-col class="ion-align-self-center ion-text-center">
+                
+                <pivot-deck
+                    [cardWidth]="350"
+                    [deck]="availables"
+                    (onCardClick)="onCardClick($event)"
+                ></pivot-deck>
+
+
+            </ion-col>
+        </ion-row>
+
+        
+    </ion-grid>    
+
+
+
+
+</ion-content>

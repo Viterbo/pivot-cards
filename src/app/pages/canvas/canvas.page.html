@@ -1,297 +1,243 @@
 <ion-header>
-    <ion-toolbar>
-        <ion-title>
-            {{page}}
-        </ion-title>
-    </ion-toolbar>
-</ion-header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <pivot-back-btn (click)="app.history.back();"></pivot-back-btn>
+    </nav>
+</ion-header> 
 
 <ion-content [fullscreen]="true">
-    <ion-grid class="flex-grow">
-        <ion-row class="flex-grow ion-align-items-center ion-justify-content-center">
-            <ion-col class="ion-align-self-center ion-text-center">
-                
-                
+    <div class="container">
 
-                <ion-grid class="flex-grow">
+        <ion-grid class="flex-grow">
 
-                    <!-- Industria -->
-                    <ion-row class="">
-                        <ion-col></ion-col>
-                        <ion-col class="ion-text-center ion-padding">
-                            <ion-item>
-                                <ion-label position="floating">Tipo de industria</ion-label>
-                                <ion-input ngDefaultControl [(ngModel)]="deck.industria" (keyup)="onIndusstriaChange()"></ion-input>
-                            </ion-item>
-                        </ion-col>
-                        <ion-col></ion-col>
-                    </ion-row>
+            <ion-row class="ion-padding header">
+                <ion-col size="8">
+                    <h1>Canvas</h1>
+                    <ul>
+                        <li>Las <strong>cartas</strong> que se encuentren <strong>sobre el canvas</strong> definirán un nuevo modelo de negocio.</li>
+                        <li [hidden]="lockcanvas">Puedes hacer <strong>click sobre el las cartas</strong> para ponerlas o secarlas del canvas.</li>
+                        <li>Puedes hacer <strong>click sobre el texto del pitch</strong>, si quieres modificarlo.</li>
+                    </ul>
+                </ion-col>
+                <ion-col size="4" class="d-flex flex-column  ion-justify-content-end">
+                    <ion-item>
+                        <ion-label position="floating">Producto o Servicio</ion-label>
+                        <ion-input ngDefaultControl [(ngModel)]="deck.industria" (keyup)="onIndusstriaChange()"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <mat-slide-toggle
+                        color="primary"
+                        [checked]="useDescription"
+                        (change)="useDescription = $event.checked; "
+                        [disabled]="disabled">
+                                descripción
+                    </mat-slide-toggle>
+                    </ion-item>                    
+                </ion-col>
+            </ion-row>            
+
+            <!-- Industria 
+            <ion-row class="">
+                <ion-col size="3">
+                    <ion-item>
+                        <ion-label position="floating">Producto o Servicio</ion-label>
+                        <ion-input ngDefaultControl [(ngModel)]="deck.industria" (keyup)="onIndusstriaChange()"></ion-input>
+                    </ion-item>                    
+                </ion-col>
+                <ion-col size="6" class="ion-text-left ion-padding">
+                    <editable-text [text]="pitch" (onedit)="onEditPitch($event)"></editable-text>
+                </ion-col>
+                <ion-col size="3" class="d-flex ion-align-items-end ion-justify-content-end">
+                    <mat-slide-toggle
+                        class="example-margin"
+                        [color]="color"
+                        [checked]="useDescription"
+                        (change)="useDescription = $event.checked; "
+                        [disabled]="disabled">
+                                descripción
+                    </mat-slide-toggle>                    
+                </ion-col>
+            </ion-row>
+            -->
+            
+            <!-- Cartas de cada color: con sus respectivos colores -->
+            <ion-row class="">
+                <ion-col>
+                    <pivot-four-slots
+                        [deck]="deck.subset"
+                        (oncard)="agregar($event)"
+                        (oninit)="onSlotsReady($event)"
+                    ></pivot-four-slots>
+                </ion-col>
+            </ion-row>
+
+            <ion-row class="no-padding">
+                <ion-col size="2"></ion-col>
+                <ion-col size="8" class="ion-text-left ion-padding">
+                    <editable-text
+                        matTooltip="click para editar el texto"
+                        matTooltipPosition="above"
+                        [text]="pitch" (onedit)="onEditPitch($event)"></editable-text>
+                </ion-col>
+                <ion-col size="2"></ion-col>
+            </ion-row>
+        
+            <!-- Canvas -->
+            <ion-row class="ion-margin-top no-padding">
+                <ion-col class="ion-text-center">
                     
-
-                    <!-- Cartas de cada color: con sus respectivos colores -->
-                    <ion-row class="">
-                        <ion-col class="ion-justify-content-evenly">
-                            <ion-grid class="grid-interno">
-                                <ion-row class="">
-                                    <ion-col class="ion-justify-content-evenly">
-                                        <card-slot
-                                            #slot_red
-                                            (onInit)="registerSlot('red', slot_red)"
-                                            color="red"
-                                            [deck]="deck.subset"
-                                            autoselect="true"
-                                            (onclick)="agregar($event)"></card-slot>
-                                    </ion-col>
-                                </ion-row>
-                                <ion-row class="">
-                                    <ion-col class="ion-justify-content-evenly">
-                                        <ion-button [hidden]="btnHidden('red')" [disabled]="btnDisable('red')" color="red" (click)="prev('red')">&lt;</ion-button>
-                                        <ion-button [hidden]="btnHidden('red')" [disabled]="btnDisable('red')" color="red" (click)="next('red')">&gt;</ion-button>
-                                    </ion-col>
-                                </ion-row>
-                            </ion-grid>                            
-                        </ion-col>
-                        <ion-col class="ion-justify-content-evenly">
-                            <ion-grid class="grid-interno">
-                                <ion-row class="">
-                                    <ion-col class="ion-justify-content-evenly">
-                                        <card-slot
-                                            #slot_blue
-                                            (onInit)="registerSlot('blue', slot_blue)"
-                                            color="blue"
-                                            [deck]="deck.subset"
-                                            autoselect="true"
-                                            (onclick)="agregar($event)"></card-slot>
-                                    </ion-col>
-                                </ion-row>
-                                <ion-row class="">
-                                    <ion-col class="ion-justify-content-evenly">
-                                        <ion-button [hidden]="btnHidden('blue')" [disabled]="btnDisable('blue')" color="blue" (click)="prev('blue')">&lt;</ion-button>
-                                        <ion-button [hidden]="btnHidden('blue')" [disabled]="btnDisable('blue')" color="blue" (click)="next('blue')">&gt;</ion-button>
-                                    </ion-col>
-                                </ion-row>
-                            </ion-grid>                            
-                        </ion-col>
-                        <ion-col class="ion-justify-content-evenly">
-                            <ion-grid class="grid-interno">
-                                <ion-row class="">
-                                    <ion-col class="ion-justify-content-evenly">
-                                        <card-slot
-                                            #slot_green
-                                            (onInit)="registerSlot('green', slot_green)"
-                                            color="green"
-                                            [deck]="deck.subset"
-                                            autoselect="true"
-                                            (onclick)="agregar($event)"></card-slot>
-                                    </ion-col>
-                                </ion-row>
-                                <ion-row class="">
-                                    <ion-col class="ion-justify-content-evenly">
-                                        <ion-button [hidden]="btnHidden('green')" [disabled]="btnDisable('green')" color="green" (click)="prev('green')">&lt;</ion-button>
-                                        <ion-button [hidden]="btnHidden('green')" [disabled]="btnDisable('green')" color="green" (click)="next('green')">&gt;</ion-button>
-                                    </ion-col>
-                                </ion-row>
-                            </ion-grid>                            
-                        </ion-col>
-                        <ion-col class="ion-justify-content-evenly">
-                            <ion-grid class="grid-interno">
-                                <ion-row class="">
-                                    <ion-col class="ion-justify-content-evenly">
-                                        <card-slot
-                                            #slot_yellow
-                                            (onInit)="registerSlot('yellow', slot_yellow)"
-                                            color="yellow"
-                                            [deck]="deck.subset"
-                                            autoselect="true"
-                                            (onclick)="agregar($event)"></card-slot>
-                                    </ion-col>
-                                </ion-row>
-                                <ion-row class="">
-                                    <ion-col class="ion-justify-content-evenly">
-                                        <ion-button [hidden]="btnHidden('yellow')" [disabled]="btnDisable('yellow')" color="yellow" (click)="prev('yellow')">&lt;</ion-button>
-                                        <ion-button [hidden]="btnHidden('yellow')" [disabled]="btnDisable('yellow')" color="yellow" (click)="next('yellow')">&gt;</ion-button>
-                                    </ion-col>
-                                </ion-row>
-                            </ion-grid>                            
-                        </ion-col>
-                        
-                        
-                    </ion-row>
-
-                    <!-- Cartas de cada color -->
-                    <!--
-                    <ion-row class="">
-                        <ion-col class="ion-justify-content-evenly">
-                            <card-slot
-                                #slot_red
-                                (onInit)="registerSlot('red', slot_red)"
-                                color="red"
-                                [deck]="deck.subset"
-                                autoselect="true"
-                                (onclick)="agregar($event)"></card-slot>
-                        </ion-col>
-                        <ion-col class="ion-justify-content-evenly">
-                            <card-slot
-                                #slot_blue
-                                (onInit)="registerSlot('blue', slot_blue)"
-                                color="blue"
-                                [deck]="deck.subset"
-                                autoselect="true"
-                                (onclick)="agregar($event)"></card-slot>
-                        </ion-col>
-                        <ion-col class="ion-justify-content-evenly">
-                            <card-slot
-                                #slot_green
-                                (onInit)="registerSlot('green', slot_green)"
-                                color="green"
-                                [deck]="deck.subset"
-                                autoselect="true"
-                                (onclick)="agregar($event)"></card-slot>
-                        </ion-col>
-                        <ion-col class="ion-justify-content-evenly">
-                            <card-slot
-                                #slot_yellow
-                                (onInit)="registerSlot('yellow', slot_yellow)"
-                                color="yellow"
-                                [deck]="deck.subset"
-                                autoselect="true"
-                                (onclick)="agregar($event)"></card-slot>
-                        </ion-col>
-                        
-                    </ion-row>
-                    -->                
-                    <!-- Botones de rotar cartas -->
-                    <!--
-                    <ion-row class="">
-                        <ion-col class="ion-justify-content-evenly">
-                            <ion-button [hidden]="btnHidden('red')" [disabled]="btnDisable('red')" color="red" (click)="prev('red')">&lt;</ion-button>
-                            <ion-button [hidden]="btnHidden('red')" [disabled]="btnDisable('red')" color="red" (click)="next('red')">&gt;</ion-button>
-                        </ion-col>
-                        <ion-col class="ion-justify-content-evenly">
-                            <ion-button [hidden]="btnHidden('blue')" [disabled]="btnDisable('blue')" color="blue" (click)="prev('blue')">&lt;</ion-button>
-                            <ion-button [hidden]="btnHidden('blue')" [disabled]="btnDisable('blue')" color="blue" (click)="next('blue')">&gt;</ion-button>
-                        </ion-col>
-                        <ion-col class="ion-justify-content-evenly">
-                            <ion-button [hidden]="btnHidden('green')" [disabled]="btnDisable('green')" color="green" (click)="prev('green')">&lt;</ion-button>
-                            <ion-button [hidden]="btnHidden('green')" [disabled]="btnDisable('green')" color="green" (click)="next('green')">&gt;</ion-button>
-                        </ion-col>
-                        <ion-col class="ion-justify-content-evenly">
-                            <ion-button [hidden]="btnHidden('yellow')" [disabled]="btnDisable('yellow')" color="yellow" (click)="prev('yellow')">&lt;</ion-button>
-                            <ion-button [hidden]="btnHidden('yellow')" [disabled]="btnDisable('yellow')" color="yellow" (click)="next('yellow')">&gt;</ion-button>
-                        </ion-col>
-                    </ion-row>
-                    -->
-                
-                    <!-- Canvas -->
-                    <ion-row class="">
-                        <ion-col class="ion-text-center">
-                            
-                            <ion-grid class="no-padding grid-border">
-                                <ion-row>
-                                    <ion-col color="red" class="cuadrante ion-text-center ion-padding">
-                                        <pivot-card
-                                            class="not-expand"
-                                            [description]="false"
-                                            *ngIf="deck.canvas.red.length > 0"
-                                            [card]="deck.canvas.red[0]"
-                                            (onclick)="descartar($event)"
-                                        ></pivot-card>
-                                        <pivot-card
-                                            class="not-expand"
-                                            [description]="false"
-                                            *ngIf="deck.canvas.red.length > 1"
-                                            [card]="deck.canvas.red[1]"
-                                            (onclick)="descartar($event)"
-                                        ></pivot-card>
-                                    </ion-col>
-                                    <ion-col color="blue" class="cuadrante ion-text-center ion-padding">
-                                        <pivot-card
-                                            class="not-expand"
-                                            [description]="false"
-                                            *ngIf="deck.canvas.blue.length > 0"
-                                            [card]="deck.canvas.blue[0]"
-                                            (onclick)="descartar($event)"
-                                        ></pivot-card>
-                                        <pivot-card
-                                            class="not-expand"
-                                            [description]="false"
-                                            *ngIf="deck.canvas.blue.length > 1"
-                                            [card]="deck.canvas.blue[1]"
-                                            (onclick)="descartar($event)"
-                                        ></pivot-card>
-                                    </ion-col>
-                                </ion-row>
-                                <ion-row>
-                                    <ion-col color="green" class="cuadrante ion-text-center ion-padding">
-                                        <pivot-card
-                                            class="not-expand"
-                                            [description]="false"
-                                            *ngIf="deck.canvas.green.length > 0"
-                                            [card]="deck.canvas.green[0]"
-                                            (onclick)="descartar($event)"
-                                        ></pivot-card>
-                                        <pivot-card
-                                            class="not-expand"
-                                            [description]="false"
-                                            *ngIf="deck.canvas.green.length > 1"
-                                            [card]="deck.canvas.green[1]"
-                                            (onclick)="descartar($event)"
-                                        ></pivot-card>
-                                    </ion-col>
-                                    <ion-col color="yellow" class="cuadrante ion-text-center ion-padding">
-                                        <pivot-card
-                                            class="not-expand"
-                                            [description]="false"
-                                            *ngIf="deck.canvas.yellow.length > 0"
-                                            [card]="deck.canvas.yellow[0]"
-                                            (onclick)="descartar($event)"
-                                        ></pivot-card>
-                                        <pivot-card
-                                            class="not-expand"
-                                            [description]="false"
-                                            *ngIf="deck.canvas.yellow.length > 1"
-                                            [card]="deck.canvas.yellow[1]"
-                                            (onclick)="descartar($event)"
-                                        ></pivot-card>
-                                    </ion-col>
-                                </ion-row>
-                            </ion-grid>
+                    <ion-grid class="grid-border">
+                        <ion-row>
+                            <ion-col color="red" class="cuadrante ion-text-center ion-padding">
+                                <pivot-card
+                                    class="cards-ghost-1 not-expand"
+                                    [description]="useDescription"
+                                    *ngIf="deck.canvas.red.length == 1"
+                                    [card]="deck.canvas.red[0]"
+                                ></pivot-card>
+                                <pivot-card
+                                    class="cards-ghost-2 not-expand"
+                                    [description]="useDescription"
+                                    *ngIf="deck.canvas.red.length == 2"
+                                    [card]="deck.canvas.red[1]"
+                                ></pivot-card>                                
+                                <pivot-card
+                                    class="cards-slot-1 not-expand"
+                                    [description]="useDescription"
+                                    *ngIf="deck.canvas.red.length > 0"
+                                    [card]="deck.canvas.red[0]"
+                                    (onclick)="descartar($event)"
+                                ></pivot-card>
+                                <pivot-card
+                                    class="cards-slot-2 not-expand"
+                                    [description]="useDescription"
+                                    *ngIf="deck.canvas.red.length > 1"
+                                    [card]="deck.canvas.red[1]"
+                                    (onclick)="descartar($event)"
+                                ></pivot-card>                                
+                            </ion-col>
+                            <ion-col color="blue" class="cuadrante ion-text-center ion-padding">
+                                <pivot-card
+                                    class="cards-ghost-1 not-expand"
+                                    [description]="useDescription"
+                                    *ngIf="deck.canvas.blue.length == 1"
+                                    [card]="deck.canvas.blue[0]"
+                                ></pivot-card>
+                                <pivot-card
+                                    class="cards-ghost-2 not-expand"
+                                    [description]="useDescription"
+                                    *ngIf="deck.canvas.blue.length == 2"
+                                    [card]="deck.canvas.blue[1]"
+                                ></pivot-card>                                  
+                                <pivot-card
+                                    class="cards-slot-1 not-expand"
+                                    [description]="useDescription"
+                                    *ngIf="deck.canvas.blue.length > 0"
+                                    [card]="deck.canvas.blue[0]"
+                                    (onclick)="descartar($event)"
+                                ></pivot-card>
+                                <pivot-card
+                                    class="cards-slot-2 not-expand"
+                                    [description]="useDescription"
+                                    *ngIf="deck.canvas.blue.length > 1"
+                                    [card]="deck.canvas.blue[1]"
+                                    (onclick)="descartar($event)"
+                                ></pivot-card>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col color="green" class="cuadrante ion-text-center ion-padding">
+                                <pivot-card
+                                    class="cards-ghost-1 not-expand"
+                                    [description]="useDescription"
+                                    *ngIf="deck.canvas.green.length == 1"
+                                    [card]="deck.canvas.green[0]"
+                                ></pivot-card>
+                                <pivot-card
+                                    class="cards-ghost-2 not-expand"
+                                    [description]="useDescription"
+                                    *ngIf="deck.canvas.green.length == 2"
+                                    [card]="deck.canvas.green[1]"
+                                ></pivot-card>                                  
+                                <pivot-card
+                                    class="cards-slot-1 not-expand"
+                                    [description]="useDescription"
+                                    *ngIf="deck.canvas.green.length > 0"
+                                    [card]="deck.canvas.green[0]"
+                                    (onclick)="descartar($event)"
+                                ></pivot-card>
+                                <pivot-card
+                                    class="cards-slot-2 not-expand"
+                                    [description]="useDescription"
+                                    *ngIf="deck.canvas.green.length > 1"
+                                    [card]="deck.canvas.green[1]"
+                                    (onclick)="descartar($event)"
+                                ></pivot-card>
+                            </ion-col>
+                            <ion-col color="yellow" class="cuadrante ion-text-center ion-padding">
+                                <pivot-card
+                                    class="cards-ghost-1 not-expand"
+                                    [description]="useDescription"
+                                    *ngIf="deck.canvas.yellow.length == 1"
+                                    [card]="deck.canvas.yellow[0]"
+                                ></pivot-card>
+                                <pivot-card
+                                    class="cards-ghost-2 not-expand"
+                                    [description]="useDescription"
+                                    *ngIf="deck.canvas.yellow.length == 2"
+                                    [card]="deck.canvas.yellow[1]"
+                                ></pivot-card>                                  
+                                <pivot-card
+                                    class="cards-slot-1 not-expand"
+                                    [description]="useDescription"
+                                    *ngIf="deck.canvas.yellow.length > 0"
+                                    [card]="deck.canvas.yellow[0]"
+                                    (onclick)="descartar($event)"
+                                ></pivot-card>
+                                <pivot-card
+                                    class="cards-slot-2 not-expand"
+                                    [description]="useDescription"
+                                    *ngIf="deck.canvas.yellow.length > 1"
+                                    [card]="deck.canvas.yellow[1]"
+                                    (onclick)="descartar($event)"
+                                ></pivot-card>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
 
 
 
 
 
-                        </ion-col>
-                    </ion-row>
+                </ion-col>
+            </ion-row>
 
 
-                    <!-- Pitch -->
-                    <ion-row class="ion-padding">
-                        <ion-col  size="6" offset="3" class="ion-text-center">
-                            {{pitch}}
-                        </ion-col>
-                    </ion-row>
+            <!-- Pitch 
+            <ion-row class="ion-padding">
+                <ion-col  size="6" offset="3" class="ion-text-center">
+                    {{pitch}}
+                </ion-col>
+            </ion-row>
+            -->
+
+            <!-- Botones del footer 
+            <ion-row class="flex-grow ion-align-items-center ion-justify-content-center">
+                <ion-col class="ion-align-self-center ion-text-center">
+                    <ion-button color="primary" (click)="back()">Volver</ion-button>
+                </ion-col>
+                <ion-col class="ion-align-self-center ion-text-center">
+                    <ion-button color="primary" (click)="print()">Print</ion-button>
+                </ion-col>
+                <ion-col class="ion-align-self-center ion-text-center">
+                    <ion-button color="primary" (click)="goHome()">Home</ion-button>
+                </ion-col>
+            </ion-row>
+            -->
+            
+        </ion-grid>
 
 
-                    <!-- Botones del footer -->
-                    <ion-row class="flex-grow ion-align-items-center ion-justify-content-center">
-                        <ion-col class="ion-align-self-center ion-text-center">
-                            <ion-button color="primary" (click)="back()">Volver</ion-button>
-                        </ion-col>
-                        <ion-col class="ion-align-self-center ion-text-center">
-                            <ion-button color="primary" (click)="print()">Print</ion-button>
-                        </ion-col>
-                        <ion-col class="ion-align-self-center ion-text-center">
-                            <ion-button color="primary" (click)="goHome()">Home</ion-button>
-                        </ion-col>
-                    </ion-row>
 
-                </ion-grid>
-
-
-
-            </ion-col>
-        </ion-row>        
-    </ion-grid>
+    </div>
 
 </ion-content>

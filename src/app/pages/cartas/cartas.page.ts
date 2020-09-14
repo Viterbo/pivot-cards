@@ -2,17 +2,14 @@ import { Component, HostBinding } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscriber } from 'rxjs';
 import { DeckService, Deck, Card } from 'src/app/services/deck.service';
-import { CardSlotComponent } from 'src/app/components/card-slot/card-slot.component';
-import { PivotFourSlotsComponent } from 'src/app/components/pivot-four-slots/pivot-four-slots.component';
-import { ColorCardListComponent } from 'src/app/components/color-card-list/color-card-list.component';
 import { AppService } from 'src/app/services/common/app.service';
 
 @Component({
-    selector: 'selection-page',
-    templateUrl: 'selection.page.html',
-    styleUrls: ['selection.page.scss'],
+    selector: 'cartas-page',
+    templateUrl: 'cartas.page.html',
+    styleUrls: ['cartas.page.scss'],
 })
-export class SelectionPage {
+export class CartasPage {
 
     page: string = "selection";
     filter_color: string;
@@ -25,35 +22,65 @@ export class SelectionPage {
         public deck: DeckService,
         public app: AppService
     ) {
-        // this.availables_filtered = [];
-        // this.selection_filtered = [];
-        // this.filterColor('all');
-        this.clearCount();
-        this.updateCounter();
+        this.availables_filtered = [];
+        this.selection_filtered = [];
+        this.filterColor('all');
     }
 
     //*/
-    /*
     get availables(): Deck {
         return this.availables_filtered;
     }
 
     get selection(): Deck {
         return this.selection_filtered;
-    }*/
+    }
+    /*/
+    get availables(): Deck {
+        if (this.filter_color != 'all') {
+            if (this.availables_filtered) {
+                return this.availables_filtered;
+            } else {
+                setTimeout(_ => {
+                    this.availables_filtered = this.deck.filterColor(this.filter_color, this.deck.availables);
+                });
+                return this.selection_filtered;
+            }
+        } 
+        return this.deck.availables;
+    }
+
+    get selection(): Deck {
+        if (this.filter_color != 'all') {
+            if (this.selection_filtered) {
+                return this.selection_filtered;
+            } else {
+                setTimeout(_ => {
+                    this.selection_filtered = this.deck.filterColor(this.filter_color, this.deck.selection);
+                });
+                return this.selection_filtered;
+            }
+        } 
+        return this.deck.selection;
+    }
+    //*/
 
     get showGoToCanvas() {
         return this.deck.isSelectionOK();
     }
-    /*
+
     ionViewWillEnter() {
         this.filterColor('all');
-    }    
+    }
 
     onFinish() {
-        console.debug("SelectionPage.onFinish()",[]);
+        console.debug("CartasPage.onFinish()",[]);
     }
-    
+
+    _click(e) {
+        console.debug("_click", [e]);
+    }
+
     filterColor(color) {
         // console.debug("PivotDeckComponent.filterColor()", color);
         this.filter_color = color;
@@ -62,7 +89,7 @@ export class SelectionPage {
         this.updateFiltered(this.availables_filtered, this.deck.availables);
         this.updateFiltered(this.selection_filtered, this.deck.selection);
     }
-    
+
     ordenarSeleccion() {
         this.deck.sortDeck(this.deck.selection);
         // this.selection_filtered = this.deck.filterColor(this.filter_color, this.deck.selection);
@@ -73,7 +100,6 @@ export class SelectionPage {
         this.deck.sortDeck(this.deck.availables);
         this.updateFiltered(this.availables_filtered, this.deck.availables);
     }
-    
 
     updateFiltered(filtered:Deck, deck:Deck) {
         filtered.splice(0,filtered.length);
@@ -85,7 +111,6 @@ export class SelectionPage {
         }
         return filtered;
     }
-    */
 
     debug: boolean;
     onCardClick(card:Card) {
@@ -98,23 +123,14 @@ export class SelectionPage {
             }
             this.debug = true;
 
-            
-            // this.updateFiltered(this.availables_filtered, this.deck.availables);
-            // this.updateFiltered(this.selection_filtered, this.deck.selection);
+            // acá está el problema --------------
+            this.updateFiltered(this.availables_filtered, this.deck.availables);
+            this.updateFiltered(this.selection_filtered, this.deck.selection);
+            // this.availables_filtered = this.deck.filterColor(this.filter_color, this.deck.availables);
+            // this.selection_filtered = this.deck.filterColor(this.filter_color, this.deck.selection);
+            // ------------------------------------
 
 
-            // this.updateSelected();
-            if (this.slots) {
-                this.slots.update();
-            }
-
-            for (let name in {red:!!0,blue:!!0,green:!!0,yellow:!!0}) {
-                if (this.list[name]) {
-                    this.list[name].update();
-                }                
-            }
-            
-            this.updateCounter();
 
             this.debug = false;    
         });
@@ -128,33 +144,11 @@ export class SelectionPage {
         this.router.navigate(['/home']); 
     }
 
-    slots: PivotFourSlotsComponent;
-    onSlotsReady(slots: PivotFourSlotsComponent) {
-        this.slots = slots;
+    shift() {
+        this.deck.shift(this.availables);
     }
 
-    list: {[name:string]:ColorCardListComponent} = {};
-    onListReady(name:string, list: ColorCardListComponent) {
-        this.list[name] = list;
+    unshift() {
+        this.deck.unshift(this.availables);
     }
-
-    count: {[key:string]:number};
-    private clearCount() {
-        this.count = {
-            red: 0,
-            blue: 0,
-            green: 0,
-            yellow: 0,
-        };
-    }
-
-    private async updateCounter() {
-        await this.deck.waitLoaded;
-        this.clearCount();
-        this.count.red = this.deck.filterColor('red', this.deck.selection).length;
-        this.count.blue = this.deck.filterColor('blue', this.deck.selection).length;
-        this.count.green = this.deck.filterColor('green', this.deck.selection).length;
-        this.count.yellow = this.deck.filterColor('yellow', this.deck.selection).length;
-    }
-
 }

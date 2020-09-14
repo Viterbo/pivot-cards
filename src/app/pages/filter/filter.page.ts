@@ -2,6 +2,7 @@ import { Component, HostBinding } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscriber } from 'rxjs';
 import { DeckService } from 'src/app/services/deck.service';
+import { AppService } from 'src/app/services/common/app.service';
 
 @Component({
     selector: 'filter-page',
@@ -17,6 +18,8 @@ export class FilterPage {
     constructor(
         public router: Router,
         public deck: DeckService,
+        public app: AppService
+
     ) {
         this.toilet_card_fade = "";
         // this.onToiletSelectedSubscriber = new Subscriber<any>(this.onToiletSelected.bind(this));

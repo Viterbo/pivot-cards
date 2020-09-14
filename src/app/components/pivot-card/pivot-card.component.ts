@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, forwardRef, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, Output, forwardRef, OnChanges, HostBinding } from '@angular/core';
 import { Subject } from 'rxjs';
 import { DeckService, Card } from 'src/app/services/deck.service';
 import { VpeAbstractComponent } from '../vpe-components.service';
@@ -17,7 +17,8 @@ export class PivotCardComponent extends VpeAbstractComponent implements OnInit, 
     @Input() card: Card;
     @Input() description: boolean;
     @Output() public onclick:Subject<Card> = new Subject();
-    show_desc: boolean;
+    //show_desc: boolean;
+    @HostBinding('class.full-card') show_desc: boolean = false;
     
     constructor(
         public service: DeckService
@@ -42,6 +43,9 @@ export class PivotCardComponent extends VpeAbstractComponent implements OnInit, 
     ngOnChanges() {
         if (this.description == false) {
             this.show_desc = false;
+        }
+        if (this.description == true) {
+            this.show_desc = true;
         }
     }
 

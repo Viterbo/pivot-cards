@@ -14,6 +14,36 @@
 
 
 //------------------------------
+.page-header {
+    padding: 40px;
+    h1 {
+        line-height: 1em;
+        // font-family: "HelveticaW01-Roman", sans-serif;
+        font-size:50px;
+        font-weight:700;
+        color: rgb(50, 46, 45);
+    }
+    h2 {
+        font-size: 30px;
+        // font-family: "HelveticaW01-Roman", sans-serif;
+        color: rgb(50, 46, 45);
+    }
+    .col-left {
+        padding-right: 20px;
+    }
+    .col-right {
+        padding-left: 20px;
+        display: flex;
+        flex-direction: column;
+        h2 {
+            flex-grow: 1;
+        }
+        p {
+            margin: 0px;
+        }
+    }
+}
+//------------------------------
 
 .example-section {
     margin: 12px 0;

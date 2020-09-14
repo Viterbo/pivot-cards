@@ -264,26 +264,30 @@ export class DeckService {
         let part_4 = "que monetice por";
 
         // Mi proyecto consiste en un negocio de <NEGOCIO> <QUE.texto_previo> <QUE.nombre> ofrecida <QUIEN.texto_previo> <QUIEN.nombre> mediante <COMO.texto_previo> <COMO.nombre> que monetice por <CUANTO.texto_previo> <CUANTO.nombre>
-
-        pitch = part_1 + " " + this.industria + " ";
+        let falta = " _______ ";
+        pitch = part_1 + " " + (this.industria ? this.industria : falta) + " ";
+        if (this.canvas.red.length == 0) pitch += falta;
         for (let i=0; i<this.canvas.red.length; i++) {
             if (i>0) pitch += " y ";
             pitch += this.canvas.red[i].prev + " " + this.canvas.red[i].name;
         }
 
         pitch += " " + part_2 + " ";
+        if (this.canvas.blue.length == 0) pitch += falta;
         for (let i=0; i<this.canvas.blue.length; i++) {
             if (i>0) pitch += " y ";
             pitch += this.canvas.blue[i].prev + " " + this.canvas.blue[i].name;
         }
 
         pitch += " " + part_3 + " ";
+        if (this.canvas.green.length == 0) pitch += falta;
         for (let i=0; i<this.canvas.green.length; i++) {
             if (i>0) pitch += " y ";
             pitch += this.canvas.green[i].prev + " " + this.canvas.green[i].name;
         }
 
         pitch += " " + part_4 + " ";
+        if (this.canvas.yellow.length == 0) pitch += falta;
         for (let i=0; i<this.canvas.yellow.length; i++) {
             if (i>0) pitch += " y ";
             pitch += this.canvas.yellow[i].prev + " " + this.canvas.yellow[i].name;

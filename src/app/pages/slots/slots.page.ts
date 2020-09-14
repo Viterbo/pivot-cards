@@ -82,7 +82,7 @@ export class SlotsPage {
     toCanvas() {
         this.router.navigate(['/canvas'], {
             queryParams: {
-                keepcanvas:true
+                lockcanvas:true
             }
         }); 
     }

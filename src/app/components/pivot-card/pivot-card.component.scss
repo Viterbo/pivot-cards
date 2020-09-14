@@ -5,6 +5,9 @@
         height: 100%;
         width: 100%;    
     }
+    &:not(.full-card) {
+        width: 300px;
+    }
 }
 
 ion-card.main-card {

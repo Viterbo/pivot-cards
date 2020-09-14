@@ -1,10 +1,8 @@
 <ion-header>
-    <ion-toolbar>
-        <ion-title>
-            {{page}}
-        </ion-title>
-    </ion-toolbar>
-</ion-header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <pivot-back-btn (click)="app.history.back();"></pivot-back-btn>
+    </nav>
+</ion-header> 
 
 <ion-content [fullscreen]="true">
     <ion-grid>

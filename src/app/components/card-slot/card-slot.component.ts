@@ -45,12 +45,44 @@ export class CardSlotComponent extends VpeAbstractComponent implements OnInit, O
         this.filterColor();
     }
 
+    private findCurrentIndex(card: Card, deck: Deck) {
+        var numbers = deck.map(a => a.card);
+        var index = numbers.indexOf(card.card);
+        return index;
+    }
+
+    private findBestNextIndex(card: Card, deck: Deck, lastindex: number) {
+        // console.debug("CardSlotComponent["+this.color+"].findBestNextIndex():", lastindex);
+        var index = 0;
+        if (lastindex >= 0) {
+            var numbers = deck.map(a => a.card);
+            var current = numbers.indexOf(card.card);
+            if (current == -1) {
+                if (lastindex < deck.length) {
+                    index = lastindex;
+                }
+            } else {
+                index = current;
+            }            
+        }
+
+        // console.debug("CardSlotComponent["+this.color+"].findBestNextIndex() ->", index);
+        return index;
+    }
+
     private filterColor() {
         setTimeout(async _ => {
             await this.service.waitLoaded;
+            let index = 0;
+            if (this.filtered) {
+                index = this.findCurrentIndex(this.card, this.filtered);
+            }
             this.filtered = this.service.filterColor(this.color, this.deck || this.service.deck);
+            let next = this.findBestNextIndex(this.card, this.filtered, index);
+
+            this.clearCard();
             if (this.filtered && this.filtered.length > 0 && this.autoselect) {
-                this.card = this.filtered[0];
+                this.card = this.filtered[next];
             }
         }, 0);
     }
@@ -60,8 +92,7 @@ export class CardSlotComponent extends VpeAbstractComponent implements OnInit, O
         this.filterColor();
     }
 
-    ngOnChanges() {
-        this.filterColor();
+    clearCard() {
         this.card = {
             card: "",
             color: this.color,
@@ -69,7 +100,12 @@ export class CardSlotComponent extends VpeAbstractComponent implements OnInit, O
             desc: "",
             name: "",
             prev: ""
-        }
+        }        
+    }
+
+    ngOnChanges() {
+        this.filterColor();
+        this.clearCard();
     }
 
     onResize(e: ResizeEvent) {
