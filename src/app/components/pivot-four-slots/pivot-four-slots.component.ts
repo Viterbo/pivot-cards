@@ -20,6 +20,7 @@ interface ToiletFeature {
 export class PivotFourSlotsComponent implements OnInit, OnChanges {
 
     @Input() deck: Deck;
+    @Input() description: boolean = true;
     @Output() public oncard:Subject<Card> = new Subject();
     @Output() public oninit:Subject<PivotFourSlotsComponent> = new Subject();
     count: {[key:string]:number};

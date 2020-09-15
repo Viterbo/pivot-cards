@@ -28,6 +28,9 @@ import { MatRippleModule } from '@angular/material/core';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSelectModule } from '@angular/material/select';
+// https://stackoverflow.com/a/53406105/2274525
+import { ReactiveFormsModule } from '@angular/forms';
 // Angular-Material ----------------------------------
 
 
@@ -52,7 +55,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
         MatRippleModule,
         MatBadgeModule,
         MatSlideToggleModule,
-        MatTooltipModule            
+        MatTooltipModule,
+        MatSelectModule,
+        // 
+        ReactiveFormsModule
         // Angular-Material ----------------------------------
     ],
     declarations: [

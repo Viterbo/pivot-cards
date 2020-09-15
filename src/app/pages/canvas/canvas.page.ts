@@ -15,10 +15,11 @@ export class CanvasPage implements OnInit, OnDestroy, AfterViewInit, AfterViewCh
 
     page: string = "canvas";
     // slots: {[name:string]:CardSlotComponent};
-    pitch: string;
+    
     initialized: boolean;
     lockcanvas: boolean;
-    useDescription: boolean;
+    useCanvasExtended: boolean;
+    useCardsExtended: boolean;
 
     // selected: {[key:string]:number};
     
@@ -29,8 +30,8 @@ export class CanvasPage implements OnInit, OnDestroy, AfterViewInit, AfterViewCh
         public app: AppService
     ) {
         this.lockcanvas = false;
-        this.pitch = "";
-        this.useDescription = true;
+        this.useCanvasExtended = true;
+        this.useCardsExtended = true;
         // this.slots = {};
         /*
         this.selected = {
@@ -52,9 +53,12 @@ export class CanvasPage implements OnInit, OnDestroy, AfterViewInit, AfterViewCh
     }
     */
 
+    get showPrintBtn() {
+        return this.deck.isCanvasOK();
+    }
 
     onEditPitch(pitch: string) {
-        this.pitch = pitch;
+        this.deck.setPitch(pitch);
     }
 
     private init() {
@@ -66,10 +70,10 @@ export class CanvasPage implements OnInit, OnDestroy, AfterViewInit, AfterViewCh
             if (params && params.lockcanvas) {
                 this.lockcanvas = true;
             } else {
+                this.deck.getPitch();
                 this.deck.resetCanvas();
                 this.deck.sortDeck(this.deck.subset);
             }
-            this.updatePitch();
         });
     }
 
@@ -97,28 +101,26 @@ export class CanvasPage implements OnInit, OnDestroy, AfterViewInit, AfterViewCh
     }
 
     agregar(card:Card) {
-        console.log("CanvasPage.agregar", card);
+        // console.log("CanvasPage.agregar", card);
         this.deck.addToCanvas(card);
         this.slots.update();
-        this.updatePitch();
+        this.deck.getPitch();
     }
 
     descartar(card:Card) {
         if (this.lockcanvas) {
             return;
         }
-        console.log("CanvasPage.descartar", card);
+        // console.log("CanvasPage.descartar", card);
         this.deck.removeFromCanvas(card);
         this.slots.update();
-        this.updatePitch();
+        this.deck.getPitch();
     }
     
-    updatePitch() {
-        this.pitch = this.deck.getPitch();
-    }
+    
 
-    onIndusstriaChange() {
-        this.updatePitch();
+    onIndustriaChange() {
+        this.deck.getPitch();
     }
 
     slots: PivotFourSlotsComponent;

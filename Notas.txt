@@ -20,17 +20,28 @@
   + las seleccionadas deben mostrarse como columnas estáticas que vana  generar que la página deba scrollearse.
   - restringir a un máximo de 6 cartas por color
   + se eliminarían los 5 botones para filtrar por color
-  - "hacé click en las cartas que querés preseleccionar" // arriba, cerca de los slots
-  - "si no te convence la tarjeta seleccionada, hacé click para quitarla de la preselección" // abajo, cerca de las columnas
+ (+)"hacé click en las cartas que querés preseleccionar" // arriba, cerca de los slots
+ (+)"si no te convence la tarjeta seleccionada, hacé click para quitarla de la preselección" // abajo, cerca de las columnas
+
+- Dinámica 2:
+  - diseño
+    - Título: texto explicativo
+    - formulario
+    - mismo pié que para la dinámica 1 (un header con los números y abajo 4 columnas con las cartas)
+  - metadata de los resultados
+  - incluir funciones que resuelvan elfiltrado en el deck.service
+  - hacer funcionar el formulario con sus filtros
 
 - Dinámica 3
   - animar los slots tipo tragamonedas.
-  - Falta un botón de Home
-  - pasar al canvas con un nuevo parámetro lock
+  + Falta un botón de Home o volver
+  + pasar al canvas con un nuevo parámetro lock
+  + poner el componente de editar pitch
+  + salvar el pitch editado en el deck.service
 
 - Canvas
-  - "Elevator Pitch:" Título antes del pitch autogenerado
-  - edición del pitch
+  + "Elevator Pitch:" Título antes del pitch autogenerado
+  + edición del pitch
   + si viene el parámetro lock, no hay que permitir que el usuario pueda cambiar las caras de lugar.
   + BUG: Cuando se pasa al CANVAS, desaparece el pitch. estaría bueno que se mantenga.
   + poner un interruptor para que se pueda activar y desactivar que las cartas sobre el canvas, tengan o no tengan descripción.
@@ -38,7 +49,9 @@
 
 
 
-
+.canvas pivot-card:not(.full-card) {
+    width: 75%;  
+}
 
 
 Landing

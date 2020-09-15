@@ -19,6 +19,7 @@ export class CardSlotComponent extends VpeAbstractComponent implements OnInit, O
     @Input() autoselect: boolean;
     @Input() color: string;
     @Input() deck: Deck;
+    @Input() description: boolean = true;
     @Output() public onclick:Subject<Card> = new Subject();
     @Output() public onInit:Subject<CardSlotComponent> = new Subject();
     @Output() public onChange:Subject<Card> = new Subject();

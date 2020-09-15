@@ -15,7 +15,7 @@ import { ResizeHandler, ResizeEvent } from '../vpe-resize-detector.directive';
 export class PivotCardComponent extends VpeAbstractComponent implements OnInit, OnChanges, ResizeHandler {
 
     @Input() card: Card;
-    @Input() description: boolean;
+    @Input() description: boolean = true;
     @Output() public onclick:Subject<Card> = new Subject();
     //show_desc: boolean;
     @HostBinding('class.full-card') show_desc: boolean = false;

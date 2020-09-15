@@ -21,48 +21,35 @@
                 <ion-col size="4" class="d-flex flex-column  ion-justify-content-end">
                     <ion-item>
                         <ion-label position="floating">Producto o Servicio</ion-label>
-                        <ion-input ngDefaultControl [(ngModel)]="deck.industria" (keyup)="onIndusstriaChange()"></ion-input>
+                        <ion-input ngDefaultControl [(ngModel)]="deck.industria" (keyup)="onIndustriaChange()"></ion-input>
+                    </ion-item>
+                    <ion-item [hidden]="lockcanvas">
+                        <mat-slide-toggle
+                        color="default"
+                        [checked]="useCardsExtended"
+                        (change)="useCardsExtended = $event.checked; "
+                        [disabled]="disabled">
+                            ampliar cartas
+                        </mat-slide-toggle>
                     </ion-item>
                     <ion-item>
                         <mat-slide-toggle
                         color="primary"
-                        [checked]="useDescription"
-                        (change)="useDescription = $event.checked; "
+                        [checked]="useCanvasExtended"
+                        (change)="useCanvasExtended = $event.checked; "
                         [disabled]="disabled">
-                                descripción
-                    </mat-slide-toggle>
-                    </ion-item>                    
-                </ion-col>
-            </ion-row>            
+                            canvas completo
+                        </mat-slide-toggle>
+                    </ion-item> 
 
-            <!-- Industria 
-            <ion-row class="">
-                <ion-col size="3">
-                    <ion-item>
-                        <ion-label position="floating">Producto o Servicio</ion-label>
-                        <ion-input ngDefaultControl [(ngModel)]="deck.industria" (keyup)="onIndusstriaChange()"></ion-input>
-                    </ion-item>                    
-                </ion-col>
-                <ion-col size="6" class="ion-text-left ion-padding">
-                    <editable-text [text]="pitch" (onedit)="onEditPitch($event)"></editable-text>
-                </ion-col>
-                <ion-col size="3" class="d-flex ion-align-items-end ion-justify-content-end">
-                    <mat-slide-toggle
-                        class="example-margin"
-                        [color]="color"
-                        [checked]="useDescription"
-                        (change)="useDescription = $event.checked; "
-                        [disabled]="disabled">
-                                descripción
-                    </mat-slide-toggle>                    
                 </ion-col>
             </ion-row>
-            -->
-            
+
             <!-- Cartas de cada color: con sus respectivos colores -->
             <ion-row class="">
                 <ion-col>
                     <pivot-four-slots
+                        [description]="useCardsExtended"
                         [deck]="deck.subset"
                         (oncard)="agregar($event)"
                         (oninit)="onSlotsReady($event)"
@@ -76,13 +63,18 @@
                     <editable-text
                         matTooltip="click para editar el texto"
                         matTooltipPosition="above"
-                        [text]="pitch" (onedit)="onEditPitch($event)"></editable-text>
+                        [text]="deck.pitch" (onedit)="onEditPitch($event)"></editable-text>
                 </ion-col>
-                <ion-col size="2"></ion-col>
+                <ion-col size="2" class="d-flex ion-align-items-end ion-justify-content-end" style="padding-bottom: 16px;">
+                    <button mat-raised-button [disabled]="!showPrintBtn" color="primary" class="ion-margin-bottom" (click)="print()">
+                        Imprimir
+                        <i class="material-icons">print</i>
+                    </button>
+                </ion-col>
             </ion-row>
         
             <!-- Canvas -->
-            <ion-row class="ion-margin-top no-padding">
+            <ion-row class="ion-margin-top no-padding canvas">
                 <ion-col class="ion-text-center">
                     
                     <ion-grid class="grid-border">
@@ -90,26 +82,26 @@
                             <ion-col color="red" class="cuadrante ion-text-center ion-padding">
                                 <pivot-card
                                     class="cards-ghost-1 not-expand"
-                                    [description]="useDescription"
+                                    [description]="useCanvasExtended"
                                     *ngIf="deck.canvas.red.length == 1"
                                     [card]="deck.canvas.red[0]"
                                 ></pivot-card>
                                 <pivot-card
                                     class="cards-ghost-2 not-expand"
-                                    [description]="useDescription"
+                                    [description]="useCanvasExtended"
                                     *ngIf="deck.canvas.red.length == 2"
                                     [card]="deck.canvas.red[1]"
                                 ></pivot-card>                                
                                 <pivot-card
                                     class="cards-slot-1 not-expand"
-                                    [description]="useDescription"
+                                    [description]="useCanvasExtended"
                                     *ngIf="deck.canvas.red.length > 0"
                                     [card]="deck.canvas.red[0]"
                                     (onclick)="descartar($event)"
                                 ></pivot-card>
                                 <pivot-card
                                     class="cards-slot-2 not-expand"
-                                    [description]="useDescription"
+                                    [description]="useCanvasExtended"
                                     *ngIf="deck.canvas.red.length > 1"
                                     [card]="deck.canvas.red[1]"
                                     (onclick)="descartar($event)"
@@ -118,26 +110,26 @@
                             <ion-col color="blue" class="cuadrante ion-text-center ion-padding">
                                 <pivot-card
                                     class="cards-ghost-1 not-expand"
-                                    [description]="useDescription"
+                                    [description]="useCanvasExtended"
                                     *ngIf="deck.canvas.blue.length == 1"
                                     [card]="deck.canvas.blue[0]"
                                 ></pivot-card>
                                 <pivot-card
                                     class="cards-ghost-2 not-expand"
-                                    [description]="useDescription"
+                                    [description]="useCanvasExtended"
                                     *ngIf="deck.canvas.blue.length == 2"
                                     [card]="deck.canvas.blue[1]"
                                 ></pivot-card>                                  
                                 <pivot-card
                                     class="cards-slot-1 not-expand"
-                                    [description]="useDescription"
+                                    [description]="useCanvasExtended"
                                     *ngIf="deck.canvas.blue.length > 0"
                                     [card]="deck.canvas.blue[0]"
                                     (onclick)="descartar($event)"
                                 ></pivot-card>
                                 <pivot-card
                                     class="cards-slot-2 not-expand"
-                                    [description]="useDescription"
+                                    [description]="useCanvasExtended"
                                     *ngIf="deck.canvas.blue.length > 1"
                                     [card]="deck.canvas.blue[1]"
                                     (onclick)="descartar($event)"
@@ -148,26 +140,26 @@
                             <ion-col color="green" class="cuadrante ion-text-center ion-padding">
                                 <pivot-card
                                     class="cards-ghost-1 not-expand"
-                                    [description]="useDescription"
+                                    [description]="useCanvasExtended"
                                     *ngIf="deck.canvas.green.length == 1"
                                     [card]="deck.canvas.green[0]"
                                 ></pivot-card>
                                 <pivot-card
                                     class="cards-ghost-2 not-expand"
-                                    [description]="useDescription"
+                                    [description]="useCanvasExtended"
                                     *ngIf="deck.canvas.green.length == 2"
                                     [card]="deck.canvas.green[1]"
                                 ></pivot-card>                                  
                                 <pivot-card
                                     class="cards-slot-1 not-expand"
-                                    [description]="useDescription"
+                                    [description]="useCanvasExtended"
                                     *ngIf="deck.canvas.green.length > 0"
                                     [card]="deck.canvas.green[0]"
                                     (onclick)="descartar($event)"
                                 ></pivot-card>
                                 <pivot-card
                                     class="cards-slot-2 not-expand"
-                                    [description]="useDescription"
+                                    [description]="useCanvasExtended"
                                     *ngIf="deck.canvas.green.length > 1"
                                     [card]="deck.canvas.green[1]"
                                     (onclick)="descartar($event)"
@@ -176,26 +168,26 @@
                             <ion-col color="yellow" class="cuadrante ion-text-center ion-padding">
                                 <pivot-card
                                     class="cards-ghost-1 not-expand"
-                                    [description]="useDescription"
+                                    [description]="useCanvasExtended"
                                     *ngIf="deck.canvas.yellow.length == 1"
                                     [card]="deck.canvas.yellow[0]"
                                 ></pivot-card>
                                 <pivot-card
                                     class="cards-ghost-2 not-expand"
-                                    [description]="useDescription"
+                                    [description]="useCanvasExtended"
                                     *ngIf="deck.canvas.yellow.length == 2"
                                     [card]="deck.canvas.yellow[1]"
                                 ></pivot-card>                                  
                                 <pivot-card
                                     class="cards-slot-1 not-expand"
-                                    [description]="useDescription"
+                                    [description]="useCanvasExtended"
                                     *ngIf="deck.canvas.yellow.length > 0"
                                     [card]="deck.canvas.yellow[0]"
                                     (onclick)="descartar($event)"
                                 ></pivot-card>
                                 <pivot-card
                                     class="cards-slot-2 not-expand"
-                                    [description]="useDescription"
+                                    [description]="useCanvasExtended"
                                     *ngIf="deck.canvas.yellow.length > 1"
                                     [card]="deck.canvas.yellow[1]"
                                     (onclick)="descartar($event)"

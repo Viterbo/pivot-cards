@@ -6,21 +6,108 @@
 
 <ion-content [fullscreen]="true">
 
-    <ion-grid class="flex-grow">
-    
-        <!-- formulario -->
+    <div class="container">
 
-        <!-- lista de cartas filtradas -->
+        <ion-grid class="flex-grow">
 
-        <!-- botones-->
-
-    
-        <ion-row class="flex-grow ion-align-items-center ion-justify-content-center">
-            <ion-col class="ion-align-self-center ion-text-center">
-                <ion-button color="primary" (click)="gotoCanvas()">Canvas</ion-button>
-            </ion-col>
-        </ion-row>   
+            <!-- bienvenida -->
+            <ion-row class="ion-padding">
+                <ion-col>
+                    <h1>Dinámica de Flitros</h1>
+                    <p>En esta propuesta podrás filtrar las cartas según unos criterios que hemos preparado para y así conseguir un subconjunto de cartas que mejor se adapten a tu negocio, con las que ṕodrás trabajar posteriormente sobre el canvas para crear un modelo de negocio innovador relacionado con <strong>{{deck.industria}}</strong>.</p>
+                    <p><strong>Cambia las opciones del formulario</strong> para aplicar diferentes <strong>filtros</strong> sobre las cartas.</p>
+                </ion-col>
+            </ion-row>        
         
-        
-    </ion-grid>
+            <!-- formulario -->
+            <ion-row class="ion-padding-horizontal" *ngFor="let q of deck.filters; let n = index">
+                <ion-col size="8" class="no-padding d-flex ion-align-self-center ion-justify-content-start ion-text-left">
+                    <span>{{q.text}}:</span>
+                </ion-col>
+                <ion-col size="4" class="no-padding d-flex flex-column ion-align-self-center ion-justify-content-end ion-text-right">
+                    <form>
+                        <mat-form-field appearance="fill" class="no-padding d-block">
+                            <mat-select (selectionChange)="onSelectionChange(n,$event)">
+                                <mat-option *ngFor="let opt of q.options; let i = index" value="{{i}}">{{opt.text}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </form>
+                </ion-col>
+            </ion-row>  
+            
+            <!-- counter -->
+            <ion-row class="counter flex-grow ion-margin-bottom ion-margin-top">
+                <ion-col class="ion-text-left ion-align-items-end d-flex">
+                    <span [hidden]="deck.selection.length != 0">Debes seleccionar al menos una carta de cada color</span>
+                    <span [hidden]="deck.selection.length == 0">Has seleccionado {{deck.selection.length}} {{deck.selection.length == 1 ? 'carta' : 'cartas'}} </span>
+                </ion-col>
+                <ion-col class="ion-text-right">
+                    <button mat-raised-button [disabled]="!showGoToCanvas" color="accent" (click)="clearAll()">
+                        Limpiar
+                        <i class="material-icons">delete</i>
+                    </button>
+                    &nbsp;
+                    <button mat-raised-button [disabled]="!showGoToCanvas" color="primary" (click)="goToCanvas()">
+                        Canvas
+                        <i class="material-icons">navigate_next</i>
+                    </button>
+                </ion-col>
+            </ion-row>
+
+            <ion-row class="counter flex-grow mat-elevation-z2 ion-padding">
+                <ion-col class="ion-text-center">
+                    <span class="text-danger"> {{count.red}} {{count.red == 1 ? 'carta' : 'cartas'}} </span>
+                </ion-col>
+                <ion-col class="ion-text-center">
+                    <span class="text-primary">{{count.blue}} {{count.blue == 1 ? 'carta' : 'cartas'}}</span>
+                </ion-col>
+                <ion-col class="ion-text-center">
+                    <span class="text-success">{{count.green}} {{count.green == 1 ? 'carta' : 'cartas'}}</span>
+                </ion-col>
+                <ion-col class="ion-text-center">
+                    <span class="text-warning">{{count.yellow}} {{count.yellow == 1 ? 'carta' : 'cartas'}}</span>
+                </ion-col>
+            </ion-row>                     
+
+            <!-- Seleccion -->
+            <ion-row *ngIf="count" class="no-padding flex-grow ion-align-items-start ion-justify-content-start ion-margin-top">
+                <ion-col>
+                    <color-card-list
+                        color="red"
+                        [deck]="deck.selection"
+                        (oninit)="onListReady('red', $event)"
+                        (onclick)="onCardClick($event)"
+                    ></color-card-list>
+                </ion-col>
+                <ion-col>
+                    <color-card-list
+                        color="blue"
+                        [deck]="deck.selection"
+                        (oninit)="onListReady('blue', $event)"
+                        (onclick)="onCardClick($event)"
+                    ></color-card-list>
+                </ion-col>
+                <ion-col>
+                    <color-card-list
+                        color="green"
+                        [deck]="deck.selection"
+                        (oninit)="onListReady('green', $event)"
+                        (onclick)="onCardClick($event)"
+                    ></color-card-list>
+                </ion-col>
+                <ion-col>
+                    <color-card-list
+                        color="yellow"
+                        [deck]="deck.selection"
+                        (oninit)="onListReady('yellow', $event)"
+                        (onclick)="onCardClick($event)"
+                    ></color-card-list>
+                </ion-col>                                                
+            </ion-row>
+            
+            
+        </ion-grid>
+
+    </div>
+
 </ion-content>

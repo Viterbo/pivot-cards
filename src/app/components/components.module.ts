@@ -4,7 +4,7 @@ import { PivotCardComponent } from './pivot-card/pivot-card.component';
 import { PivotDeckComponent } from './pivot-deck/pivot-deck.component';
 import { VpeComponentsService, VpeAbstractComponent } from './vpe-components.service';
 import { VpeResizeDetector } from './vpe-resize-detector.directive';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { CardSlotComponent } from './card-slot/card-slot.component';
 import { IonicModule } from '@ionic/angular';
 import { PivotBackBtnComponent } from './pivot-back-btn/pivot-back-btn.component';
@@ -24,6 +24,9 @@ import { MatRippleModule } from '@angular/material/core';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSelectModule } from '@angular/material/select';
+// https://stackoverflow.com/a/53406105/2274525
+import { ReactiveFormsModule } from '@angular/forms';
 // Angular-Material ----------------------------------
 
 import { PivotFourSlotsComponent } from './pivot-four-slots/pivot-four-slots.component';
@@ -50,7 +53,10 @@ import { EditableTextComponent } from './editable-text/editable-text.component';
         MatRippleModule,
         MatBadgeModule,
         MatSlideToggleModule,
-        MatTooltipModule            
+        MatTooltipModule,
+        MatSelectModule,
+        // 
+        ReactiveFormsModule
         // Angular-Material ----------------------------------
     ],
     declarations: [

@@ -3,6 +3,19 @@ import { Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 
+export interface FilterOption {
+    text: string,
+    cards: number[];
+    hascard?: {[index:string]:boolean};
+}
+
+export interface Filter {
+    text: string,
+    options: FilterOption[];
+}
+
+export type Filters = Array<Filter>;
+
 export interface Card {
     color: string,
     card: string, 
@@ -24,6 +37,14 @@ export class DeckService {
 
     public onSelected:Subject<any> = new Subject();
     public deck:Deck;
+    
+    private setFilters: Function;
+    public waitFilters = new Promise(resolve => {
+        this.setFilters = resolve;
+    });    
+    public filters:Filters;
+
+
 
     public industria: string;
     
@@ -35,19 +56,48 @@ export class DeckService {
         this.selection = [];
         this.subset = [];
         this.selection_ok = false;
+        this.resetCanvas();
         this.http.get<Deck>("assets/json/cards.json").subscribe(
             (value) => {
                 this.deck = value;
                 this.sortDeck(this.deck);
                 this.availables = this.deck.slice();
-                console.log("DeckService:", this);
+                console.log("Cards Loaded:", this.availables);
                 this.resetCanvas();
                 this.setLoaded(value);
             },
             (value) => {
-                console.error("error", value);
+                console.error("error cards.json", value);
             }
         );
+        this.http.get<Filters>("assets/json/filters.json").subscribe(
+            (value) => {
+                this.filters = value;
+                for (let i in this.filters) {
+                    let filter:Filter = this.filters[i];
+                    for (let j in filter.options) {
+                        let option:FilterOption = filter.options[j];
+                        for (let c in option.cards) {
+                            let numb: number = option.cards[c];
+                            option.hascard = option.hascard || {};
+                            option.hascard[(new Number(numb)).toString()] = true;
+                        }
+                    }
+                }
+                console.log("Filters Loaded:", this.filters);
+                this.setFilters(value);
+            },
+            (value) => {
+                console.error("error filters.json", value);
+            }
+        );
+    }
+
+
+    refreshFilters() {
+        let filters = JSON.parse(JSON.stringify(this.filters));
+        this.filters = filters;
+        console.log("refreshFilters()", this.filters);
     }
 
     sortDeck(deck: Deck) {
@@ -177,6 +227,40 @@ export class DeckService {
         this.updateIsSelectionOk();
     }
 
+    filterCards(answers:string[], deck:Deck = this.availables) {
+        console.debug("DeckService.filterCards()", answers);
+        let filtered: Deck = [];
+        let applyFilter: boolean = false;
+        for (let i in deck) {
+            let card = deck[i];
+            let rejected: boolean = false;
+            // console.debug("- i,card", i, card);
+            for (let a in answers) {
+                let answer:string = answers[a];
+                if (answer) {
+                    applyFilter = true;
+                    let index:number = parseInt(answer);
+                    // console.debug("-- a,answer,index", a,answer,index);
+                    console.assert(!isNaN(index), "ERROR: index = NaN, answer: ", answer);
+                    let options = this.filters[a].options;
+                    if (!options[index].hascard[card.card]) {
+                        rejected = true;
+                    }
+                    // console.debug("-- card.card:", card.card, options[index].hascard[card.card], "rejected: ", rejected);
+                } else {
+                    // console.debug("-- a,answer,index", a,answer);
+                }
+            }
+
+            if (!rejected) {
+                filtered.push(card);
+            }
+        }
+
+        return applyFilter ? filtered : deck;
+    }
+
+
     isCardSelected(c:Card) {
         return this.isselected[this.cardId(c)];
     }
@@ -202,7 +286,7 @@ export class DeckService {
         }        
     }
 
-    // canvas and pitch -------------------------
+    // canvas  -------------------------
     subset: Deck;
     canvas: {[key:string]:Deck};
 
@@ -255,7 +339,11 @@ export class DeckService {
         }        
     }
 
-
+    // pitch (ini) ------------------------------------------------------------
+    pitch: string;
+    setPitch(pitch: string) {
+        this.pitch = pitch;
+    }
     public getPitch() {
         let pitch = "pitch";
         let part_1 = "Mi proyecto consiste en un negocio de";
@@ -295,8 +383,10 @@ export class DeckService {
 
         pitch += ".";
 
+        this.pitch = pitch;
         return pitch;
     }
+    // pitch (end) ------------------------------------------------------------
 
     /*
     - wish list:

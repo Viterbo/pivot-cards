@@ -13,13 +13,6 @@ import { CardSlotComponent } from 'src/app/components/card-slot/card-slot.compon
 export class SlotsPage {
 
     page: string = "slots";
-    toilet_card_fade:string;
-    pitch: string;
-    // private onToiletSelectedSubscriber: Subscriber<any>;
-    // @ViewChild(CardSlotComponent) slot_red: CardSlotComponent;
-    // @ViewChild(CardSlotComponent) slot_blue: CardSlotComponent;
-    // @ViewChild(CardSlotComponent) slot_green: CardSlotComponent;
-    // @ViewChild(CardSlotComponent) slot_yellow: CardSlotComponent;
     slots: {[name:string]:CardSlotComponent};
 
     constructor(
@@ -28,9 +21,6 @@ export class SlotsPage {
         public app: AppService,
     ) {
         this.slots = {};
-        this.toilet_card_fade = "";
-        this.pitch = "";
-        // this.onToiletSelectedSubscriber = new Subscriber<any>(this.onToiletSelected.bind(this));
     }
 
     get showGoToCanvas() {
@@ -46,6 +36,15 @@ export class SlotsPage {
         // this.onToiletSelectedSubscriber.unsubscribe();
     }
 
+    onIndustriaChange() {
+        this.deck.getPitch();
+    }
+
+    onEditPitch(pitch: string) {
+        this.deck.setPitch(pitch);
+    }
+
+
     timer = null;
     updateResultado() {
         console.log("updateResultado()");
@@ -57,7 +56,7 @@ export class SlotsPage {
             this.deck.addToCanvas(this.slots.blue.getCard());
             this.deck.addToCanvas(this.slots.green.getCard());
             this.deck.addToCanvas(this.slots.yellow.getCard());
-            this.pitch = this.deck.getPitch();
+            this.deck.getPitch();
         }, 10);
     }
 

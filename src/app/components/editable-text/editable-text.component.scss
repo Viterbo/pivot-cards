@@ -2,7 +2,9 @@
     display: block;
     
     mat-card {
-        padding: 10px
+        padding: 10px;
+        transition-property: height;
+        transition: height 1s ease;
     }
 
     mat-form-field {

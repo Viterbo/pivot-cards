@@ -88,7 +88,7 @@ ion-grid.no-padding {
         }
     }
 }
-ion-row.no-padding {
+ion-row.no-padding, ion-col.no-padding {
     &, & > ion-col {
         --ion-padding: 0px;
         --ion-grid-row-padding: 0px;

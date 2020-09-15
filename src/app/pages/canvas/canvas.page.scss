@@ -9,7 +9,7 @@ ion-col.cuadrante {
     position: absolute;
     top: 5px;
     left: 5px;
-    width: calc(100% - 100px);
+    width: calc(100% - 100px) !important;
     &.cards-slot-2 {
         top: 80px;
         left: 80px;

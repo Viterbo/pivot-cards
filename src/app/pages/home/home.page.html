@@ -51,38 +51,6 @@
                     </p>
                     <!-- -->
                     <pivot-industria-input (onInit)="onIndustriaInit($event)"></pivot-industria-input>
-                    <!-- -->
-                    <!--
-                    <ion-item>
-                        <form class="example-form">
-                            <mat-form-field class="example-full-width">
-                                <mat-label>Producto o Servicio</mat-label>
-                                
-                                <input matInput [(ngModel)]="deck.industria" [formControl]="ctrl" [errorStateMatcher]="matcher"
-                                                placeholder="Ej: vestimenta, alojamiento, gastronomía, software">
-                        
-                                
-                        
-                                <mat-error *ngIf="ctrl.hasError('required')">
-                                    <strong>complete</strong> este campo antes de continuar.
-                                </mat-error>      
-                        
-                            </mat-form-field>
-                        </form>
-                    </ion-item>
-                    -->
-
-                    <!-- 
-
-                    <ion-item>
-                        <ion-label position="floating">Producto o Servicio</ion-label>
-                        <ion-input
-                            ngDefaultControl [(ngModel)]="deck.industria"></ion-input>
-                    </ion-item>
-                    <ion-text color="danger" [hidden]="!show_errors || this.deck.industria">
-                        complete este campo antes de continuar.
-                    </ion-text>
-                    -->
                 </ion-col> 
                 <ion-col size="2"></ion-col>
             </ion-row>
