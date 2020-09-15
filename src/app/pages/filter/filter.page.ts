@@ -40,7 +40,7 @@ export class FilterPage {
     }
 
     
-    gotoCanvas() {
+    goToCanvas() {
         this.router.navigate(['/canvas']); 
     }
 
