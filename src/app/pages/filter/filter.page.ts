@@ -27,7 +27,7 @@ export class FilterPage {
     }
 
     get showGoToCanvas() {
-        return true;
+        return this.deck.isSelectionOK();
     }
 
     ngOnInit() {

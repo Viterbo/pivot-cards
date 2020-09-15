@@ -42,7 +42,7 @@
                     <span [hidden]="deck.selection.length == 0">Has seleccionado {{deck.selection.length}} {{deck.selection.length == 1 ? 'carta' : 'cartas'}} </span>
                 </ion-col>
                 <ion-col class="ion-text-right">
-                    <button mat-raised-button [disabled]="!showGoToCanvas" color="accent" (click)="clearAll()">
+                    <button mat-raised-button color="accent" (click)="clearAll()">
                         Limpiar
                         <i class="material-icons">delete</i>
                     </button>
