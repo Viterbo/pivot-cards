@@ -53,10 +53,11 @@ export class SlotsPage {
             console.log("updateResultado() timeout");
             this.deck.resetCanvas();
             this.deck.addToCanvas(this.slots.red.getCard());
-            this.deck.addToCanvas(this.slots.blue.getCard());
-            this.deck.addToCanvas(this.slots.green.getCard());
-            this.deck.addToCanvas(this.slots.yellow.getCard());
-            this.deck.getPitch();
+            //this.deck.addToCanvas(this.slots.blue.getCard());
+            //this.deck.addToCanvas(this.slots.green.getCard());
+            //this.deck.addToCanvas(this.slots.yellow.getCard());
+            //this.deck.getPitch();
+            console.error("cosas sacadas temporalmente");
         }, 10);
     }
 
@@ -64,7 +65,7 @@ export class SlotsPage {
         console.log("onCardChange",[color, card]);
         if (card) {
             this.updateResultado();
-        }       
+        }
     }
 
     registerSlot(name:string, slot: CardSlotComponent) {
@@ -73,9 +74,10 @@ export class SlotsPage {
 
     runSlots() {
         this.slots.red.shuffle();
-        this.slots.blue.shuffle();
-        this.slots.green.shuffle();
-        this.slots.yellow.shuffle();
+        console.error("cosas sacadas temporalmente");
+        // this.slots.blue.shuffle();
+        // this.slots.green.shuffle();
+        // this.slots.yellow.shuffle();
     }
     
     toCanvas() {

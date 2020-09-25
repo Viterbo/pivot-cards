@@ -1,9 +1,17 @@
-<div class="slot-viewport" vpeResizeDetector>
+<div class="slot-viewport" vpeResizeDetector [ngClass]="{animated:animated}">
     <div class="slot-container" *ngIf="filtered?.length>0" >
         <pivot-card
+            class="main-card"
             [card]="card"
             [description]="description"
             (onclick)="cardClicked($event)"
         ></pivot-card>
+        <div #list class="list-container" *ngIf="animated">
+            <pivot-card
+                *ngFor="let c of filtered"
+                [card]="c"
+                [description]="description"
+            ></pivot-card>
+        </div>
     </div>
 </div>

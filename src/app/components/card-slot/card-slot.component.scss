@@ -22,3 +22,24 @@
     width: 100%;
     */
 }
+
+// animation ----------------------
+.animated {
+    .slot-container {
+        position: relative;
+        overflow: hidden;
+    }
+    .main-card {
+        opacity: 0.3;
+    }
+    .list-container {
+
+        position: absolute;
+        top: 0px;
+        &.slow {
+            transition: transform 2s ease-out;
+        }        
+    }
+
+    
+}

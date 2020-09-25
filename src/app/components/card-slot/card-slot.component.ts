@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, forwardRef, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, Output, forwardRef, OnChanges, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { Subject } from 'rxjs';
 import { DeckService, Card, Deck } from 'src/app/services/deck.service';
 import { VpeAbstractComponent } from '../vpe-components.service';
@@ -15,7 +15,8 @@ import { ResizeHandler, ResizeEvent } from '../vpe-resize-detector.directive';
 export class CardSlotComponent extends VpeAbstractComponent implements OnInit, OnChanges, ResizeHandler {
 
     
-    
+    @ViewChild("list") list: ElementRef;
+    @Input() animated: boolean;
     @Input() autoselect: boolean;
     @Input() color: string;
     @Input() deck: Deck;
@@ -40,7 +41,8 @@ export class CardSlotComponent extends VpeAbstractComponent implements OnInit, O
     }
 
     constructor(
-        public service: DeckService
+        public service: DeckService,
+        private renderer: Renderer2
     ) {
         super();
         this.filterColor();
@@ -151,7 +153,19 @@ export class CardSlotComponent extends VpeAbstractComponent implements OnInit, O
         this.card = this.filtered[Math.floor(Math.random() * this.filtered.length)];
     }
 
+    resetPosition() {
+        // this.list.nativeElement
+        console.log("----------->", this.list.nativeElement.offsetHeight);
+        this.renderer.removeClass(this.list.nativeElement, 'slow');
+        this.renderer.setStyle(this.list.nativeElement, 'transform', `translate(0px, -${ this.list.nativeElement.offsetHeight }px)`);
+        setTimeout(_ => {
+            this.renderer.addClass(this.list.nativeElement, 'slow');
+            this.renderer.setStyle(this.list.nativeElement, 'transform', `translate(0px, 0px)`);
+        });
+    }
+
     shuffle() {
+        this.resetPosition();
         this.shuffleDeck(this.filtered);
         this.card = this.filtered[0];
         this.onChange.next(this.card);
