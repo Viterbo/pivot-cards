@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, forwardRef, OnChanges, HostBinding } from '@angular/core';
+import { Component, OnInit, Input, Output, forwardRef, OnChanges, HostBinding, ElementRef } from '@angular/core';
 import { Subject } from 'rxjs';
 import { DeckService, Card } from 'src/app/services/deck.service';
 import { VpeAbstractComponent } from '../vpe-components.service';
@@ -21,7 +21,8 @@ export class PivotCardComponent extends VpeAbstractComponent implements OnInit, 
     @HostBinding('class.full-card') show_desc: boolean = false;
     
     constructor(
-        public service: DeckService
+        public service: DeckService,
+        public elem: ElementRef
     ) {
         super();
         this.show_desc = true;

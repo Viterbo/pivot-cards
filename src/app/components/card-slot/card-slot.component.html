@@ -1,6 +1,11 @@
-<div class="slot-viewport" vpeResizeDetector [ngClass]="{animated:animated}">
+<!--
+    , 'size-1': size==1, 'size-2': size==2, 'size-3': size==3, 'size-4': size==4
+-->
+
+<div class="slot-viewport" vpeResizeDetector [ngClass]="{ animated:animated, showminicard:showminicard, 'size-1': size==1, 'size-2': size==2, 'size-3': size==3, 'size-4': size==4}">
     <div class="slot-container" *ngIf="filtered?.length>0" >
         <pivot-card
+            #minicard
             class="main-card"
             [card]="card"
             [description]="description"
@@ -8,7 +13,7 @@
         ></pivot-card>
         <div #list class="list-container" *ngIf="animated">
             <pivot-card
-                *ngFor="let c of filtered"
+                *ngFor="let c of extended"
                 [card]="c"
                 [description]="description"
             ></pivot-card>

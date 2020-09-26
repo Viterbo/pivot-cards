@@ -3,6 +3,7 @@ import { Subject } from 'rxjs';
 import { DeckService, Card, Deck } from 'src/app/services/deck.service';
 import { VpeAbstractComponent } from '../vpe-components.service';
 import { ResizeHandler, ResizeEvent } from '../vpe-resize-detector.directive';
+import { PivotCardComponent } from '../pivot-card/pivot-card.component';
 
 @Component({
     selector: 'card-slot',
@@ -16,7 +17,9 @@ export class CardSlotComponent extends VpeAbstractComponent implements OnInit, O
 
     
     @ViewChild("list") list: ElementRef;
+    @ViewChild("minicard") minicard: PivotCardComponent;
     @Input() animated: boolean;
+    @Input() size: number;
     @Input() autoselect: boolean;
     @Input() color: string;
     @Input() deck: Deck;
@@ -25,6 +28,8 @@ export class CardSlotComponent extends VpeAbstractComponent implements OnInit, O
     @Output() public onInit:Subject<CardSlotComponent> = new Subject();
     @Output() public onChange:Subject<Card> = new Subject();
     filtered: Deck;
+    extended: Deck;
+    showminicard: boolean;
 
     card: Card;
 
@@ -46,6 +51,7 @@ export class CardSlotComponent extends VpeAbstractComponent implements OnInit, O
     ) {
         super();
         this.filterColor();
+        this.showminicard = true;
     }
 
     private findCurrentIndex(card: Card, deck: Deck) {
@@ -87,6 +93,8 @@ export class CardSlotComponent extends VpeAbstractComponent implements OnInit, O
             if (this.filtered && this.filtered.length > 0 && this.autoselect) {
                 this.card = this.filtered[next];
             }
+
+            this.updateExtended();
         }, 0);
     }
 
@@ -121,11 +129,6 @@ export class CardSlotComponent extends VpeAbstractComponent implements OnInit, O
         this.onChange.next(null);
     }
 
-    // onCardClick(card) {
-    //     console.log("_click", [card]);
-    //     // this.onclick.next(this.feature);
-    // }
-
     getCard(): Card {
         return this.card;
     }
@@ -145,8 +148,22 @@ export class CardSlotComponent extends VpeAbstractComponent implements OnInit, O
             array[currentIndex] = array[randomIndex];
             array[randomIndex] = temporaryValue;
         }
+
+        this.updateExtended();
       
         return array;
+    }
+
+    updateExtended() {
+        if (!this.filtered) return;
+        this.extended = [];
+        if (this.animated && this.size > 0) {
+            for (let n=0; n<this.size; n++) {
+                for (let i=0; i<this.filtered.length; i++) {
+                    this.extended.push(this.filtered[i]);
+                }
+            }
+        }
     }
 
     selectRandom() {
@@ -155,19 +172,25 @@ export class CardSlotComponent extends VpeAbstractComponent implements OnInit, O
 
     resetPosition() {
         // this.list.nativeElement
-        console.log("----------->", this.list.nativeElement.offsetHeight);
+        // console.log("----------->", this.list.nativeElement.offsetHeight);
+        // console.log("----------->", this.list.nativeElement.children.length);
+        this.showminicard = false;
         this.renderer.removeClass(this.list.nativeElement, 'slow');
         this.renderer.setStyle(this.list.nativeElement, 'transform', `translate(0px, -${ this.list.nativeElement.offsetHeight }px)`);
         setTimeout(_ => {
+            // console.log("----------- > translate(0px, 0px)");
+            let firstchild = this.list.nativeElement.children[0];
+            this.renderer.setStyle(firstchild, 'height', this.minicard.elem.nativeElement.offsetHeight+"px");    
             this.renderer.addClass(this.list.nativeElement, 'slow');
             this.renderer.setStyle(this.list.nativeElement, 'transform', `translate(0px, 0px)`);
-        });
+        }, 0);
     }
 
     shuffle() {
-        this.resetPosition();
+        console.log(this);
         this.shuffleDeck(this.filtered);
         this.card = this.filtered[0];
+        this.resetPosition();
         this.onChange.next(this.card);
     }
 

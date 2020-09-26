@@ -36,19 +36,19 @@
 
             <ion-row  class="ion-padding">
                 <ion-col class="ion-justify-content-evenly">
-                    <card-slot #slot_red animated="true" (onInit)="registerSlot('red', slot_red)" color="red" (onChange)="onCardChange('red', $event)"></card-slot>
+                    <card-slot [animated]="true" [size]="1" #slot_red (onInit)="registerSlot('red', slot_red)" color="red" (onChange)="onCardChange('red', $event)"></card-slot>
                 </ion-col>
-                <!--
+                
                 <ion-col class="ion-justify-content-evenly">
-                    <card-slot #slot_blue (onInit)="registerSlot('blue', slot_blue)" color="blue" (onChange)="onCardChange('blue', $event)"></card-slot>
-                </ion-col>
-                <ion-col class="ion-justify-content-evenly">
-                    <card-slot #slot_green (onInit)="registerSlot('green', slot_green)" color="green" (onChange)="onCardChange('green', $event)"></card-slot>
+                    <card-slot [animated]="true" [size]="2" #slot_blue (onInit)="registerSlot('blue', slot_blue)" color="blue" (onChange)="onCardChange('blue', $event)"></card-slot>
                 </ion-col>
                 <ion-col class="ion-justify-content-evenly">
-                    <card-slot #slot_yellow (onInit)="registerSlot('yellow', slot_yellow)" color="yellow" (onChange)="onCardChange('yellow', $event)"></card-slot>
+                    <card-slot [animated]="true" [size]="3" #slot_green (onInit)="registerSlot('green', slot_green)" color="green" (onChange)="onCardChange('green', $event)"></card-slot>
                 </ion-col>
-                -->
+                <ion-col class="ion-justify-content-evenly">
+                    <card-slot [animated]="true" [size]="4" #slot_yellow (onInit)="registerSlot('yellow', slot_yellow)" color="yellow" (onChange)="onCardChange('yellow', $event)"></card-slot>
+                </ion-col>
+                <!-- -->
             </ion-row>
             <ion-row class="no-padding">
                 <ion-col size="2"></ion-col>

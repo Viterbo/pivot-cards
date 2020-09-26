@@ -29,17 +29,31 @@
         position: relative;
         overflow: hidden;
     }
-    .main-card {
-        opacity: 0.3;
+    &:not(.showminicard) {
+        .main-card {
+            opacity: 0.0;
+        }
     }
-    .list-container {
+    &.showminicard {
+        .list-container {
+            opacity: 0.0;
+        }
+    }
+    &.size-1 { .list-container.slow { transition-duration: 2s; } }
+    &.size-2 { .list-container.slow { transition-duration: 3s; } }
+    &.size-3 { .list-container.slow { transition-duration: 4s; } }
+    &.size-4 { .list-container.slow { transition-duration: 5s; } }
 
+    .list-container {
         position: absolute;
         top: 0px;
         &.slow {
-            transition: transform 2s ease-out;
-        }        
-    }
+            transition-property: transform;
+            transition-timing-function: ease-out;
+        }
 
-    
+        pivot-card {
+            margin-bottom: 40px;
+        }
+    }   
 }
