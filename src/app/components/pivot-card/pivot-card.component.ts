@@ -42,6 +42,7 @@ export class PivotCardComponent extends VpeAbstractComponent implements OnInit, 
     }
 
     ngOnChanges() {
+        console.log("PivotCardComponent.description", this.description);
         if (this.description == false) {
             this.show_desc = false;
         }

@@ -1,58 +1,42 @@
+http://raw.githack.com/MrRio/jsPDF/master/docs/jsPDF.html
+
+
+
 ----------- TODO -----------
+- editable-text.component:
+  - Elevator pitch: destacar los nombres de los modelos de negocio en negrita, si es posible.
+
 - Home
-  + "Completá aquí el Producto o Servicio que piensas ofrecer (por ejemplo: vestimenta, alojamiento, gastronomía, software)"
-  + No dejar avanzar si no se ha llenado el campo "global.industria"
-  + Darle un mejor aspecto
-  - poner algunos textos y capaz íconos para cada dinámica
-  + Menu: falta "landing page", "ojear cartas"
+  - hay que resetear el pitch cuando entrás en home.
+  - MENU: Comprar / Cartas / Dinámicas / Sobre Pívot
+    - Dinámicas: 1- Selección manual / 2- Selección por filtros / 3- ¡Probá suerte!
+  - link en el logo de pivot para que te lleve a la página de ellos iigual que en "Sobre Pívot"
+  - agregar texto: “Si estás interesado en una experiencia más completa y con la posibilidad de aplicar más dinámicas (incluso en forma grupal), se encuentra disponible el Kit físico en nuestra tienda online. LINK”.
+
+- Cartas:
+  - mejorar un poco la éstética de esta sección
 
 - Dinámica 1
-  + diseño
-    + Título: texto explicativo
-    + cartas en 4 slots con botones prev-next 
-    + error sobre la derecha: debes elegir al menos una carta de cada color
-    + barra:
-      + izq: cant cartas de cada color y en total
-      + der: botón de goto canvas cuando esté habilitado
-    + cuatro columnas con cartas del color concreto
-  + cambiar el slider por 4 mazos, igual que en el canvas.
-  + Siempre mostrar la cantidad de cartas seleccionadas para cada color.
-  + las seleccionadas deben mostrarse como columnas estáticas que vana  generar que la página deba scrollearse.
   - restringir a un máximo de 6 cartas por color
-  + se eliminarían los 5 botones para filtrar por color
- (+)"hacé click en las cartas que querés preseleccionar" // arriba, cerca de los slots
- (+)"si no te convence la tarjeta seleccionada, hacé click para quitarla de la preselección" // abajo, cerca de las columnas
 
 - Dinámica 2:
-  - diseño
-    - Título: texto explicativo
-    - formulario
-    - mismo pié que para la dinámica 1 (un header con los números y abajo 4 columnas con las cartas)
-  - metadata de los resultados
-  - incluir funciones que resuelvan elfiltrado en el deck.service
-  - hacer funcionar el formulario con sus filtros
+  - permitir que se pueda editar la industria (no existe el campo, hay que ponerlo).
+  - solo se puede pasar al canvas cuando las tres preguntas están contestadas.
+  - hay que resetear el pitch cuando entrás en esta página?
 
 - Dinámica 3
-  - animar los slots tipo tragamonedas.
-  + Falta un botón de Home o volver
-  + pasar al canvas con un nuevo parámetro lock
-  + poner el componente de editar pitch
-  + salvar el pitch editado en el deck.service
+  - impedir que se pueda editar el texto mientras giran los slots
+  - implementar el botón "hold" 
 
 - Canvas
-  + "Elevator Pitch:" Título antes del pitch autogenerado
-  + edición del pitch
-  + si viene el parámetro lock, no hay que permitir que el usuario pueda cambiar las caras de lugar.
-  + BUG: Cuando se pasa al CANVAS, desaparece el pitch. estaría bueno que se mantenga.
-  + poner un interruptor para que se pueda activar y desactivar que las cartas sobre el canvas, tengan o no tengan descripción.
+  - que no se superpongan las cartas
+  - mostrar la cantida de cartas que tiene cada mazo.
+  - agregar al pdf un stick-note con el nombre de la industria
+  - En la versión mobile, tal vez la perilla "Canvas completo" lo dejaría junto al Canvas de modo que se pueda ver en la misma pantalla cuando se hace el cambio.
+  - En el Canvas, incluir títulos a cada área (Quién, Qué, Cómo, Cuánto)
 
-
-
-
-.canvas pivot-card:not(.full-card) {
-    width: 75%;  
-}
-
+- Mobile:
+  - todo el diseño para mobile  
 
 Landing
 https://saramendia.wixsite.com/misitio

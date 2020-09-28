@@ -20,6 +20,7 @@ export class EditableTextComponent implements OnInit, OnChanges {
     @Output() public oninit:Subject<EditableTextComponent> = new Subject();
     @Output() public onedit:Subject<string> = new Subject();
     @Input() text: string;
+    @Input() editable: boolean;
     @ViewChild('setFocusField') setFocusField: ElementRef;
     current: string;
     editting: boolean;
@@ -27,6 +28,7 @@ export class EditableTextComponent implements OnInit, OnChanges {
         
     ) {
         this.editting = false;
+        this.editable = true;
     }
     
     ngOnInit() {
@@ -40,6 +42,7 @@ export class EditableTextComponent implements OnInit, OnChanges {
     }
 
     startEditting() {
+        if (!this.editable) return;
         this.editting = true;
         this.setFocusField.nativeElement.focus();
     }
