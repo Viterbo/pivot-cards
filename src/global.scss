@@ -170,4 +170,17 @@ a[mat-button] {
     --ion-color-contrast-rgb: var(--ion-color-yellow-contrast-rgb, 0, 0, 0) !important;
     --ion-color-shade: var(--ion-color-yellow-shade, #e0ac08) !important;
     --ion-color-tint: var(--ion-color-yellow-tint, #ffca22) !important;
+    
+}
+
+b[color], span[color] {
+    color: var(--ion-color-base) !important;
+}
+
+b[color=blue], span[color=blue] {
+    color: #629bff !important;
+}
+
+b[color=red], span[color=red] {
+    color: #ed576b !important;
 }

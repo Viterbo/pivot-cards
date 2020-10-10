@@ -31,7 +31,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { PivotFourSlotsComponent } from './pivot-four-slots/pivot-four-slots.component';
 import { ColorCardListComponent } from './color-card-list/color-card-list.component';
-import { EditableTextComponent } from './editable-text/editable-text.component';
+import { PivotPitchComponent } from './pivot-pitch/pivot-pitch.component';
 import { PivotCanvasComponent } from './pivot-canvas/pivot-canvas.component';
 
 
@@ -69,7 +69,7 @@ import { PivotCanvasComponent } from './pivot-canvas/pivot-canvas.component';
         PivotIndustriaInputComponent,
         PivotFourSlotsComponent,
         ColorCardListComponent,
-        EditableTextComponent,
+        PivotPitchComponent,
         PivotCanvasComponent
     ],
     entryComponents: [
@@ -85,7 +85,7 @@ import { PivotCanvasComponent } from './pivot-canvas/pivot-canvas.component';
         PivotIndustriaInputComponent,
         PivotFourSlotsComponent,
         ColorCardListComponent,
-        EditableTextComponent,
+        PivotPitchComponent,
         PivotCanvasComponent
         
     ]

@@ -3,8 +3,8 @@ http://raw.githack.com/MrRio/jsPDF/master/docs/jsPDF.html
 
 
 ----------- TODO -----------
-- editable-text.component:
-  - Elevator pitch: destacar los nombres de los modelos de negocio en negrita, si es posible.
+- pivot-pitch.component:
+  + Elevator pitch: destacar los nombres de los modelos de negocio en negrita, si es posible.
 
 - Home
   - hay que resetear el pitch cuando entrás en home.
@@ -38,36 +38,12 @@ http://raw.githack.com/MrRio/jsPDF/master/docs/jsPDF.html
 - Mobile:
   - todo el diseño para mobile  
 
+
+
+
 Landing
 https://saramendia.wixsite.com/misitio
 
-Flujo de páginas:
-
-home -> (selection, filter, slots)
-selection -> canvas
-filter -> canvas
-slots -> canvas
-canvas -> print
-print -> home
-
 Documento:
 https://docs.google.com/document/d/1g0eSy1rpbcMqdyDctv9rQ3imgduWOKiAHzMfDyjm1m8/edit#heading=h.ujgqjwh3wxxl
-
-
-ENTREGAS:
-
-Primera: 24 agosto
-Canvas y Drag & Drop
-
-Segunda: 14 de setiembre
-Todas las Dinámicas
-
-Tercera: 5 de octubre.
-Todo
-
-
-
-resetCanvas()
-addToCanvas(c:Card) 
-removeFromCanvas(c:Card)
 

@@ -1,7 +1,26 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Output } from '@angular/core';
 import { Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
+
+export class Pitch {
+    html:string;
+    text:string;
+    parts?:Pitch[];
+    b?:string;
+    c?:string;
+    constructor(a:string, b:string=null, c:string=null){
+        this.text = a;
+        this.html = b?b:a;
+        this.b = "";
+        this.c = "";
+        if (c) {
+            this.html = b + a + c;
+            this.b = b;
+            this.c = c;
+        }
+    };
+}
 
 export interface FilterOption {
     text: string,
@@ -44,7 +63,7 @@ export class DeckService {
     });    
     public filters:Filters;
 
-
+    @Output() public onpitch:Subject<Pitch> = new Subject();
 
     public industria: string;
     
@@ -340,58 +359,179 @@ export class DeckService {
     }
 
     // pitch (ini) ------------------------------------------------------------
-    pitch: string;
-    setPitch(pitch: string) {
-        this.pitch = pitch;
+    pitch: Pitch;
+    // setPitch(pitch: string) {
+    //     this.pitch = pitch;
+    // }
+
+
+    public updatePitch() {
+        this.pitch = {html:"",text:"",parts:[]};
+        this.generatePitch();
+        this.generatePitchHtml();
+        this.generatePitchText();
+        this.onpitch.next(this.pitch);
     }
-    public getPitch() {
-        let pitch = "pitch";
-        let part_1 = "Mi proyecto consiste en un negocio de";
-        let part_2 = "ofrecida";
-        let part_3 = "mediante";
-        let part_4 = "que monetice por";
 
-        // Mi proyecto consiste en un negocio de <NEGOCIO> <QUE.texto_previo> <QUE.nombre> ofrecida <QUIEN.texto_previo> <QUIEN.nombre> mediante <COMO.texto_previo> <COMO.nombre> que monetice por <CUANTO.texto_previo> <CUANTO.nombre>
-        let falta = " _______ ";
-        pitch = part_1 + " " + (this.industria ? this.industria : falta) + " ";
-        if (this.canvas.red.length == 0) pitch += falta;
-        for (let i=0; i<this.canvas.red.length; i++) {
-            if (i>0) pitch += " y ";
-            pitch += this.canvas.red[i].prev + " " + this.canvas.red[i].name;
-        }
-
-        pitch += " " + part_2 + " ";
-        if (this.canvas.blue.length == 0) pitch += falta;
-        for (let i=0; i<this.canvas.blue.length; i++) {
-            if (i>0) pitch += " y ";
-            pitch += this.canvas.blue[i].prev + " " + this.canvas.blue[i].name;
-        }
-
-        pitch += " " + part_3 + " ";
-        if (this.canvas.green.length == 0) pitch += falta;
-        for (let i=0; i<this.canvas.green.length; i++) {
-            if (i>0) pitch += " y ";
-            pitch += this.canvas.green[i].prev + " " + this.canvas.green[i].name;
-        }
-
-        pitch += " " + part_4 + " ";
-        if (this.canvas.yellow.length == 0) pitch += falta;
-        for (let i=0; i<this.canvas.yellow.length; i++) {
-            if (i>0) pitch += " y ";
-            pitch += this.canvas.yellow[i].prev + " " + this.canvas.yellow[i].name;
-        }
-
-        pitch += ".";
-
-        this.pitch = pitch;
-        return pitch;
+    public setPitch(current:string) {
+        this.generatePitch();
+        this.generatePitchHtml(current);
+        this.generatePitchText(current);
+        this.onpitch.next(this.pitch);
     }
-    // pitch (end) ------------------------------------------------------------
+    
+    private generatePitch() {
+        // genera la estructura
 
-    /*
-    - wish list:
-        - podés tener más (recordar) de una selección o de una solución canvas.
-        - eventualmente se puede implementar una suerte de localstore con selecciones o resultados canvases con un nombre que dijita el usuario.
-    */
+        let parts:Pitch[] = [
+            new Pitch("Mi proyecto consiste en un negocio de"),
+            new Pitch("ofrecida"),
+            new Pitch("mediante"),
+            new Pitch("que monetice por"),
+        ]
+        
+        
+        let falta_text = "_______";
+        let y_text = "y";
+
+        this.pitch.parts = [];
+        this.pitch.parts.push(new Pitch(parts[0].text));
+        this.pitch.parts.push(new Pitch(this.industria ? this.industria : falta_text, "<b>", "</b>"));
+
+        let colors = ["red","blue","green","yellow"];
+        for (let c=0; c<colors.length; c++) {
+            let color = colors[c];
+
+            if (c>0) {
+                this.pitch.parts.push(parts[c]);
+            }
+            if (this.canvas[color].length == 0) {
+                this.pitch.parts.push(new Pitch(falta_text, "<b color='"+color+"'>", "</b>"));
+            }
+            for (let i=0; i<this.canvas[color].length; i++) {
+                if (i>0) {
+                    this.pitch.parts.push(new Pitch(y_text));
+                }
+                this.pitch.parts.push(new Pitch(this.canvas[color][i].prev, "<span color='"+color+"'>", "</span>"));
+                this.pitch.parts.push(new Pitch(this.canvas[color][i].name, "<b color='"+color+"'>", "</b>"));
+            }            
+        }
+
+        console.log("DeckService.generatePitch()", this.pitch.parts);
+    }
+
+    private generatePitchHtml(current:string=null) {
+        // genera la string html
+        if (!current || this.pitch.text == current) {
+            let parts:string[] = [];
+            for (let i=0; i<this.pitch.parts.length; i++) {
+                parts.push(this.pitch.parts[i].html);
+            }
+            this.pitch.html = parts.join(" ");
+        } else {
+            console.assert(typeof current == "string", typeof current );
+            let parts:string[] = [];
+            for (let i=0; i<this.pitch.parts.length; i++) {
+                parts.push(this.pitch.parts[i].text);
+            }
+
+
+
+            let html:string[] = [];
+            let begin:number[] = [];
+            let ends:number[] = [];
+
+            for (let i=0; i<parts.length; i++) {
+                let part = parts[i];
+                begin.push(current.indexOf(part));
+            }
+            
+            /*
+            for (let i=0; i<parts.length; i++) {
+                let part = parts[i];
+                let index = begin[i];
+                if (index != -1) {
+                    let text_long = part.length+1;
+                    let start = 0;
+                    let final = current.length;
+                    let dif = 0;
+                    if (i>0) {
+                        if (begin[i-1] != -1) {
+                            start = begin[i-1] + parts[i-1].length;
+                        }
+                    }
+                    if (i<parts.length-1) {
+                        if (begin[i+1] != -1) {
+                            final = begin[i+1];
+                        }
+                    }
+                    dif = final-start;
+                    if (dif != text_long) {
+                        begin[i] = -1;
+                        console.log("Encontré un substring",part, start, final, dif, part.length);
+                    }
+                }
+            }
+            */
+
+            let pendiente = -1;
+            let end = 0;
+            let textos = [];
+            for (let i=0; i<parts.length; i++) {
+                let part = parts[i];
+                if (begin[i] != -1) {
+                    if (pendiente != -1) {
+                        let length = begin[i] - end -1;
+                        let text = current.substr(end, length);
+                        end += length + 1;
+                        html.push(this.pitch.parts[pendiente].b + text + this.pitch.parts[pendiente].c);
+                        textos.push(text);
+                        pendiente = -1;
+                    }
+
+                    html.push(this.pitch.parts[i].html);
+                    textos.push(this.pitch.parts[i].text);
+                    end += part.length + 1;
+                                    
+                } else {
+                    pendiente = i;
+                }
+            }
+
+            if (pendiente != -1) {
+                let text = current.substr(end);
+                textos.push(text);
+                html.push(this.pitch.parts[pendiente].b + text + this.pitch.parts[pendiente].c);
+            }
+
+            let texto_final = textos.join(" ");
+            if (current != texto_final) {
+                console.log("FUCK!!!", [current]);
+                console.log("FUCK!!!", [texto_final]);
+                this.pitch.html = current;
+            } else {
+                this.pitch.html = html.join(" ");
+            }
+
+            
+            console.log("generatePitchHtml() -> ", html, this.pitch.html);
+
+        }        
+    }
+
+    private generatePitchText(current:string=null) {
+        // genera la string text
+        if (current) {
+            this.pitch.text = current;
+        } else {
+            let parts:string[] = [];
+            for (let i=0; i<this.pitch.parts.length; i++) {
+                parts.push(this.pitch.parts[i].text);
+            }
+            this.pitch.text = parts.join(" ");
+        }
+    }
+
+
 
 }

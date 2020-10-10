@@ -38,11 +38,7 @@ export class SlotsPage {
     }
 
     onIndustriaChange() {
-        this.deck.getPitch();
-    }
-
-    onEditPitch(pitch: string) {
-        this.deck.setPitch(pitch);
+        this.deck.updatePitch();
     }
 
     addSlotsToCanvas(until: number) {
@@ -53,7 +49,7 @@ export class SlotsPage {
             case 2: this.deck.addToCanvas(this.slots.blue.getCard());
             case 1: this.deck.addToCanvas(this.slots.red.getCard());
         }
-        this.deck.getPitch();
+        this.deck.updatePitch();
     }
 
 
@@ -72,12 +68,12 @@ export class SlotsPage {
         this.timer = setTimeout(_ => {
             console.log("updateResultado() timeout");
             this.deck.resetCanvas();
-            this.deck.getPitch();
+            this.deck.updatePitch();
             this.timer1 = setTimeout(_ => { this.addSlotsToCanvas(1); }, 2000);
             this.timer2 = setTimeout(_ => { this.addSlotsToCanvas(2); }, 3000);
             this.timer3 = setTimeout(_ => { this.addSlotsToCanvas(3); }, 4000);
             this.timer4 = setTimeout(_ => { this.addSlotsToCanvas(4); }, 5000);
-            console.error("cosas sacadas temporalmente");
+            // console.error("cosas sacadas temporalmente");
         }, 10);
     }
 
@@ -97,7 +93,7 @@ export class SlotsPage {
         this.slots.blue.shuffle();
         this.slots.green.shuffle();
         this.slots.yellow.shuffle();
-        console.error("cosas sacadas temporalmente");
+        // console.error("cosas sacadas temporalmente");
     }
     
     toCanvas() {

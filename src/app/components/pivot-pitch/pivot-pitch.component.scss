@@ -5,6 +5,8 @@
         padding: 10px;
         transition-property: height;
         transition: height 1s ease;
+        background: #424242;
+        color: #fff;        
     }
 
     mat-form-field {
@@ -13,5 +15,13 @@
     
     .title {
         margin-bottom: 6px;
+        font-size: 20px;
+    }
+
+    textarea, p {
+        font: 400 14px/20px Roboto, "Helvetica Neue", sans-serif;
+        letter-spacing: normal;
+        font-size: 16px;
     }
 }
+

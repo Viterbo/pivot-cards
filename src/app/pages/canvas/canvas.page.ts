@@ -66,15 +66,11 @@ export class CanvasPage implements OnInit, OnDestroy, AfterViewInit, AfterViewCh
             }
         }
         this.deck.industria = "veterinaria";
-        this.deck.getPitch();
+        this.deck.updatePitch();
     }
 
     get showPrintBtn() {
         return this.deck.isCanvasOK();
-    }
-
-    onEditPitch(pitch: string) {
-        this.deck.setPitch(pitch);
     }
 
     private init() {
@@ -86,7 +82,7 @@ export class CanvasPage implements OnInit, OnDestroy, AfterViewInit, AfterViewCh
             if (params && params.lockcanvas) {
                 this.lockcanvas = true;
             } else {
-                this.deck.getPitch();
+                this.deck.updatePitch();
                 this.deck.resetCanvas();
 
                 // this.aux();
@@ -224,7 +220,7 @@ export class CanvasPage implements OnInit, OnDestroy, AfterViewInit, AfterViewCh
         //*/        
         pdf.setFontSize(12);
         pdf.text(
-            this.deck.pitch,
+            this.deck.pitch.text,
             this.left+this.canvasl+margin,
             this.top+this.canvast+this.cellh*2+top+10,
             {
@@ -366,7 +362,7 @@ export class CanvasPage implements OnInit, OnDestroy, AfterViewInit, AfterViewCh
         // console.log("CanvasPage.agregar", card);
         this.deck.addToCanvas(card);
         this.slots.update();
-        this.deck.getPitch();
+        this.deck.updatePitch();
     }
 
     descartar(card:Card) {
@@ -376,13 +372,13 @@ export class CanvasPage implements OnInit, OnDestroy, AfterViewInit, AfterViewCh
         // console.log("CanvasPage.descartar", card);
         this.deck.removeFromCanvas(card);
         this.slots.update();
-        this.deck.getPitch();
+        this.deck.updatePitch();
     }
     
     
 
     onIndustriaChange() {
-        this.deck.getPitch();
+        this.deck.updatePitch();
     }
 
     slots: PivotFourSlotsComponent;
