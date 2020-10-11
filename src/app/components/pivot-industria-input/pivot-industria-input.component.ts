@@ -46,6 +46,6 @@ export class PivotIndustriaInputComponent implements OnInit {
     }
 
     onValueChange(e) {
-        console.log("PivotIndustriaInputComponent.onValueChange()", this.ctrl);
+        // console.log("PivotIndustriaInputComponent.onValueChange()", this.ctrl);
     }
 }

@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { CanvasPage } from './canvas/canvas.page';
 import { FilterPage } from './filter/filter.page';
 import { HomePage } from './home/home.page';
-import { PrintPage } from './print/print.page';
 import { SelectionPage } from './selection/selection.page';
 import { SlotsPage } from './slots/slots.page';
 import { WelcomePage } from './welcome/welcome.page';
@@ -65,7 +64,6 @@ import { ReactiveFormsModule } from '@angular/forms';
         CanvasPage,
         FilterPage,
         HomePage,
-        PrintPage,
         SelectionPage,
         SlotsPage,
         WelcomePage,
@@ -80,7 +78,6 @@ import { ReactiveFormsModule } from '@angular/forms';
         CanvasPage,
         FilterPage,
         HomePage,
-        PrintPage,
         SelectionPage,
         SlotsPage,
         WelcomePage,

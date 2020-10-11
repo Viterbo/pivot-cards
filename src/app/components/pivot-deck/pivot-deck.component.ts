@@ -21,7 +21,7 @@ export class PivotDeckComponent extends VpeAbstractComponent implements OnInit, 
     @Input() cardWidth: number;
     @Output() public onCardClick:Subject<Card> = new Subject();
 
-    slides:number;
+    slides:number = 3;
     turn: boolean;
     visible: boolean;
 
@@ -60,21 +60,25 @@ export class PivotDeckComponent extends VpeAbstractComponent implements OnInit, 
     }
 
     onResize(e: ResizeEvent) {
-        console.log("PivotDeckComponent.onResize()", [e]);
-        // console.log("this.element.nativeElement.width:", this.element.nativeElement.width); 
-        // console.log("this.cardWidth:", this.cardWidth); 
-        
-        this.slides = Math.floor(this.element.nativeElement.offsetWidth / this.cardWidth);
-        if (typeof this.element.nativeElement.width == "undefined") {
-            this.slides = Math.floor(e.device.width / this.cardWidth);
-            // console.log("*******", this.slides );
-        }
-        // console.log("this.slides:", this.slides); 
-        this.slideOpts.slidesPerView = this.slides;
-        // console.log("this.divView: ------------> ", this.element.nativeElement.children[0].children[0].children[0].children[0].children);
-        
-        // console.log("this.slideOpts.slidesPerView:", this.slideOpts.slidesPerView);
-        this.resetView();
+        setTimeout(_ => {
+            console.log("PivotDeckComponent.onResize()", [e]);
+            console.log("this.element.nativeElement:", this.element.nativeElement.parentNode); 
+            console.log("parentNode.offsetWidth:", this.element.nativeElement.parentNode.offsetWidth, "parentNode.width:", this.element.nativeElement.parentNode.width); 
+            console.log("this.cardWidth:", this.cardWidth); 
+            
+            this.slides = Math.floor(this.element.nativeElement.parentNode.offsetWidth / this.cardWidth);
+            if (this.element.nativeElement.parentNode.offsetWidth == 0) {
+                this.slides = Math.floor(e.device.width / this.cardWidth);
+                this.onResize(e);
+                return;
+            }
+            // console.log("this.slides:", this.slides); 
+            this.slideOpts.slidesPerView = this.slides;
+            // console.log("this.divView: ------------> ", this.element.nativeElement.children[0].children[0].children[0].children[0].children);
+            
+            console.log("this.slideOpts.slidesPerView:", this.slideOpts.slidesPerView);
+            this.resetView();
+        }, 10);
     }
 
     ngOnChanges(c) {
@@ -83,6 +87,7 @@ export class PivotDeckComponent extends VpeAbstractComponent implements OnInit, 
     }
 
     resetView() {
+        console.log("PivotDeckComponent.resetView()");
         // setTimeout(_ => {this.turn = !this.turn;}, 1000);
         
 
@@ -107,7 +112,7 @@ export class PivotDeckComponent extends VpeAbstractComponent implements OnInit, 
 
         
         setTimeout(_ => {this.visible = false;}, 0);
-        setTimeout(_ => {this.visible = true;}, 10);
+        setTimeout(_ => {this.visible = true; }, 10);
         
     }
 

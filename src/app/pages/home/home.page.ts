@@ -37,33 +37,36 @@ export class HomePage {
         console.log("HomePage.handleWindowResize()",this.class);
     }
 
-    ngOnInit() {
+    async ngOnInit() {
         this.show_errors = false;
         this.app.onWindowResize.subscribe(this.onWindowResize);
-    }
-
-
-    ngOnDestroy() {
-        this.onWindowResize.unsubscribe();
-    }
-
-
-    gotoCartas() {
-        return this.router.navigate(['/cartas']); 
-    }
-
-    
-    onCardClick(card) {
-        console.log("onCardClick",card);
-        if (!this.deck.industria) {
-            this.input.showErrors();
-            this.show_errors = true;
-            return;
-        }
-        // this.router.navigate(['/home']);
+        await this.deck.waitLoaded;
         this.deck.resetCanvas();
         this.deck.resetSelection();
-        switch(card){
+    }
+
+
+    async ngOnDestroy() {
+        this.onWindowResize.unsubscribe();
+        await this.deck.waitLoaded;
+        this.deck.resetCanvas();
+        this.deck.resetSelection();        
+    }
+
+
+    
+
+    
+    onDinamica(dinamica:number) {
+        console.log("onDinamica",dinamica);
+        if (!this.deck.industria) {
+            setTimeout(_ => {
+                this.input.showErrors();
+                this.show_errors = true;    
+            }, 10);
+            return;
+        }
+        switch(dinamica){
             case 1: return this.router.navigate(['/selection']); 
             case 2: return this.router.navigate(['/filter']); 
             case 3: return this.router.navigate(['/slots']); 

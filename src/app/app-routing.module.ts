@@ -6,7 +6,6 @@ import { SelectionPage } from './pages/selection/selection.page';
 import { FilterPage } from './pages/filter/filter.page';
 import { SlotsPage } from './pages/slots/slots.page';
 import { CanvasPage } from './pages/canvas/canvas.page';
-import { PrintPage } from './pages/print/print.page';
 import { CartasPage } from './pages/cartas/cartas.page';
 
 const routes: Routes = [
@@ -42,10 +41,6 @@ const routes: Routes = [
     {
         path: 'canvas',
         component: CanvasPage
-    },
-    {
-        path: 'print',
-        component: PrintPage
     }
 ];
 

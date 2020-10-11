@@ -33,6 +33,7 @@ import { PivotFourSlotsComponent } from './pivot-four-slots/pivot-four-slots.com
 import { ColorCardListComponent } from './color-card-list/color-card-list.component';
 import { PivotPitchComponent } from './pivot-pitch/pivot-pitch.component';
 import { PivotCanvasComponent } from './pivot-canvas/pivot-canvas.component';
+import { PivotHeaderComponent } from './pivot-header/pivot-header.component';
 
 
 @NgModule({
@@ -70,7 +71,8 @@ import { PivotCanvasComponent } from './pivot-canvas/pivot-canvas.component';
         PivotFourSlotsComponent,
         ColorCardListComponent,
         PivotPitchComponent,
-        PivotCanvasComponent
+        PivotCanvasComponent,
+        PivotHeaderComponent
     ],
     entryComponents: [
     ],
@@ -86,7 +88,8 @@ import { PivotCanvasComponent } from './pivot-canvas/pivot-canvas.component';
         PivotFourSlotsComponent,
         ColorCardListComponent,
         PivotPitchComponent,
-        PivotCanvasComponent
+        PivotCanvasComponent,
+        PivotHeaderComponent
         
     ]
 })

@@ -1,5 +1,5 @@
 import { Component, HostBinding } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { Subscriber } from 'rxjs';
 import { DeckService, Deck, Card } from 'src/app/services/deck.service';
 import { CardSlotComponent } from 'src/app/components/card-slot/card-slot.component';
@@ -28,9 +28,25 @@ export class SelectionPage {
         // this.availables_filtered = [];
         // this.selection_filtered = [];
         // this.filterColor('all');
+        this.onEnterPage();
+
+        this.router.events.subscribe((val) => {
+            console.log(val instanceof NavigationEnd, val);
+            if (val instanceof NavigationEnd) {
+                let nav = <NavigationEnd>val;
+                if (nav.url = "/selection") {
+                    this.onEnterPage();
+                }
+            }
+        });
+    }
+
+    onEnterPage() {
+        console.log("SelectionPage.onEnterPage()");
         this.clearCount();
         this.updateCounter();
     }
+
 
     //*/
     /*

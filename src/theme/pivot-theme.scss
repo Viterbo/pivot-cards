@@ -9,20 +9,61 @@
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$candy-app-primary: mat-palette($mat-indigo);
-$candy-app-accent:  mat-palette($mat-pink);
+$my-app-primary: mat-palette($mat-indigo);
+$my-app-accent:  mat-palette($mat-pink);
 
 // The warn palette is optional (defaults to red).
-$candy-app-warn:    mat-palette($mat-red);
+$my-app-warn:    mat-palette($mat-red);
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as `color` or `typography`.
-$candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-primary, $candy-app-warn);
+$my-app-theme: mat-light-theme($my-app-primary, $my-app-primary, $my-app-warn);
+
+// Custom Colors ---------------------------------------------
+// https://stackoverflow.com/a/58165951/2274525
+$custom-collection: (
+    red: #eb445a,
+    blue :  #3880ff,
+    green :  #2dd36f,
+    yellow :  #ffc409,
+    dark :  #000000,
+    contrast: (
+        red: #ffffff,
+        blue :  #ffffff,
+        green :  #ffffff,
+        yellow :  #000000,
+        dark :  #ffffff,
+    )
+);
+$my-app-custom: mat-palette($custom-collection, custom);
+$my-app-theme: map_merge($my-app-theme, (custom: $my-app-custom));
+$custom: map-get($my-app-theme, custom);
+.mat-dark {
+    background-color: mat-color($custom, dark) !important;
+    color: mat-color($custom, dark-contrast) !important;
+}
+.mat-red {    
+    background-color: mat-color($custom, red) !important;
+    color: mat-color($custom, red-contrast) !important;
+}
+.mat-blue {
+    background-color: mat-color($custom, blue) !important;
+    color: mat-color($custom, blue-contrast) !important;
+}
+.mat-green {
+    background-color: mat-color($custom, green) !important;
+    color: mat-color($custom, green-contrast) !important;
+}
+.mat-yellow {
+    background-color: mat-color($custom, yellow) !important;
+    color: mat-color($custom, yellow-contrast) !important;
+}
+// Custom Colors ---------------------------------------------
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
-@include angular-material-theme($candy-app-theme);
+@include angular-material-theme($my-app-theme);
 
 button:focus {
     outline: 2px auto white;

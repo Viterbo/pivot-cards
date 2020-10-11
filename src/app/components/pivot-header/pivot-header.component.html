@@ -1,0 +1,36 @@
+<button class="navbar-toggler" mat-button [matMenuTriggerFor]="main_menu">
+    <span class="navbar-toggler-icon"></span>
+</button>
+<mat-menu #main_menu="matMenu" xPosition="before">
+    <a mat-menu-item href="https://saramendia.wixsite.com/misitio" target="_blank">Comprar</a>
+    <button mat-menu-item (click)="gotoCartas()">Cartas</button> 
+    <button mat-menu-item (click)="onDinamica(1)">1 - Selección manual</button>
+    <button mat-menu-item (click)="onDinamica(2)">2 - Selección por filtros</button>
+    <button mat-menu-item (click)="onDinamica(3)">3 - ¡Probá suerte!</button>
+    <a mat-menu-item href="https://saramendia.wixsite.com/misitio" target="_blank" >Sobre Pivot</a>
+</mat-menu>
+
+<div class="collapse navbar-collapse">
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+            <a mat-button href="https://saramendia.wixsite.com/misitio" target="_blank">Comprar</a>
+        </li>
+        <li class="nav-item">
+            <button mat-button (click)="gotoCartas()">Cartas</button> 
+        </li>
+        <li class="nav-item dropdown">
+            <button mat-button [matMenuTriggerFor]="din_menu">
+                Dinámicas
+                <i class="material-icons">expand_more</i>
+            </button>
+            <mat-menu #din_menu="matMenu" xPosition="before">
+                <button mat-menu-item (click)="onDinamica(1)">1 - Selección manual</button>
+                <button mat-menu-item (click)="onDinamica(2)">2 - Selección por filtros</button>
+                <button mat-menu-item (click)="onDinamica(3)">3 - ¡Probá suerte!</button>
+            </mat-menu>
+        </li>
+        <li class="nav-item">
+            <a href="https://saramendia.wixsite.com/misitio" target="_blank" mat-button >Sobre Pivot</a>
+        </li>
+    </ul>
+</div>
