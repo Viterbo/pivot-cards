@@ -5,8 +5,8 @@
                 <img class="brand-image" [ngClass]="class" src="assets/img/Pívot-azul.png"/>
             </a>
 
-            <pivot-header [delegate]="true" (ondinamica)="onDinamica($event)"></pivot-header>
-                
+            <pivot-header [page]="page" [delegate]="true" (ondinamica)="onDinamica($event)"></pivot-header>
+            
         </div>
     </nav>
 </ion-header>

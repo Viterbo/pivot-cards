@@ -1,17 +1,18 @@
-import { Component, HostBinding } from '@angular/core';
+import { Component, HostBinding, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscriber } from 'rxjs';
 import { DeckService, Deck, Card } from 'src/app/services/deck.service';
-import { AppService } from 'src/app/services/common/app.service';
+import { AppPage, AppService } from 'src/app/services/common/app.service';
 
 @Component({
     selector: 'cartas-page',
     templateUrl: 'cartas.page.html',
     styleUrls: ['cartas.page.scss'],
 })
-export class CartasPage {
+export class CartasPage implements AppPage, OnDestroy {
 
-    page: string = "selection";
+    public path: RegExp = /\/cartas/i;
+    page: AppPage;
     filter_color: string;
     availables_filtered: Deck;
     selection_filtered: Deck;
@@ -22,9 +23,7 @@ export class CartasPage {
         public deck: DeckService,
         public app: AppService
     ) {
-        this.availables_filtered = [];
-        this.selection_filtered = [];
-        this.filterColor('all');
+        this.app.subscribeOnEnterPage(this);
     }
 
     //*/
@@ -35,35 +34,17 @@ export class CartasPage {
     get selection(): Deck {
         return this.selection_filtered;
     }
-    /*/
-    get availables(): Deck {
-        if (this.filter_color != 'all') {
-            if (this.availables_filtered) {
-                return this.availables_filtered;
-            } else {
-                setTimeout(_ => {
-                    this.availables_filtered = this.deck.filterColor(this.filter_color, this.deck.availables);
-                });
-                return this.selection_filtered;
-            }
-        } 
-        return this.deck.availables;
+
+    onEnterPage() {
+        console.log("CartasPage.onenterPage()");
+        this.availables_filtered = [];
+        this.selection_filtered = [];
+        this.filterColor('all');
     }
 
-    get selection(): Deck {
-        if (this.filter_color != 'all') {
-            if (this.selection_filtered) {
-                return this.selection_filtered;
-            } else {
-                setTimeout(_ => {
-                    this.selection_filtered = this.deck.filterColor(this.filter_color, this.deck.selection);
-                });
-                return this.selection_filtered;
-            }
-        } 
-        return this.deck.selection;
+    ngOnDestroy() {
+        this.app.unsubscribeOnEnterPage(this);
     }
-    //*/
 
     get showGoToCanvas() {
         return this.deck.isSelectionOK();

@@ -1,8 +1,8 @@
-import { Component, HostBinding } from '@angular/core';
+import { Component, HostBinding, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscriber } from 'rxjs';
 import { DeckService, Card, Deck } from 'src/app/services/deck.service';
-import { AppService } from 'src/app/services/common/app.service';
+import { AppPage, AppService } from 'src/app/services/common/app.service';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { ColorCardListComponent } from 'src/app/components/color-card-list/color-card-list.component';
 
@@ -11,9 +11,10 @@ import { ColorCardListComponent } from 'src/app/components/color-card-list/color
     templateUrl: 'filter.page.html',
     styleUrls: ['filter.page.scss'],
 })
-export class FilterPage {
+export class FilterPage implements AppPage, OnDestroy {
 
-    page: string = "filter";
+    public path: RegExp = /\/filter/i;
+    page: AppPage;
     answers:string[];
     render_selectors:boolean;
     constructor(
@@ -23,20 +24,22 @@ export class FilterPage {
         public fb: FormBuilder
 
     ) {
-        this.clearAll();
+        this.app.subscribeOnEnterPage(this);
     }
 
     get showGoToCanvas() {
         return this.deck.isSelectionOK();
     }
 
-    ngOnInit() {
-        
+    onEnterPage() {
+        if (this.app.prev_path == "/canvas") return;
+        console.log("FilterPage.onenterPage()");
+        this.clearAll();
     }
 
 
     ngOnDestroy() {
-        
+        this.app.unsubscribeOnEnterPage(this);
     }
 
     
@@ -68,6 +71,7 @@ export class FilterPage {
         this.clearAnswers();
         this.clearCount();
         this.deck.resetSelection();
+        this.deck.resetCanvas();
         this.deck.refreshFilters();
     }
 

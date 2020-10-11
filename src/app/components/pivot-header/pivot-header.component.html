@@ -2,7 +2,17 @@
     <span class="navbar-toggler-icon"></span>
 </button>
 <mat-menu #main_menu="matMenu" xPosition="before">
+
+
+
+    <!-- -------------------------- -->
+    <button color="red" mat-menu-item (click)="onDebug()">Debug</button>
+    <!-- -------------------------- -->
+
+    
+
     <a mat-menu-item href="https://saramendia.wixsite.com/misitio" target="_blank">Comprar</a>
+    <button *ngIf="!delegate" mat-menu-item (click)="gotoHome()">Inicio</button> 
     <button mat-menu-item (click)="gotoCartas()">Cartas</button> 
     <button mat-menu-item (click)="onDinamica(1)">1 - Selección manual</button>
     <button mat-menu-item (click)="onDinamica(2)">2 - Selección por filtros</button>
@@ -12,8 +22,21 @@
 
 <div class="collapse navbar-collapse">
     <ul class="navbar-nav ml-auto">
+
+
+        <!-- -------------------------- -->
+        <li class="nav-item">
+            <button color="red" mat-button (click)="onDebug()">Debug</button> 
+        </li>
+        <!-- -------------------------- -->
+        
+        
+        
         <li class="nav-item">
             <a mat-button href="https://saramendia.wixsite.com/misitio" target="_blank">Comprar</a>
+        </li>
+        <li class="nav-item" *ngIf="!delegate">
+            <button mat-button (click)="gotoHome()">Inicio</button> 
         </li>
         <li class="nav-item">
             <button mat-button (click)="gotoCartas()">Cartas</button> 

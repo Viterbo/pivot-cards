@@ -22,7 +22,7 @@ http://raw.githack.com/MrRio/jsPDF/master/docs/jsPDF.html
 - Dinámica 2:
   - permitir que se pueda editar la industria (no existe el campo, hay que ponerlo).
   - solo se puede pasar al canvas cuando las tres preguntas están contestadas.
-  - hay que resetear el pitch cuando entrás en esta página?
+  + hay que resetear el pitch cuando entrás en esta página?
 
 - Dinámica 3
   - impedir que se pueda editar el texto mientras giran los slots

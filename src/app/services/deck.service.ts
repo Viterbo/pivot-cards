@@ -55,7 +55,7 @@ export class DeckService {
     });
 
     public onSelected:Subject<any> = new Subject();
-    public deck:Deck;
+    public deck:Deck = [];
     
     private setFilters: Function;
     public waitFilters = new Promise(resolve => {
@@ -359,7 +359,7 @@ export class DeckService {
     }
 
     // pitch (ini) ------------------------------------------------------------
-    pitch: Pitch;
+    pitch: Pitch = {html:"",text:"",parts:[]};;
     // setPitch(pitch: string) {
     //     this.pitch = pitch;
     // }

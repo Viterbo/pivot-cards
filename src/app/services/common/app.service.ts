@@ -4,6 +4,7 @@ import { AnalyticsService } from './analytics.service';
 import { DomService } from './dom.service';
 import { Subject } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
+import { computeStackId } from '@ionic/angular/directives/navigation/stack-utils';
 
 export interface Device {
     fullhd?:boolean, // >= 1600px
@@ -20,11 +21,18 @@ export interface Device {
     class?: string
 }
 
+export interface AppPage {
+    path:RegExp;
+    page: AppPage;
+    onEnterPage: () => void;
+}
+
 @Injectable({
     providedIn: 'root'
 })
 export class AppService {
     public path: string;
+    public prev_path: string;
     public onStateChange:Subject<string> = new Subject();
     public onWindowResize:Subject<Device> = new Subject();
     // router : Router;
@@ -49,14 +57,23 @@ export class AppService {
         this.router.events.subscribe((event) => {
             if (event instanceof NavigationEnd) {
                 this.prev_state = this.state;
+                this.prev_path = this.path;
                 this.path = this.router.url;
                 this.state = this.getDeepestChild(this.route.root).snapshot.data.state;
-                console.log("AppService. onRoute()", this.state, [this]);
+                console.log("AppService.onRoute()", [this.state], [this]);
                 this.analytics.sendPageView(window.location.href);
                 this.onStateChange.next(this.state);
                 if (this.state != this.prev_state) {
                     window.document.body.classList.remove(this.prev_state);
                     window.document.body.classList.add(this.state);
+                }
+                for (let i in this.pages) {
+                    let page = this.pages[i];
+                    if (this.path.match(page.path)) {
+                        console.log("AppService -> page.onEnterPage()", this.state, this.path, [this]);
+                        page.onEnterPage();
+                        break;
+                    }
                 }
             }
         });
@@ -335,7 +352,19 @@ export class AppService {
         }
         return found;
     }
+
+    // AppPage onEnterPage solution -----------------------------
+    pages:{[key:string]:AppPage} = {};
+    subscribeOnEnterPage(page:AppPage) {
+        page.page = page;
+        console.assert(typeof this.pages[page.path.toString()] == "undefined", "ERROR: AppPage already subscribed: " + page.path.toString());
+        this.pages[page.path.toString()] = page;
+    }
     
+    unsubscribeOnEnterPage(page:AppPage) {
+        delete this.pages[page.path.toString()];
+    }
+    // AppPage onEnterPage solution -----------------------------
 }
 
 

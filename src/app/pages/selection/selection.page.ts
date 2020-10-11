@@ -1,50 +1,45 @@
-import { Component, HostBinding } from '@angular/core';
+import { Component, HostBinding, OnDestroy } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Subscriber } from 'rxjs';
 import { DeckService, Deck, Card } from 'src/app/services/deck.service';
 import { CardSlotComponent } from 'src/app/components/card-slot/card-slot.component';
 import { PivotFourSlotsComponent } from 'src/app/components/pivot-four-slots/pivot-four-slots.component';
 import { ColorCardListComponent } from 'src/app/components/color-card-list/color-card-list.component';
-import { AppService } from 'src/app/services/common/app.service';
+import { AppPage, AppService } from 'src/app/services/common/app.service';
 
 @Component({
     selector: 'selection-page',
     templateUrl: 'selection.page.html',
     styleUrls: ['selection.page.scss'],
 })
-export class SelectionPage {
+export class SelectionPage implements AppPage, OnDestroy {
 
-    page: string = "selection";
+    public path: RegExp = /\/selection/i;;
+    page: AppPage;
     filter_color: string;
     availables_filtered: Deck;
     selection_filtered: Deck;
-    // private onToiletSelectedSubscriber: Subscriber<any>;
     
     constructor(
         public router: Router,
         public deck: DeckService,
         public app: AppService
     ) {
-        // this.availables_filtered = [];
-        // this.selection_filtered = [];
-        // this.filterColor('all');
         this.onEnterPage();
-
-        this.router.events.subscribe((val) => {
-            console.log(val instanceof NavigationEnd, val);
-            if (val instanceof NavigationEnd) {
-                let nav = <NavigationEnd>val;
-                if (nav.url = "/selection") {
-                    this.onEnterPage();
-                }
-            }
-        });
+        this.app.subscribeOnEnterPage(this);
     }
 
     onEnterPage() {
+        if (this.app.prev_path == "/canvas") return;
         console.log("SelectionPage.onEnterPage()");
+        this.deck.resetSelection();
+        this.deck.resetCanvas();         
         this.clearCount();
-        this.updateCounter();
+        this.updateCounter();       
+    }
+
+    ngOnDestroy() {
+        this.app.unsubscribeOnEnterPage(this);
     }
 
 

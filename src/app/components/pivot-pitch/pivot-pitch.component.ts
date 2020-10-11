@@ -37,7 +37,7 @@ export class PivotPitchComponent implements OnInit, OnChanges, OnDestroy {
         this.editting = false;
         this.editable = true;
         setTimeout(_ => {
-            this.deck.updatePitch();
+            this.handleNewPitch(this.deck.pitch);
         }, 0);
     }
     

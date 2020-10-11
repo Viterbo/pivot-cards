@@ -1,8 +1,8 @@
-import { Component, HostBinding, ViewChild } from '@angular/core';
+import { Component, HostBinding, OnDestroy, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscriber } from 'rxjs';
 import { DeckService } from 'src/app/services/deck.service';
-import { AppService } from 'src/app/services/common/app.service';
+import { AppPage, AppService } from 'src/app/services/common/app.service';
 import { CardSlotComponent } from 'src/app/components/card-slot/card-slot.component';
 
 @Component({
@@ -10,9 +10,10 @@ import { CardSlotComponent } from 'src/app/components/card-slot/card-slot.compon
     templateUrl: 'slots.page.html',
     styleUrls: ['slots.page.scss'],
 })
-export class SlotsPage {
+export class SlotsPage implements AppPage, OnDestroy {
 
-    page: string = "slots";
+    public path: RegExp = /\/slots/i;;
+    page: AppPage;
     slots: {[name:string]:CardSlotComponent};
 
     constructor(
@@ -21,20 +22,23 @@ export class SlotsPage {
         public app: AppService,
     ) {
         this.slots = {};
-        this.deck.resetCanvas();
+        this.app.subscribeOnEnterPage(this);
     }
 
     get showGoToCanvas() {
         return this.deck.isCanvasOK();
     }
 
-    ngOnInit() {
-        // this.toilets.onSelected.subscribe(this.onToiletSelectedSubscriber);
+    onEnterPage() {
+        this.deck.resetSelection();
+        this.deck.resetCanvas();
+        this.deck.updatePitch();
+        this.clearTimers();
+        this.clearSlots();
     }
 
-
     ngOnDestroy() {
-        // this.onToiletSelectedSubscriber.unsubscribe();
+        this.app.unsubscribeOnEnterPage(this);
     }
 
     onIndustriaChange() {
@@ -58,13 +62,17 @@ export class SlotsPage {
     timer2 = null;
     timer3 = null;
     timer4 = null;
-    updateResultado() {
-        console.log("updateResultado()");
+    clearTimers() {
         clearTimeout(this.timer);
         clearTimeout(this.timer1);
         clearTimeout(this.timer2);
         clearTimeout(this.timer3);
-        clearTimeout(this.timer4);
+        clearTimeout(this.timer4);        
+    }
+
+    updateResultado() {
+        console.log("updateResultado()");
+        this.clearTimers();
         this.timer = setTimeout(_ => {
             console.log("updateResultado() timeout");
             this.deck.resetCanvas();
@@ -94,6 +102,13 @@ export class SlotsPage {
         this.slots.green.shuffle();
         this.slots.yellow.shuffle();
         // console.error("cosas sacadas temporalmente");
+    }
+
+    clearSlots() {
+        if (this.slots.red) this.slots.red.clear();
+        if (this.slots.blue) this.slots.blue.clear();
+        if (this.slots.green) this.slots.green.clear();
+        if (this.slots.yellow) this.slots.yellow.clear();        
     }
     
     toCanvas() {

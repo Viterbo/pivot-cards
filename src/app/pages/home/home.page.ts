@@ -1,20 +1,21 @@
-import { Component, HostBinding } from '@angular/core';
+import { Component, HostBinding, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscriber } from 'rxjs';
 import { DeckService } from 'src/app/services/deck.service';
-import { AppService } from 'src/app/services/common/app.service';
+import { AppPage, AppService } from 'src/app/services/common/app.service';
 
 @Component({
     selector: 'home-page',
     templateUrl: 'home.page.html',
     styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements AppPage, OnDestroy {
 
 
     @HostBinding('class') class = 'box';
 
-    page: string = "home";
+    public path: RegExp = /\/home/i;
+    page: AppPage;
     toilet_card_fade:string;
     private onWindowResize: Subscriber<any>;
     show_errors:boolean;
@@ -30,6 +31,7 @@ export class HomePage {
         this.class = this.app.device.class;
         console.log("HomePage.constructor()",this.class);
         this.onWindowResize = new Subscriber<any>(this.handleWindowResize.bind(this));
+        this.app.subscribeOnEnterPage(this);
     }
 
     handleWindowResize() {
@@ -41,19 +43,19 @@ export class HomePage {
         this.show_errors = false;
         this.app.onWindowResize.subscribe(this.onWindowResize);
         await this.deck.waitLoaded;
+    }
+    
+    async ngOnDestroy() {
+        this.onWindowResize.unsubscribe();
+        this.onEnterPage();
+        this.app.unsubscribeOnEnterPage(this);
+    }
+
+    async onEnterPage() {
+        await this.deck.waitLoaded;
         this.deck.resetCanvas();
         this.deck.resetSelection();
     }
-
-
-    async ngOnDestroy() {
-        this.onWindowResize.unsubscribe();
-        await this.deck.waitLoaded;
-        this.deck.resetCanvas();
-        this.deck.resetSelection();        
-    }
-
-
     
 
     

@@ -50,8 +50,7 @@ export class CardSlotComponent extends VpeAbstractComponent implements OnInit, O
         private renderer: Renderer2
     ) {
         super();
-        this.filterColor();
-        this.showminicard = true;
+        this.clear()
     }
 
     private findCurrentIndex(card: Card, deck: Deck) {
@@ -101,6 +100,11 @@ export class CardSlotComponent extends VpeAbstractComponent implements OnInit, O
     update() {
         // console.log("CardSlotComponent.update()", this.filtered, this.deck, this.service.selection);
         this.filterColor();
+    }
+
+    clear() {
+        this.filterColor();
+        this.showminicard = true;
     }
 
     clearCard() {

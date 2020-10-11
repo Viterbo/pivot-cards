@@ -2,10 +2,12 @@ import { Component, HostBinding, AfterViewInit, OnInit, AfterViewChecked, OnDest
 import { Router, ActivatedRoute } from '@angular/router';
 import { DeckService, Card } from 'src/app/services/deck.service';
 import { PivotFourSlotsComponent } from 'src/app/components/pivot-four-slots/pivot-four-slots.component';
-import { AppService } from 'src/app/services/common/app.service';
+import { AppPage, AppService } from 'src/app/services/common/app.service';
 
 import { jsPDF, jsPDFOptions } from "jspdf";
 import { LoadingController } from '@ionic/angular';
+
+
 
 
 
@@ -14,12 +16,13 @@ import { LoadingController } from '@ionic/angular';
     templateUrl: 'canvas.page.html',
     styleUrls: ['canvas.page.scss'],
 })
-export class CanvasPage implements OnInit, OnDestroy, AfterViewInit, AfterViewChecked {
+export class CanvasPage implements AppPage, OnDestroy {
 
-    page: string = "canvas";
+    public path: RegExp = /\/canvas/i;
+    page: AppPage;
     // slots: {[name:string]:CardSlotComponent};
     
-    initialized: boolean;
+    // initialized: boolean;
     lockcanvas: boolean;
     useCanvasExtended: boolean;
     useCardsExtended: boolean;
@@ -43,30 +46,7 @@ export class CanvasPage implements OnInit, OnDestroy, AfterViewInit, AfterViewCh
         this.lockcanvas = false;
         this.useCanvasExtended = true;
         this.useCardsExtended = true;
-        this.initialized = false;
-    }
-
-    async aux() {
-        console.error("---------- TEMPORAL ----------");
-        await this.deck.waitLoaded;
-        let selection = [2,5,10, 28,31,30, 38,44, 53,69];
-        let canvas =    [2,5,   28,31,       44,    53,69];
-        this.deck.resetSelection();
-        for (let i=0; i<this.deck.deck.length; i++) {
-            var card:Card = this.deck.deck[i];
-            if (selection.indexOf(parseInt(card.card)) != -1) {
-                this.deck.selectCard(card);
-            }
-        }
-        this.deck.resetCanvas();
-        for (let i=0; i<this.deck.deck.length; i++) {
-            var card:Card = this.deck.deck[i];
-            if (canvas.indexOf(parseInt(card.card)) != -1) {
-                this.deck.addToCanvas(card);
-            }
-        }
-        this.deck.industria = "veterinaria";
-        this.deck.updatePitch();
+        this.app.subscribeOnEnterPage(this);
     }
 
     get showPrintBtn() {
@@ -74,11 +54,11 @@ export class CanvasPage implements OnInit, OnDestroy, AfterViewInit, AfterViewCh
     }
 
     private init() {
-        if (this.initialized) return;
-        this.initialized = true;
-        console.debug("CanvasPage.init()");
+        // if (this.initialized) return;
+        // this.initialized = true;
+        
         this.route.queryParams.subscribe(params => {
-            console.debug("CanvasPage.init() params:", params);
+            
             if (params && params.lockcanvas) {
                 this.lockcanvas = true;
             } else {
@@ -92,11 +72,13 @@ export class CanvasPage implements OnInit, OnDestroy, AfterViewInit, AfterViewCh
         });
     }
 
-    ngAfterViewChecked() {this.init();}
+    onEnterPage() {
+        this.init();
+    }
 
-    ngAfterViewInit() {}
-    ngOnInit() {}
-    ngOnDestroy() {}
+    ngOnDestroy() {
+        this.app.unsubscribeOnEnterPage(this);
+    }
 
     auxGetImage(canvas: HTMLCanvasElement, color: string) {
         var ctx = canvas.getContext("2d");
@@ -354,7 +336,6 @@ export class CanvasPage implements OnInit, OnDestroy, AfterViewInit, AfterViewCh
 
 
     goHome() {
-        this.initialized = false;
         this.router.navigate(['/home'], );
     }
 
@@ -387,3 +368,28 @@ export class CanvasPage implements OnInit, OnDestroy, AfterViewInit, AfterViewCh
     }    
     
 }
+/*
+
+    async aux() {
+        console.error("---------- TEMPORAL ----------");
+        await this.deck.waitLoaded;
+        let selection = [2,5,10, 28,31,30, 38,44, 53,69];
+        let canvas =    [2,5,   28,31,       44,    53,69];
+        this.deck.resetSelection();
+        for (let i=0; i<this.deck.deck.length; i++) {
+            var card:Card = this.deck.deck[i];
+            if (selection.indexOf(parseInt(card.card)) != -1) {
+                this.deck.selectCard(card);
+            }
+        }
+        this.deck.resetCanvas();
+        for (let i=0; i<this.deck.deck.length; i++) {
+            var card:Card = this.deck.deck[i];
+            if (canvas.indexOf(parseInt(card.card)) != -1) {
+                this.deck.addToCanvas(card);
+            }
+        }
+        this.deck.industria = "veterinaria";
+        this.deck.updatePitch();
+    }
+*/ 
