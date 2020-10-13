@@ -3,6 +3,7 @@ ion-grid.grid-interno {
     flex-direction: column;
     height: 100%;
     & > ion-row.row-slot {
-      flex-grow: 1;
+        flex-grow: 1;
     }
+    
 }

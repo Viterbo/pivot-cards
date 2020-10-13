@@ -1,7 +1,9 @@
 <ion-header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <pivot-back-btn (click)="app.history.back();"></pivot-back-btn>
-        <pivot-header [page]="page" [delegate]="false"></pivot-header>
+        <div class="container">
+            <pivot-back-btn (click)="app.history.back();"></pivot-back-btn>
+            <pivot-header [page]="page" [delegate]="false"></pivot-header>
+        </div>
     </nav>
 </ion-header> 
 
@@ -18,12 +20,24 @@
                     <p>Para seleccionar o desseleccionar debes hacer <strong>click sobre las cartas</strong>, mientras que los botones <strong>&lt;</strong> y <strong>&gt;</strong> te permitiran rotar las cartas disponibles.</p>
                 </ion-col>
             </ion-row>
+            
+            <ion-row class="ion-padding-vertical">
+                <ion-col size="2"></ion-col>
+                <ion-col size="8">
+                    <ion-item>
+                        <ion-label position="floating">Producto o Servicio</ion-label>
+                        <ion-input ngDefaultControl [(ngModel)]="deck.industria" (keyup)="deck.updatePitch()"></ion-input>
+                    </ion-item>
+                </ion-col>
+                <ion-col size="2"></ion-col>
+            </ion-row>
 
 
             <!-- Cartas de cada color: con sus respectivos colores -->
             <ion-row class="no-padding">
                 <ion-col>
                     <pivot-four-slots
+                        [show_label]="true"
                         [deck]="deck.availables"
                         (oncard)="onCardClick($event)"
                         (oninit)="onSlotsReady($event)"
@@ -31,38 +45,32 @@
                 </ion-col>
             </ion-row>
 
-            <!-- counter -->
-            <ion-row class="counter flex-grow ion-margin-bottom ion-margin-top">
+            
+            <ion-row class="counter flex-grow ion-margin-vertical">
                 <ion-col class="ion-text-left ion-align-items-end d-flex">
                     <span [hidden]="deck.selection.length != 0">Debes seleccionar al menos una carta de cada color</span>
                     <span [hidden]="deck.selection.length == 0">Has seleccionado {{deck.selection.length}} {{deck.selection.length == 1 ? 'carta' : 'cartas'}} </span>
                 </ion-col>
                 <ion-col class="ion-text-right">
+                    <button mat-raised-button color="accent" (click)="clearAll()">
+                        Limpiar
+                        <i class="material-icons">delete</i>
+                    </button>
+                    &nbsp;                    
                     <button mat-raised-button [disabled]="!showGoToCanvas" color="primary" (click)="goToCanvas()">
                         Canvas
                         <i class="material-icons">navigate_next</i>
                     </button>
                 </ion-col>
             </ion-row>
-
-            <ion-row class="counter flex-grow mat-elevation-z2 ion-padding">
-                <ion-col class="ion-text-center">
-                    <span class="text-danger"> {{count.red}} {{count.red == 1 ? 'carta' : 'cartas'}} </span>
-                </ion-col>
-                <ion-col class="ion-text-center">
-                    <span class="text-primary">{{count.blue}} {{count.blue == 1 ? 'carta' : 'cartas'}}</span>
-                </ion-col>
-                <ion-col class="ion-text-center">
-                    <span class="text-success">{{count.green}} {{count.green == 1 ? 'carta' : 'cartas'}}</span>
-                </ion-col>
-                <ion-col class="ion-text-center">
-                    <span class="text-warning">{{count.yellow}} {{count.yellow == 1 ? 'carta' : 'cartas'}}</span>
-                </ion-col>
-            </ion-row>                     
+            
+            <!-- counter -->
+            <pivot-counter [deck]="deck.selection" (oninit)="onCounterInit($event)"></pivot-counter>                 
 
             <!-- Seleccion -->
-            <ion-row *ngIf="count" class="no-padding flex-grow ion-align-items-start ion-justify-content-start ion-margin-top">
+            <ion-row *ngIf="counter" class="no-padding slots flex-grow ion-align-items-start ion-justify-content-start ion-margin-top">
                 <ion-col>
+                    <!-- <pivot-label-btn color="red"></pivot-label-btn> -->
                     <color-card-list
                         color="red"
                         [deck]="deck.selection"
@@ -71,6 +79,7 @@
                     ></color-card-list>
                 </ion-col>
                 <ion-col>
+                    <!-- <pivot-label-btn color="blue"></pivot-label-btn> -->
                     <color-card-list
                         color="blue"
                         [deck]="deck.selection"
@@ -79,6 +88,7 @@
                     ></color-card-list>
                 </ion-col>
                 <ion-col>
+                    <!-- <pivot-label-btn color="green"></pivot-label-btn> -->
                     <color-card-list
                         color="green"
                         [deck]="deck.selection"
@@ -87,6 +97,7 @@
                     ></color-card-list>
                 </ion-col>
                 <ion-col>
+                    <!-- <pivot-label-btn color="yellow"></pivot-label-btn> -->
                     <color-card-list
                         color="yellow"
                         [deck]="deck.selection"

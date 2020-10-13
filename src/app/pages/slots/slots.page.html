@@ -1,7 +1,9 @@
 <ion-header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <pivot-back-btn (click)="app.history.back();"></pivot-back-btn>
-        <pivot-header [page]="page" [delegate]="false"></pivot-header>
+        <div class="container">
+            <pivot-back-btn (click)="app.history.back();"></pivot-back-btn>
+            <pivot-header [page]="page" [delegate]="false"></pivot-header>
+        </div>
     </nav>
 </ion-header> 
 
@@ -10,64 +12,80 @@
 
         
         <ion-grid class="flex-grow">
-            
+
             <ion-row class="ion-padding">
                 <ion-col>
                     <h1>Dinámica de Tragamonedas</h1>
                     <p>En esta propuesta te invitamos a jugar con tu suerte para crear un modelo de negocio innovador relacionado con <strong>{{deck.industria}}</strong>.</p>
                     <p>Para jugar debes hacer <strong>click sobre el botón 'Jugar'</strong> y espera a lo que te depare la suerte en esta mecánica que imita las máquinas tragamonedas.</p>
                 </ion-col>
-            </ion-row>  
-        
-            <ion-row  class="ion-padding">
-                <ion-col size="2"></ion-col>
-                <ion-col size="8" class="ion-text-center">
+            </ion-row>
+
+            <ion-row  class="ion-padding-vertical">
+                <ion-col size="10" class="ion-text-center">
                     <ion-item>
                         <ion-label position="floating">Producto o Servicio</ion-label>
-                        <ion-input ngDefaultControl [(ngModel)]="deck.industria" (keyup)="onIndustriaChange()"></ion-input>
+                        <ion-input ngDefaultControl [(ngModel)]="deck.industria" (keyup)="deck.updatePitch()"></ion-input>
                     </ion-item>
                 </ion-col>
-                <ion-col size="2">
+                <ion-col size="2" class="ion-text-right">
                     <button mat-raised-button color="primary" (click)="runSlots()">
                         Jugar
                         <i class="material-icons">replay</i>
                     </button>                    
                 </ion-col>
             </ion-row>
-
-            <ion-row  class="ion-padding">
+            
+            <ion-row class="ion-padding slots" [ngClass]="{'hide-interaction':!interactionAllowed}">
                 <ion-col class="ion-justify-content-evenly">
+                    <pivot-label-btn color="red"></pivot-label-btn>
                     <card-slot [animated]="true" [size]="1" #slot_red (onInit)="registerSlot('red', slot_red)" color="red" (onChange)="onCardChange('red', $event)"></card-slot>
+                    <button mat-raised-button [disabled]="holds.red" color="red" class="hold-btn" (click)="hold('red', slot_red)"> conservar </button>
                 </ion-col>
-                
                 <ion-col class="ion-justify-content-evenly">
+                    <pivot-label-btn color="blue"></pivot-label-btn>
                     <card-slot [animated]="true" [size]="2" #slot_blue (onInit)="registerSlot('blue', slot_blue)" color="blue" (onChange)="onCardChange('blue', $event)"></card-slot>
+                    <button mat-raised-button [disabled]="holds.blue" color="blue" class="hold-btn" (click)="hold('blue', slot_blue)"> conservar </button>
                 </ion-col>
                 <ion-col class="ion-justify-content-evenly">
+                    <pivot-label-btn color="green"></pivot-label-btn>
                     <card-slot [animated]="true" [size]="3" #slot_green (onInit)="registerSlot('green', slot_green)" color="green" (onChange)="onCardChange('green', $event)"></card-slot>
+                    <button mat-raised-button [disabled]="holds.green" color="green" class="hold-btn" (click)="hold('green', slot_green)"> conservar </button>
                 </ion-col>
                 <ion-col class="ion-justify-content-evenly">
+                    <pivot-label-btn color="yellow"></pivot-label-btn>
                     <card-slot [animated]="true" [size]="4" #slot_yellow (onInit)="registerSlot('yellow', slot_yellow)" color="yellow" (onChange)="onCardChange('yellow', $event)"></card-slot>
+                    <button mat-raised-button [disabled]="holds.yellow" color="yellow" class="hold-btn" (click)="hold('yellow', slot_yellow)"> conservar </button>
                 </ion-col>
                 <!-- -->
             </ion-row>
-            <ion-row class="no-padding">
-                <ion-col size="2"></ion-col>
-                <ion-col size="8" class="ion-text-left ion-padding">
-                    <pivot-pitch
-                        matTooltip="click para editar el texto"
-                        matTooltipPosition="above"
-                    ></pivot-pitch>
-                </ion-col>
-                <ion-col size="2"></ion-col>
-            </ion-row>
-            <ion-row class="ion-padding">
-                <ion-col class="ion-text-center">
+
+
+            <!-- goto canvas -->
+            <ion-row class="counter flex-grow ion-margin-vertical">
+                <ion-col class="ion-text-right">
+                    <button mat-raised-button color="accent" (click)="clearAll()">
+                        Limpiar
+                        <i class="material-icons">delete</i>
+                    </button>
+                    &nbsp;
                     <button mat-raised-button [disabled]="!showGoToCanvas" color="primary" (click)="toCanvas()">
                         Canvas
                         <i class="material-icons">navigate_next</i>
                     </button>
                 </ion-col>
+            </ion-row>
+
+            <ion-row class="no-padding">
+                <ion-col size="2"></ion-col>
+                <ion-col size="8" class="ion-text-left ion-padding">
+                    <pivot-pitch
+                        [editable]="interactionAllowed"
+                        matTooltip="click para editar el texto"
+                        matTooltipPosition="above"
+                    ></pivot-pitch>
+                </ion-col>
+                <ion-col size="2"></ion-col>
             </ion-row>
 
         </ion-grid>

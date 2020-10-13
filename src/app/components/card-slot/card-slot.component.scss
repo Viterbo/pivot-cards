@@ -28,6 +28,8 @@
     .slot-container {
         position: relative;
         overflow: hidden;
+        background-color: #1c3542;
+        border-radius: 8px;        
     }
     &:not(.showminicard) {
         .main-card {

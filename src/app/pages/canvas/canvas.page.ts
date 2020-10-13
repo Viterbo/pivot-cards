@@ -6,6 +6,8 @@ import { AppPage, AppService } from 'src/app/services/common/app.service';
 
 import { jsPDF, jsPDFOptions } from "jspdf";
 import { LoadingController } from '@ionic/angular';
+import { PivotCounterComponent } from 'src/app/components/pivot-counter/pivot-counter.component';
+import { PivotIndustriaInputComponent } from 'src/app/components/pivot-industria-input/pivot-industria-input.component';
 
 
 
@@ -24,16 +26,9 @@ export class CanvasPage implements AppPage, OnDestroy {
     
     // initialized: boolean;
     lockcanvas: boolean;
+    useOverlappingCards: boolean;
     useCanvasExtended: boolean;
     useCardsExtended: boolean;
-
-    top = 10;
-    left = 5;
-    cellw = 90;
-    cellh = 70;
-    canvasl = 10;
-    canvast = 60;
-
     // selected: {[key:string]:number};
     
     constructor(
@@ -44,6 +39,7 @@ export class CanvasPage implements AppPage, OnDestroy {
         public loadingController: LoadingController
     ) {
         this.lockcanvas = false;
+        this.useOverlappingCards = false;
         this.useCanvasExtended = true;
         this.useCardsExtended = true;
         this.app.subscribeOnEnterPage(this);
@@ -61,7 +57,10 @@ export class CanvasPage implements AppPage, OnDestroy {
             
             if (params && params.lockcanvas) {
                 this.lockcanvas = true;
+                console.log("CanvasPage.init() this.lockcanvas: true");
             } else {
+                this.lockcanvas = false;
+                console.log("CanvasPage.init() updatePitch(); resetCanvas()");
                 this.deck.updatePitch();
                 this.deck.resetCanvas();
 
@@ -90,9 +89,47 @@ export class CanvasPage implements AppPage, OnDestroy {
         return img;
     }
 
-    
-    
+    // print PDF (ini) ------------------------------------------------
+    top: number;
+    left: number;
+    cellw: number;
+    cellh: number;
+    canvasl: number;
+    canvast: number;
+
     async print() {
+        let canvas_title_offset;
+        let pitch_title_offset;
+        let pitch_text_offset;
+        let titlesize;
+        if (this.useOverlappingCards) {
+            this.top = 10;
+            this.left = 5;
+            this.cellw = 90;
+            this.cellh = 70;
+            this.canvasl = 10;
+            this.canvast = 60;
+            canvas_title_offset = 10;
+            pitch_title_offset = 10;
+            pitch_text_offset = 10;
+            titlesize = 20;
+        } else {
+            this.top = 10;
+            this.left = 5;
+            this.cellw = 90;
+            this.cellh = 90;
+            this.canvasl = 10;
+            this.canvast = 50;
+            canvas_title_offset = 10;
+            pitch_title_offset = 8;
+            pitch_text_offset = 8;
+            titlesize = 20;
+        }
+
+        if (!this.deck.industria) {
+            this.input.showErrors();
+            return;
+        }
 
         const loading = await this.loadingController.create({
             cssClass: 'pivot-alert-class',
@@ -163,16 +200,16 @@ export class CanvasPage implements AppPage, OnDestroy {
         // pdf.setFillColor(235, 68, 90); // red
         // pdf.setFillColor(45, 211, 111); // green
         // pdf.setFillColor(255, 196, 9); // yellow
-        let top = 20;
+        // let top = 20;
         let margin = 0;
-        let titlesize = 20;
+        
 
         // paint canvas ------------
         pdf.setFontSize(titlesize);
         pdf.text(
             "Canvas:",
             this.left+this.canvasl+margin,
-            this.top+this.canvast-top*0.5
+            this.top+this.canvast-canvas_title_offset
         );        
         pdf.setFillColor(251, 217, 222); // light-red
         pdf.rect(this.left+this.canvasl, this.top+this.canvast, this.cellw, this.cellh, 'F');
@@ -197,14 +234,14 @@ export class CanvasPage implements AppPage, OnDestroy {
         pdf.text(
             "Elevator Pitch:",
             this.left+this.canvasl+margin,
-            this.top+this.canvast+this.cellh*2+top
+            this.top+this.canvast+this.cellh*2+canvas_title_offset+pitch_title_offset
         );
         //*/        
         pdf.setFontSize(12);
         pdf.text(
             this.deck.pitch.text,
             this.left+this.canvasl+margin,
-            this.top+this.canvast+this.cellh*2+top+10,
+            this.top+this.canvast+this.cellh*2+canvas_title_offset+pitch_title_offset+pitch_text_offset,
             {
                 maxWidth: (this.cellw-margin)*2,
                 align: 'left'
@@ -227,14 +264,30 @@ export class CanvasPage implements AppPage, OnDestroy {
         pdf.save("canvas.pdf");
     }
 
-    
     printCard(pdf:jsPDF, card:Card, color:string, i:number) {
-
 
         let x=this.left+this.canvasl,y=this.top+this.canvast;
         let w=70, h=40, r=1;
-        let top = 13, left = 9;
+        let top = 24, left = 9;
         let head = 10;
+        let card_offset_top = 42;
+        let text_size = 15;
+        let text_offset_top = 7;
+        let text_offset_left = 3;
+        let factor = 0.25;
+
+        if (this.useOverlappingCards) {
+            x=this.left+this.canvasl,y=this.top+this.canvast;
+            w=70, h=40, r=1;
+            top = 14, left = 9;
+            head = 10;
+            card_offset_top = 9;
+            text_size = 15;
+            text_offset_top = 7;
+            text_offset_left = 3;
+            factor = 0.45;
+        }
+
 
         // relativo a la esquina superior izq del cuadrante
         if (color == "green" || color == "yellow") {
@@ -253,7 +306,7 @@ export class CanvasPage implements AppPage, OnDestroy {
         } else {
             // son dos cartas
             x += Math.round(left * (i+0.6));
-            y += Math.round(top * (i+0.6));
+            y += Math.round(top * (i?2-factor:factor));
         }
 
         // sombra
@@ -308,23 +361,23 @@ export class CanvasPage implements AppPage, OnDestroy {
                 break;
         }
         let title = card.card + " - " + card.name;
-        let size = 15;
-        top = 7;
-        left = 3;
+        let size = text_size;
+        top = text_offset_top;
+        left = text_offset_left;
         
         if (title.length > 25) {
-            size = 14;
-            top = 7;
+            size = text_size-1;
+            top = text_offset_top;
         }
         if (title.length > 28) {
-            size = 13;
-            top = 7;
+            size = text_size-2;
+            top = text_offset_top;
         }
         if (title.length > 31) {
-            size = 12;
-            top = 6;
+            size = text_size-3;
+            top = text_offset_top-1;
         }
-        // console.log("--------------->", color, i, title.length, "fontsize: ", size, "top:", top);
+        // console.log("--------------->", color, i, title.length, "fontsize: ", size, "y:",y,"top:", top);
         pdf.setFontSize(size);
         pdf.text(title, x+left, y+top);
 
@@ -333,6 +386,7 @@ export class CanvasPage implements AppPage, OnDestroy {
         pdf.text(card.desc, x+left, y+top+head-1, {maxWidth: w-left-left}); 
 
     }
+    // print PDF (end) ------------------------------------------------
 
 
     goHome() {
@@ -344,6 +398,7 @@ export class CanvasPage implements AppPage, OnDestroy {
         this.deck.addToCanvas(card);
         this.slots.update();
         this.deck.updatePitch();
+        this.updateCounter();
     }
 
     descartar(card:Card) {
@@ -354,9 +409,8 @@ export class CanvasPage implements AppPage, OnDestroy {
         this.deck.removeFromCanvas(card);
         this.slots.update();
         this.deck.updatePitch();
+        this.updateCounter();
     }
-    
-    
 
     onIndustriaChange() {
         this.deck.updatePitch();
@@ -365,11 +419,33 @@ export class CanvasPage implements AppPage, OnDestroy {
     slots: PivotFourSlotsComponent;
     onSlotsReady(slots: PivotFourSlotsComponent) {
         this.slots = slots;
-    }    
+    }   
     
-}
-/*
+    counter: PivotCounterComponent;
+    clearCount() {
+        if (this.counter) this.counter.clearCount();
+    }
 
+    updateCounter() {
+        if (this.counter) this.counter.updateCounter();
+    }
+
+    onCounterInit(c: PivotCounterComponent) {
+        this.counter = c;
+    }
+
+    input: PivotIndustriaInputComponent;
+    onIndustriaInit(input: PivotIndustriaInputComponent) {
+        this.input = input;
+        // this.input.showErrors();
+    }
+
+
+
+    // -----------------------------------------------
+    /*/
+    async aux() {}
+    /*/
     async aux() {
         console.error("---------- TEMPORAL ----------");
         await this.deck.waitLoaded;
@@ -392,4 +468,10 @@ export class CanvasPage implements AppPage, OnDestroy {
         this.deck.industria = "veterinaria";
         this.deck.updatePitch();
     }
+    //*/
+    
+}
+/*
+
+    
 */ 

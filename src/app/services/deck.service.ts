@@ -1,6 +1,7 @@
 import { Injectable, Output } from '@angular/core';
 import { Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
 
 
 export class Pitch {
@@ -113,8 +114,16 @@ export class DeckService {
     }
 
 
-    refreshFilters() {
-        let filters = JSON.parse(JSON.stringify(this.filters));
+    async refreshFilters() {
+        await this.waitFilters;
+        let filters = null;
+        try {
+            filters = JSON.parse(JSON.stringify(this.filters));
+        } catch(e) {
+            console.error("ERROR: no se pudo parsear el JSON", this.filters);
+            filters = [];
+        }
+        
         this.filters = filters;
         console.log("refreshFilters()", this.filters);
     }
@@ -209,7 +218,7 @@ export class DeckService {
         this.selection.push(c);
         this.isselected[this.cardId(c)] = true;
         this.updateIsSelectionOk();
-        console.debug("selectCard()", [this.selection], [this.availables]);
+        // console.debug("selectCard()", [this.selection], [this.availables]);
     }
 
     deselectCard(c:Card) {
@@ -310,6 +319,7 @@ export class DeckService {
     canvas: {[key:string]:Deck};
 
     resetCanvas() {
+        console.error("resetCanvas()");
         this.subset = this.selection.slice();
         this.canvas = {
             red:[],
@@ -323,9 +333,11 @@ export class DeckService {
     addToCanvas(c:Card):boolean {
         if (this.canvas[c.color].length >= 2) return false;
         this.subset = this.subset.filter((ejemplar) => ejemplar.card != c.card );
+        if (this.canvas[c.color][0] && this.canvas[c.color][0].card == c.card) return; // repetida 
+        if (this.canvas[c.color][1] && this.canvas[c.color][1].card == c.card) return; // repetida 
         this.canvas[c.color].push(c);
         this.updateIsCanvasOk();
-        console.log("addToCanvas()->:", this.canvas, [this.subset]);
+        // console.log("addToCanvas()->:", this.canvas, [this.subset]);
         return true;
     }
 
@@ -334,7 +346,7 @@ export class DeckService {
         this.subset.push(c);
         this.sortDeck(this.subset);
         this.updateIsCanvasOk();
-        console.log("removeFromCanvas()->:", this.canvas, [this.subset]);
+        // console.log("removeFromCanvas()->:", this.canvas, [this.subset]);
     }
 
     canvas_ok:any;

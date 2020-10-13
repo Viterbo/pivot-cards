@@ -54,6 +54,9 @@ export class PivotPitchComponent implements OnInit, OnChanges, OnDestroy {
         if (!this.editting) {
             this.current = this.pitch;
         }
+        if (!this.editable) {
+            this.endEdition();
+        }
     }
 
     handleNewPitch(pitch:Pitch) {

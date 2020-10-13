@@ -5,6 +5,7 @@ import { DeckService, Card, Deck } from 'src/app/services/deck.service';
 import { AppPage, AppService } from 'src/app/services/common/app.service';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { ColorCardListComponent } from 'src/app/components/color-card-list/color-card-list.component';
+import { PivotCounterComponent } from 'src/app/components/pivot-counter/pivot-counter.component';
 
 @Component({
     selector: 'filter-page',
@@ -24,11 +25,12 @@ export class FilterPage implements AppPage, OnDestroy {
         public fb: FormBuilder
 
     ) {
+        this.clearAnswers();
         this.app.subscribeOnEnterPage(this);
     }
 
     get showGoToCanvas() {
-        return this.deck.isSelectionOK();
+        return this.enoughAnswers() && this.deck.isSelectionOK();
     }
 
     onEnterPage() {
@@ -105,24 +107,27 @@ export class FilterPage implements AppPage, OnDestroy {
         this.answers = [null, null, null, null];
     }
 
-    count: {[key:string]:number};
-    private clearCount() {
-        this.count = {
-            red: 0,
-            blue: 0,
-            green: 0,
-            yellow: 0,
-        };
+
+    counter: PivotCounterComponent;
+    clearCount() {
+        if (this.counter) this.counter.clearCount();
     }
 
-    private async updateCounter() {
-        await this.deck.waitLoaded;
-        this.clearCount();
-        this.count.red = this.deck.filterColor('red', this.deck.selection).length;
-        this.count.blue = this.deck.filterColor('blue', this.deck.selection).length;
-        this.count.green = this.deck.filterColor('green', this.deck.selection).length;
-        this.count.yellow = this.deck.filterColor('yellow', this.deck.selection).length;
+    updateCounter() {
+        if (this.counter) this.counter.updateCounter();
     }
-    
 
+    onCounterInit(c: PivotCounterComponent) {
+        this.counter = c;
+    }
+
+
+    enoughAnswers(): boolean {
+        let counter = 0;
+        if (this.answers[0]) counter++; 
+        if (this.answers[1]) counter++; 
+        if (this.answers[2]) counter++; 
+        if (this.answers[3]) counter++; 
+        return counter >= 3; 
+    }
 }

@@ -16,21 +16,21 @@ http://raw.githack.com/MrRio/jsPDF/master/docs/jsPDF.html
 + Cartas:
   + mejorar un poco la éstética de esta sección
 
-- Dinámica 1
-  - restringir a un máximo de 6 cartas por color
++ Dinámica 1
+  + restringir a un máximo de 6 cartas por color
 
 - Dinámica 2:
-  - permitir que se pueda editar la industria (no existe el campo, hay que ponerlo).
-  - solo se puede pasar al canvas cuando las tres preguntas están contestadas.
+  + permitir que se pueda editar la industria (no existe el campo, hay que ponerlo).
+  + solo se puede pasar al canvas cuando las tres preguntas están contestadas.
   + hay que resetear el pitch cuando entrás en esta página?
 
 - Dinámica 3
-  - impedir que se pueda editar el texto mientras giran los slots
-  - implementar el botón "hold" 
+  + impedir que se pueda editar el texto mientras giran los slots
+  + implementar el botón "hold" 
 
 - Canvas
-  - que no se superpongan las cartas
-  - mostrar la cantida de cartas que tiene cada mazo.
+  + que no se superpongan las cartas
+  + mostrar la cantida de cartas que tiene cada mazo.
   - agregar al pdf un stick-note con el nombre de la industria
   - En la versión mobile, tal vez la perilla "Canvas completo" lo dejaría junto al Canvas de modo que se pueda ver en la misma pantalla cuando se hace el cambio.
   - En el Canvas, incluir títulos a cada área (Quién, Qué, Cómo, Cuánto)

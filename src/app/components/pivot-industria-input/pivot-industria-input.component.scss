@@ -1,3 +1,7 @@
 :host {
     display: block;
+    &:not(.underline) ::ng-deep .mat-form-field-underline {
+        background-color: transparent !important;
+    }
 }
+

@@ -174,27 +174,23 @@ export class CardSlotComponent extends VpeAbstractComponent implements OnInit, O
         this.card = this.filtered[Math.floor(Math.random() * this.filtered.length)];
     }
 
-    resetPosition() {
-        // this.list.nativeElement
-        // console.log("----------->", this.list.nativeElement.offsetHeight);
-        // console.log("----------->", this.list.nativeElement.children.length);
+    resetPosition(animated:boolean) {
         this.showminicard = false;
         this.renderer.removeClass(this.list.nativeElement, 'slow');
         this.renderer.setStyle(this.list.nativeElement, 'transform', `translate(0px, -${ this.list.nativeElement.offsetHeight }px)`);
         setTimeout(_ => {
-            // console.log("----------- > translate(0px, 0px)");
             let firstchild = this.list.nativeElement.children[0];
             this.renderer.setStyle(firstchild, 'height', this.minicard.elem.nativeElement.offsetHeight+"px");    
-            this.renderer.addClass(this.list.nativeElement, 'slow');
+            if (animated) this.renderer.addClass(this.list.nativeElement, 'slow');
             this.renderer.setStyle(this.list.nativeElement, 'transform', `translate(0px, 0px)`);
         }, 0);
     }
 
-    shuffle() {
-        console.log(this);
-        this.shuffleDeck(this.filtered);
+    shuffle(doit:boolean=true) {
+        console.log("----------- > shuffle(",doit,")");        
+        if (doit) this.shuffleDeck(this.filtered);
         this.card = this.filtered[0];
-        this.resetPosition();
+        this.resetPosition(doit);
         this.onChange.next(this.card);
     }
 

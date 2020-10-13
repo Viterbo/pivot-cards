@@ -15,6 +15,8 @@ import { ResizeHandler, ResizeEvent } from '../vpe-resize-detector.directive';
 export class PivotCanvasComponent extends VpeAbstractComponent implements OnInit, OnChanges, ResizeHandler {
 
 
+    @HostBinding('class') class = 'box';
+    @Input() overlapping: boolean = true;
     @Input() description: boolean = true;
     @Output() public onclick:Subject<Card> = new Subject();
     useCanvasExtended: boolean = false;
@@ -41,6 +43,11 @@ export class PivotCanvasComponent extends VpeAbstractComponent implements OnInit
         }
         if (this.description == true) {
             this.useCanvasExtended = true;
+        }
+        if (this.overlapping) {
+            this.class = "overlapping";
+        } else {
+            this.class = "separated";
         }
     }
 

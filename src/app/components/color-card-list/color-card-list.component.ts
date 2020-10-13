@@ -36,7 +36,7 @@ export class ColorCardListComponent extends VpeAbstractComponent implements OnIn
     }
 
     update() {
-        // console.log("ColorCardListComponent.update()", this.filtered, this.deck, this.service.selection);
+        console.log("ColorCardListComponent.update()", this.color, [this.filtered, this.deck, this.service.selection]);
         this.filterColor();
     }
 
@@ -49,11 +49,12 @@ export class ColorCardListComponent extends VpeAbstractComponent implements OnIn
     }
 
     ngOnInit() {
+        console.log("ColorCardListComponent.ngOnInit()", this.color);
         this.oninit.next(this);
     }  
 
     cardClicked(card) {
-        console.log("ColorCardListComponent.cardClicked", card);
+        console.log("ColorCardListComponent.cardClicked()", card);
         this.onclick.next(card);
     }
 

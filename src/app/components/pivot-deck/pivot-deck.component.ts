@@ -59,6 +59,7 @@ export class PivotDeckComponent extends VpeAbstractComponent implements OnInit, 
         // console.log("PivotDeckComponent.ngAfterViewInit() ------------> ", this.element.nativeElement.width);
     }
 
+    trys:number = 10;
     onResize(e: ResizeEvent) {
         setTimeout(_ => {
             console.log("PivotDeckComponent.onResize()", [e]);
@@ -69,7 +70,11 @@ export class PivotDeckComponent extends VpeAbstractComponent implements OnInit, 
             this.slides = Math.floor(this.element.nativeElement.parentNode.offsetWidth / this.cardWidth);
             if (this.element.nativeElement.parentNode.offsetWidth == 0) {
                 this.slides = Math.floor(e.device.width / this.cardWidth);
-                this.onResize(e);
+                if (this.trys-- > 0) {
+                    this.onResize(e);
+                } else {
+                    console.error("TIMEOUT: onResize() no fue posible obtener el ancho de lapdre para determinar cuantos slides deben entrar en pantalla")
+                }                
                 return;
             }
             // console.log("this.slides:", this.slides); 

@@ -46,6 +46,7 @@ export class PivotIndustriaInputComponent implements OnInit {
     }
 
     onValueChange(e) {
+        this.deck.updatePitch();
         // console.log("PivotIndustriaInputComponent.onValueChange()", this.ctrl);
     }
 }

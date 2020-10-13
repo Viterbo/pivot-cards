@@ -169,8 +169,7 @@ a[mat-button] {
     --ion-color-contrast: var(--ion-color-yellow-contrast, #000) !important;
     --ion-color-contrast-rgb: var(--ion-color-yellow-contrast-rgb, 0, 0, 0) !important;
     --ion-color-shade: var(--ion-color-yellow-shade, #e0ac08) !important;
-    --ion-color-tint: var(--ion-color-yellow-tint, #ffca22) !important;
-    
+    --ion-color-tint: var(--ion-color-yellow-tint, #ffca22) !important;    
 }
 
 b[color], span[color] {
@@ -183,4 +182,11 @@ b[color=blue], span[color=blue] {
 
 b[color=red], span[color=red] {
     color: #ed576b !important;
+}
+
+.mat-raised-button[disabled] {
+    &.mat-red, &.mat-blue, &.mat-green, &.mat-yellow {
+        background-color: rgba(0, 0, 0, 0.12) !important;
+        color: rgba(0, 0, 0, 0.26) !important;
+    }
 }

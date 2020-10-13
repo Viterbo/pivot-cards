@@ -2,3 +2,14 @@ ion-row.counter {
     font-size: larger;
     font-weight: bolder;
 }
+
+ion-row.slots {
+    & > ion-col {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        & > * {
+            margin-top: 13px;
+        }
+    }
+}

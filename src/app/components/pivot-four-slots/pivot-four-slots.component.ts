@@ -20,6 +20,7 @@ interface ToiletFeature {
 export class PivotFourSlotsComponent implements OnInit, OnChanges {
 
     @Input() deck: Deck;
+    @Input() show_label: boolean;
     @Input() description: boolean = true;
     @Output() public oncard:Subject<Card> = new Subject();
     @Output() public oninit:Subject<PivotFourSlotsComponent> = new Subject();
@@ -28,6 +29,7 @@ export class PivotFourSlotsComponent implements OnInit, OnChanges {
     constructor(
         public service: DeckService
     ) {
+        this.show_label = false;
         this.clearCount();
     }
 

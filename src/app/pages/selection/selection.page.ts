@@ -6,6 +6,7 @@ import { CardSlotComponent } from 'src/app/components/card-slot/card-slot.compon
 import { PivotFourSlotsComponent } from 'src/app/components/pivot-four-slots/pivot-four-slots.component';
 import { ColorCardListComponent } from 'src/app/components/color-card-list/color-card-list.component';
 import { AppPage, AppService } from 'src/app/services/common/app.service';
+import { PivotCounterComponent } from 'src/app/components/pivot-counter/pivot-counter.component';
 
 @Component({
     selector: 'selection-page',
@@ -32,10 +33,14 @@ export class SelectionPage implements AppPage, OnDestroy {
     onEnterPage() {
         if (this.app.prev_path == "/canvas") return;
         console.log("SelectionPage.onEnterPage()");
+        this.clearAll();
+    }
+
+    clearAll() {
         this.deck.resetSelection();
         this.deck.resetCanvas();         
         this.clearCount();
-        this.updateCounter();       
+        this.updateCounter();  
     }
 
     ngOnDestroy() {
@@ -102,6 +107,7 @@ export class SelectionPage implements AppPage, OnDestroy {
     onCardClick(card:Card) {
         console.debug("PivotDeckComponent.onCardClick()", card);
         setTimeout(_ => {
+            if (this.counter.count[card.color] >= 6) return;
             if (this.deck.isCardSelected(card)) {
                 this.deck.deselectCard(card);
             } else {
@@ -122,7 +128,7 @@ export class SelectionPage implements AppPage, OnDestroy {
             for (let name in {red:!!0,blue:!!0,green:!!0,yellow:!!0}) {
                 if (this.list[name]) {
                     this.list[name].update();
-                }                
+                }
             }
             
             this.updateCounter();
@@ -146,26 +152,21 @@ export class SelectionPage implements AppPage, OnDestroy {
 
     list: {[name:string]:ColorCardListComponent} = {};
     onListReady(name:string, list: ColorCardListComponent) {
+        console.log("SelectionPage.onListReady()", name);
         this.list[name] = list;
     }
 
-    count: {[key:string]:number};
-    private clearCount() {
-        this.count = {
-            red: 0,
-            blue: 0,
-            green: 0,
-            yellow: 0,
-        };
+    counter: PivotCounterComponent;
+    clearCount() {
+        if (this.counter) this.counter.clearCount();
     }
 
-    private async updateCounter() {
-        await this.deck.waitLoaded;
-        this.clearCount();
-        this.count.red = this.deck.filterColor('red', this.deck.selection).length;
-        this.count.blue = this.deck.filterColor('blue', this.deck.selection).length;
-        this.count.green = this.deck.filterColor('green', this.deck.selection).length;
-        this.count.yellow = this.deck.filterColor('yellow', this.deck.selection).length;
+    updateCounter() {
+        if (this.counter) this.counter.updateCounter();
+    }
+
+    onCounterInit(c: PivotCounterComponent) {
+        this.counter = c;
     }
 
 }
