@@ -1,6 +1,9 @@
+
 http://raw.githack.com/MrRio/jsPDF/master/docs/jsPDF.html
 
-
+-- BUGS --
+- /canvas o /selection: cuando cambiás las cartas con los botones prev y next la carta se achica de tamaño y rompe la estética
+- 
 
 ----------- TODO -----------
 + pivot-pitch.component:
@@ -33,7 +36,7 @@ http://raw.githack.com/MrRio/jsPDF/master/docs/jsPDF.html
   + mostrar la cantida de cartas que tiene cada mazo.
   - agregar al pdf un stick-note con el nombre de la industria
   - En la versión mobile, tal vez la perilla "Canvas completo" lo dejaría junto al Canvas de modo que se pueda ver en la misma pantalla cuando se hace el cambio.
-  - En el Canvas, incluir títulos a cada área (Quién, Qué, Cómo, Cuánto)
+  + En el Canvas, incluir títulos a cada área (Quién, Qué, Cómo, Cuánto)
 
 - Mobile:
   - todo el diseño para mobile  
