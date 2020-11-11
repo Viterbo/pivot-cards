@@ -27,4 +27,5 @@ if [ "$1" == "prod" ]; then
     git add -A
     git commit -m 'save'
     git push
+    amazon_server_console
 fi

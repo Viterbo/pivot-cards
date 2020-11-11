@@ -31,6 +31,10 @@ export class PivotHeaderComponent extends VpeAbstractComponent implements Resize
         //console.log("PivotHeaderComponent.onResize()", e);
     }
 
+    goLanding() {
+        window.open('https://saramendia.wixsite.com/misitio' , '_blank');
+    }
+
     gotoHome() {
         return this.router.navigate(['/home']); 
     }
