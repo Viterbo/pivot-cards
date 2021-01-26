@@ -14,18 +14,18 @@
         <ion-grid class="flex-grow">
 
             <ion-row class="ion-padding header">
-                <ion-col size="8">
+                <ion-col size-md="8" size-sm="12">
                     <h1>Canvas</h1>
                     <ul>
-                        <li>Las <strong>cartas</strong> que se encuentren <strong>sobre el canvas</strong> definirán un nuevo modelo de negocio.</li>
+                        <li>Las <strong>cartas</strong> que se encuentren <strong>sobre el canvas</strong> definirán un nuevo modelo de negocio.</<li>
                         <li [hidden]="lockcanvas">Puedes hacer <strong>click sobre el las cartas</strong> para ponerlas o secarlas del canvas.</li>
                         <li>Puedes hacer <strong>click sobre el texto del pitch</strong>, si quieres modificarlo.</li>
                     </ul>
-                    <ion-item>
+                    <ion-item class="d-none d-md-block">
                         <pivot-industria-input style="margin-bottom: 27px;" (onInit)="onIndustriaInit($event)"></pivot-industria-input>
                     </ion-item>
                 </ion-col>
-                <ion-col size="4" class="d-flex flex-column  ion-justify-content-end">
+                <ion-col size="4" class="d-none d-md-flex flex-column ion-justify-content-end">
                     <ion-item [hidden]="lockcanvas">
                         <mat-slide-toggle
                         color="default"
@@ -57,10 +57,36 @@
                 </ion-col>
             </ion-row>
 
+            <!-- industrua (visible solo en celulaers) -->
+            <ion-row class="ion-padding-bottom d-blck d-md-none">
+                <ion-col size="2"></ion-col>
+                <ion-col size="8">
+                    <ion-item>
+                        <ion-label position="floating">Producto o Servicio</ion-label>
+                        <ion-input ngDefaultControl [(ngModel)]="deck.industria" (keyup)="deck.updatePitch()"></ion-input>
+                    </ion-item>
+                </ion-col>
+                <ion-col size="2"></ion-col>
+            </ion-row>
+
 
             <!-- counter -->
             <pivot-counter [hidden]="lockcanvas" [deck]="deck.subset" (oninit)="onCounterInit($event)"></pivot-counter> 
 
+            <!-- switch ver cartas con descripción (visible solo en celulaers) -->
+            <ion-row class="ion-padding-bottom d-blck d-md-none">
+                <ion-col>
+                    <ion-item [hidden]="lockcanvas">
+                        <mat-slide-toggle
+                        color="default"
+                        [checked]="useCardsExtended"
+                        (change)="useCardsExtended = $event.checked; "
+                        >
+                            ver descripción en las cartas
+                        </mat-slide-toggle>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
 
             <!-- Cartas de cada color: con sus respectivos colores -->
             <ion-row class="">
@@ -76,26 +102,54 @@
 
             <!-- pitch & print -->
             <ion-row class="no-padding">
-                <ion-col size="2"></ion-col>
-                <ion-col size="8" class="ion-text-left ion-padding">
+                <ion-col size="2" class="d-none d-md-block"></ion-col>
+                <ion-col size-md="8" size-sm="12" class="ion-text-left ion-padding">
                     <pivot-pitch
                         matTooltip="click para editar el texto"
                         matTooltipPosition="above"
                     ></pivot-pitch>
+                    <div class="ion-margin-top ion-text-center d-block d-md-none">
+                        <button mat-raised-button [disabled]="!showPrintBtn" color="primary" class="margin-top" (click)="print()">
+                            Imrimir
+                            <i class="material-icons">print</i>
+                        </button>
+                    </div>                    
                 </ion-col>
-                <ion-col size="2" class="d-flex ion-align-items-end ion-justify-content-end" style="padding-bottom: 16px;">
-                    <!--
-                    <button mat-raised-button color="red" class="ion-margin-bottom" (click)="print()"><i class="material-icons">print</i></button>
-                    
-                    &nbsp;
-                    -->
+
+                <ion-col size="2" class="d-none d-md-flex ion-align-items-end ion-justify-content-end" style="padding-bottom: 16px;">
                     <button mat-raised-button [disabled]="!showPrintBtn" color="primary" class="ion-margin-bottom" (click)="print()">
-                        Imprimir
+                        Imrimir
                         <i class="material-icons">print</i>
                     </button>
                 </ion-col>
             </ion-row>
+
+
+            <!-- switch ver cartas en ekl canvas (visible solo en celulaers) -->
+            <ion-row class="ion-padding-bottom d-blck d-md-none">
+                <ion-col>
+                    <ion-item [hidden]="lockcanvas">
+                        <mat-slide-toggle
+                        color="default"
+                        [checked]="useOverlappingCards"
+                        (change)="useOverlappingCards = $event.checked; "
+                        >
+                            cartas superpuestas
+                        </mat-slide-toggle>
+                    </ion-item>
+                    <ion-item>
+                        <mat-slide-toggle
+                        color="primary"
+                        [checked]="useCanvasExtended"
+                        (change)="useCanvasExtended = $event.checked; "
+                        >
+                            canvas completo
+                        </mat-slide-toggle>
+                    </ion-item> 
+                </ion-col>
+            </ion-row>            
         
+
             <!-- Canvas -->
             <ion-row class="ion-margin-top no-padding canvas">
                 <ion-col class="ion-text-center">

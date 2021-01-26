@@ -78,7 +78,8 @@ export class FilterPage implements AppPage, OnDestroy {
     }
 
     onCardClick(card:Card) {
-        console.debug("PivotDeckComponent.onCardClick()", card);
+        console.log("PivotDeckComponent.onCardClick()", card, "NO HACEMOS NADA....");
+        /*
         setTimeout(_ => {
             if (this.deck.isCardSelected(card)) {
                 this.deck.deselectCard(card);
@@ -95,6 +96,7 @@ export class FilterPage implements AppPage, OnDestroy {
             this.updateCounter();
             
         });
+        */
     }
 
 

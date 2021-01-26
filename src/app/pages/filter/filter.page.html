@@ -57,12 +57,12 @@
                 </ion-col>
                 <ion-col class="ion-text-right">
                     <button mat-raised-button color="accent" (click)="clearAll()">
-                        Limpiar
+                        <span class="d-none d-md-inline">Limpiar</span>
                         <i class="material-icons">delete</i>
                     </button>
                     &nbsp;
                     <button mat-raised-button [disabled]="!showGoToCanvas" color="primary" (click)="goToCanvas()">
-                        Canvas
+                        <span class="d-none d-md-inline">Canvas</span>
                         <i class="material-icons">navigate_next</i>
                     </button>
                 </ion-col>
@@ -72,8 +72,8 @@
 
             <!-- Seleccion -->
             <ion-row *ngIf="counter" class="no-padding slots flex-grow ion-align-items-start ion-justify-content-start ion-margin-top">
-                <ion-col>
-                    <pivot-label-btn color="red"></pivot-label-btn>
+                <ion-col size="6" size-sm>
+                    <pivot-label-btn [hidden]="deck.selection.length == 0" color="red"></pivot-label-btn>
                     <color-card-list
                         color="red"
                         [deck]="deck.selection"
@@ -81,8 +81,8 @@
                         (onclick)="onCardClick($event)"
                     ></color-card-list>
                 </ion-col>
-                <ion-col>
-                    <pivot-label-btn color="blue"></pivot-label-btn>
+                <ion-col size="6" size-sm>
+                    <pivot-label-btn [hidden]="deck.selection.length == 0" color="blue"></pivot-label-btn>
                     <color-card-list
                         color="blue"
                         [deck]="deck.selection"
@@ -90,8 +90,8 @@
                         (onclick)="onCardClick($event)"
                     ></color-card-list>
                 </ion-col>
-                <ion-col>
-                    <pivot-label-btn color="green"></pivot-label-btn>
+                <ion-col size="6" size-sm>
+                    <pivot-label-btn [hidden]="deck.selection.length == 0" color="green"></pivot-label-btn>
                     <color-card-list
                         color="green"
                         [deck]="deck.selection"
@@ -99,8 +99,8 @@
                         (onclick)="onCardClick($event)"
                     ></color-card-list>
                 </ion-col>
-                <ion-col>
-                    <pivot-label-btn color="yellow"></pivot-label-btn>
+                <ion-col size="6" size-sm>
+                    <pivot-label-btn [hidden]="deck.selection.length == 0" color="yellow"></pivot-label-btn>
                     <color-card-list
                         color="yellow"
                         [deck]="deck.selection"

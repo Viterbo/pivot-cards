@@ -47,6 +47,8 @@
     &.size-4 { .list-container.slow { transition-duration: 5s; } }
 
     .list-container {
+        width: 100%;
+        width: -webkit-fill-available;
         position: absolute;
         top: 0px;
         &.slow {

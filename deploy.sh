@@ -1,29 +1,42 @@
 #!/bin/bash
 
+HOME=$(pwd)
+cd ..
+PARENT=$(pwd)
+cd $HOME
+
 if [ "$1" == "prod" ]; then
     EXECUTE="ng build --base-href /pivot/ --prod"
 else
     EXECUTE="ng build --base-href /pivot/ ";
 fi
 
-echo "deploying: $EXECUTE"
+echo "$EXECUTE"
 eval $EXECUTE
 
-rm /var/www/pivot-cards/pivot -fr
-cp /var/www/pivot-cards/src/.htaccess /var/www/pivot-cards/www/.htaccess
+rm $HOME/pivot -fr
+cp $HOME/src/.htaccess $HOME/www/.htaccess
+mv $HOME/www $HOME/pivot
 
-RENAME="mv /var/www/pivot-cards/www /var/www/pivot-cards/pivot"
-echo "rename www -> pivot"
-eval $RENAME
+if [ ! -d "$PARENT/landing-cards-and-tokens-prod" ];
+    echo "Clonning landing-cards-and-tokens:"
+    then git clone https://github.com/vapaee/landing-cards-and-tokens.git $PARENT/landing-cards-and-tokens-prod;
+fi;
+cd $PARENT/landing-cards-and-tokens-prod
+echo "git checkout prod"
+git checkout prod
+echo "git pull"
+git pull
+echo "rm pivot -fr"
+rm pivot -fr
 
-rm /var/www/landing-cards-and-tokens-prod/pivot -fr
-COPYING="cp -r /var/www/pivot-cards/pivot /var/www/landing-cards-and-tokens-prod/pivot"
+
+COPYING="cp -r $HOME/pivot $PARENT/landing-cards-and-tokens-prod/pivot"
 echo "$COPYING"
 eval $COPYING
 
-
 if [ "$1" == "prod" ]; then
-    cd /var/www/landing-cards-and-tokens-prod/
+    cd $PARENT/landing-cards-and-tokens-prod
     git add -A
     git commit -m 'save'
     git push

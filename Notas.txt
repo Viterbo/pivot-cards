@@ -6,37 +6,11 @@ http://raw.githack.com/MrRio/jsPDF/master/docs/jsPDF.html
 - 
 
 ----------- TODO -----------
-+ pivot-pitch.component:
-  + Elevator pitch: destacar los nombres de los modelos de negocio en negrita, si es posible.
-
-+ Home
-  + hay que resetear el pitch cuando entrás en home.
-  + MENU: Comprar / Cartas / Dinámicas / Sobre Pívot
-    + Dinámicas: 1- Selección manual / 2- Selección por filtros / 3- ¡Probá suerte!
-  + link en el logo de pivot para que te lleve a la página de ellos iigual que en "Sobre Pívot"
-  + agregar texto: “Si estás interesado en una experiencia más completa y con la posibilidad de aplicar más dinámicas (incluso en forma grupal), se encuentra disponible el Kit físico en nuestra tienda online. LINK”.
-
-+ Cartas:
-  + mejorar un poco la éstética de esta sección
-
-+ Dinámica 1
-  + restringir a un máximo de 6 cartas por color
-
-- Dinámica 2:
-  + permitir que se pueda editar la industria (no existe el campo, hay que ponerlo).
-  + solo se puede pasar al canvas cuando las tres preguntas están contestadas.
-  + hay que resetear el pitch cuando entrás en esta página?
-
-- Dinámica 3
-  + impedir que se pueda editar el texto mientras giran los slots
-  + implementar el botón "hold" 
-
 - Canvas
-  + que no se superpongan las cartas
-  + mostrar la cantida de cartas que tiene cada mazo.
   - agregar al pdf un stick-note con el nombre de la industria
+  - Nombre del archivo:  canvas-pivot.pdf
   - En la versión mobile, tal vez la perilla "Canvas completo" lo dejaría junto al Canvas de modo que se pueda ver en la misma pantalla cuando se hace el cambio.
-  + En el Canvas, incluir títulos a cada área (Quién, Qué, Cómo, Cuánto)
+  - En principio, dejar remarcado en azul el botón de Comprar a modo de "call to action"
 
 - Mobile:
   - todo el diseño para mobile  
