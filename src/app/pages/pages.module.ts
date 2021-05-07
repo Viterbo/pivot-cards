@@ -6,7 +6,6 @@ import { FilterPage } from './filter/filter.page';
 import { HomePage } from './home/home.page';
 import { SelectionPage } from './selection/selection.page';
 import { SlotsPage } from './slots/slots.page';
-import { WelcomePage } from './welcome/welcome.page';
 import { PivotComponentsModule } from '../components/components.module';
 import { CommonServicesModule } from '../services/common/common.module';
 import { FormsModule } from '@angular/forms';
@@ -66,7 +65,6 @@ import { ReactiveFormsModule } from '@angular/forms';
         HomePage,
         SelectionPage,
         SlotsPage,
-        WelcomePage,
         CartasPage
     ],
     entryComponents: [
@@ -80,7 +78,6 @@ import { ReactiveFormsModule } from '@angular/forms';
         HomePage,
         SelectionPage,
         SlotsPage,
-        WelcomePage,
         CartasPage
     ]
 })

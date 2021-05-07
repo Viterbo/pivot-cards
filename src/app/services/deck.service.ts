@@ -2,6 +2,7 @@ import { Injectable, Output } from '@angular/core';
 import { Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
+import { LocalStringsService } from './common/common.services';
 
 
 export class Pitch {
@@ -42,6 +43,7 @@ export interface Card {
     desc: string,
     name: string,
     prev: string,
+    post: string,
     deck: string
 }
 
@@ -70,6 +72,7 @@ export class DeckService {
     
     constructor(
         public http: HttpClient,
+        public local: LocalStringsService
     ) {
         this.isselected = {};
         this.availables = [];
@@ -396,15 +399,15 @@ export class DeckService {
         // genera la estructura
 
         let parts:Pitch[] = [
-            new Pitch("Mi proyecto consiste en un negocio de"),
-            new Pitch("ofrecida"),
-            new Pitch("mediante"),
-            new Pitch("que monetice por"),
+            new Pitch(this.local.string.pitch_part_1),
+            new Pitch(this.local.string.pitch_part_2),
+            new Pitch(this.local.string.pitch_part_3),
+            new Pitch(this.local.string.pitch_part_4),
         ]
         
         
         let falta_text = "_______";
-        let y_text = "y";
+        let y_text = this.local.string.and;
 
         this.pitch.parts = [];
         this.pitch.parts.push(new Pitch(parts[0].text));
@@ -424,8 +427,9 @@ export class DeckService {
                 if (i>0) {
                     this.pitch.parts.push(new Pitch(y_text));
                 }
-                this.pitch.parts.push(new Pitch(this.canvas[color][i].prev, "<span color='"+color+"'>", "</span>"));
-                this.pitch.parts.push(new Pitch(this.canvas[color][i].name, "<b color='"+color+"'>", "</b>"));
+                this.pitch.parts.push(new Pitch(this.local.string[this.canvas[color][i].prev], "<span color='"+color+"'>", "</span>"));
+                this.pitch.parts.push(new Pitch(this.local.string[this.canvas[color][i].name], "<b color='"+color+"'>", "</b>"));
+                this.pitch.parts.push(new Pitch(this.local.string[this.canvas[color][i].post], "<span color='"+color+"'>", "</span>"));
             }            
         }
 
@@ -434,6 +438,7 @@ export class DeckService {
 
     private generatePitchHtml(current:string=null) {
         // genera la string html
+        this.generatePitchText();
         if (!current || this.pitch.text == current) {
             let parts:string[] = [];
             for (let i=0; i<this.pitch.parts.length; i++) {
@@ -457,34 +462,6 @@ export class DeckService {
                 let part = parts[i];
                 begin.push(current.indexOf(part));
             }
-            
-            /*
-            for (let i=0; i<parts.length; i++) {
-                let part = parts[i];
-                let index = begin[i];
-                if (index != -1) {
-                    let text_long = part.length+1;
-                    let start = 0;
-                    let final = current.length;
-                    let dif = 0;
-                    if (i>0) {
-                        if (begin[i-1] != -1) {
-                            start = begin[i-1] + parts[i-1].length;
-                        }
-                    }
-                    if (i<parts.length-1) {
-                        if (begin[i+1] != -1) {
-                            final = begin[i+1];
-                        }
-                    }
-                    dif = final-start;
-                    if (dif != text_long) {
-                        begin[i] = -1;
-                        console.log("Encontré un substring",part, start, final, dif, part.length);
-                    }
-                }
-            }
-            */
 
             let pendiente = -1;
             let end = 0;
@@ -518,8 +495,7 @@ export class DeckService {
 
             let texto_final = textos.join(" ");
             if (current != texto_final) {
-                console.log("FUCK!!!", [current]);
-                console.log("FUCK!!!", [texto_final]);
+                // fail
                 this.pitch.html = current;
             } else {
                 this.pitch.html = html.join(" ");
@@ -541,6 +517,8 @@ export class DeckService {
                 parts.push(this.pitch.parts[i].text);
             }
             this.pitch.text = parts.join(" ");
+
+            this.pitch.text = this.pitch.text.split("  ").join(" ");
         }
     }
 

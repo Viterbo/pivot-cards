@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, forwardRef, OnChanges, HostBinding, ElementRef } from '@angular/core';
 import { Subject } from 'rxjs';
+import { LocalStringsService } from 'src/app/services/common/common.services';
 import { DeckService, Card } from 'src/app/services/deck.service';
 import { VpeAbstractComponent } from '../vpe-components.service';
 import { ResizeHandler, ResizeEvent } from '../vpe-resize-detector.directive';
@@ -23,6 +24,7 @@ export class PivotCanvasComponent extends VpeAbstractComponent implements OnInit
     
     constructor(
         public deck: DeckService,
+        public local: LocalStringsService
     ) {
         super();
         this.useCanvasExtended = true;

@@ -37,6 +37,8 @@ eval $COPYING
 
 if [ "$1" == "prod" ]; then
     cd $PARENT/landing-cards-and-tokens-prod
+    echo $PWD
+    echo "--------------------"
     git add -A
     git commit -m 'save'
     git push

@@ -114,7 +114,8 @@ export class CardSlotComponent extends VpeAbstractComponent implements OnInit, O
             deck: "",
             desc: "",
             name: "",
-            prev: ""
+            prev: "",
+            post: ""
         }        
     }
 

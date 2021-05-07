@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, OnChanges } from '@angular/core';
 import { Subject } from 'rxjs';
+import { LocalStringsService } from 'src/app/services/common/common.services';
 
 
 const MDEO_EXTENT = [-6358249.62941, -4213839.90042, -6226491.30192, -4114146.90629 ];
@@ -20,7 +21,7 @@ export class PivotBackBtnComponent implements OnInit, OnChanges {
     @Output() public onclick:Subject<null> = new Subject();
 
     constructor(
-        
+        public local: LocalStringsService,
     ) {
         
     }

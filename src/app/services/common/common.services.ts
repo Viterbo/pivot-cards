@@ -5,4 +5,4 @@ export { DomService } from './dom.service';
 export { BroadcastService } from './broadcast.service';
 export { FacebookService } from './facebook.service';
 export { AppService } from './app.service';
-export { Locals, LocalString } from './datatypes.service';
+export { Locals, LocalString, LocalLang, LocalList } from './datatypes.service';

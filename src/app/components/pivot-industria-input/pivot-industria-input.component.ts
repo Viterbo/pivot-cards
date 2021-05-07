@@ -3,6 +3,7 @@ import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/fo
 import { ErrorStateMatcher } from '@angular/material/core';
 import { DeckService } from 'src/app/services/deck.service';
 import { Subject } from 'rxjs';
+import { LocalStringsService } from 'src/app/services/common/common.services';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -29,7 +30,10 @@ export class PivotIndustriaInputComponent implements OnInit {
 
     matcher = new MyErrorStateMatcher();
 
-    constructor(public deck: DeckService) {
+    constructor(
+        public local: LocalStringsService,
+        public deck: DeckService
+    ) {
         
     }
 

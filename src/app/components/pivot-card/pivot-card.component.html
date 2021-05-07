@@ -1,9 +1,27 @@
-<ion-card class="main-card" [ngClass]="{'full-card':show_desc}" [color]="color" (click)="_click()">
+<ng-template [ngIf]="true">
+    <ion-card class="main-card aux" [ngClass]="{'full-card':show_desc}" [color]="auxiliar.color">
+        <div class="background bg-dark"></div>
+        <ion-card-header>
+            <div class="card-title">NO IMPORTA</div>
+        </ion-card-header>
+        <ion-card-content *ngIf="show_desc">
+            <div class="content ion-margin-top ion-text-left">{{maxdesc}}</div>
+        </ion-card-content>
+    </ion-card>
+</ng-template>
+
+<ion-card class="main-card real" [ngClass]="{'full-card':show_desc}" [color]="color" (click)="_click()">
     <div class="background"></div>
     <ion-card-header>
-        <div class="card-title">{{card?.card}} {{card?.card?'-':''}} {{card?.name}}</div>
+        <div style="opacity: 0;">
+            NO IMPORTA
+        </div>
+        <div class="card-title title-float" *ngIf="card">
+            {{card?.card}} {{card?.card?'-':''}} {{local.string[card.name]}}
+        </div>
     </ion-card-header>
-    <ion-card-content *ngIf="show_desc">
-        <div class="content ion-margin-top ion-text-left"><b>{{card?.desc}}</b></div>
+    <ion-card-content *ngIf="show_desc && card">
+        <div class="content ion-margin-top ion-text-left">{{local.string[card.desc]}}</div>
     </ion-card-content>
 </ion-card>
+

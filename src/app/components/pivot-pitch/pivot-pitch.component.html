@@ -1,10 +1,14 @@
 <mat-card [class.mat-elevation-z2]="!editting" [class.mat-elevation-z8]="editting">
-    <h3 class="title" (click)="startEditting()">Elevator Pitch:</h3>
+    <h3 class="title" (click)="startEditting()">{{local.string.elev_pitch}}:</h3>
     <div [hidden]="editting" (click)="startEditting()">
         <p [innerHTML]="pitch_html"></p>
     </div>
     <mat-form-field [hidden]="!editting" class="example-full-width">
-        <textarea rows="4" #setFocusField [(ngModel)]="current" matInput (input)="onTextChange()"></textarea>
+        <textarea rows="4" #setFocusField [(ngModel)]="current" matInput (input)="onTextChange()" (keydown)="onNewChar($event)" (keyup)="onNewChar($event)"></textarea>
     </mat-form-field>
-    <button [hidden]="!editting" mat-raised-button color="primary" (click)="endEdition()">OK</button>
+    <div [hidden]="!editting" class="d-flex flex-row example-full-width">
+        <button mat-raised-button color="primary" (click)="endEdition()">{{local.string.ok}}</button>
+        <mat-hint style="text-align: right; flex-grow: 1 ;align-self: center">{{remainingChars}} {{local.string.remaining}}</mat-hint>
+    </div>
+    
 </mat-card>

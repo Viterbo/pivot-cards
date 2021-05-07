@@ -6,7 +6,10 @@
         transition-property: height;
         transition: height 1s ease;
         background: #424242;
-        color: #fff;        
+             
+    }
+    mat-card, mat-hint {
+        color: #fff;
     }
 
     mat-form-field {

@@ -6,6 +6,7 @@ import { AppPage, AppService } from 'src/app/services/common/app.service';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { ColorCardListComponent } from 'src/app/components/color-card-list/color-card-list.component';
 import { PivotCounterComponent } from 'src/app/components/pivot-counter/pivot-counter.component';
+import { LocalStringsService } from 'src/app/services/common/common.services';
 
 @Component({
     selector: 'filter-page',
@@ -22,7 +23,8 @@ export class FilterPage implements AppPage, OnDestroy {
         public router: Router,
         public deck: DeckService,
         public app: AppService,
-        public fb: FormBuilder
+        public fb: FormBuilder,
+        public local: LocalStringsService,
 
     ) {
         this.clearAnswers();

@@ -1,5 +1,5 @@
 import { Injectable, OnDestroy, OnInit } from '@angular/core';
-import { Locals, LocalString } from './datatypes.service';
+import { LocalList, Locals, LocalString } from './datatypes.service';
 import { HttpClient } from '@angular/common/http';
 import { Subject, Subscriber } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
@@ -10,8 +10,9 @@ export interface StringMap {[key:string]: string};
 
 @Injectable()
 export class LocalStringsService  {
-    public waitReady:Promise<any>;
+    // public waitReady:Promise<any>;
     public string: LocalString;
+    list:LocalList;
     locals:Locals;
     localKey:string;
     public onLocalChange:Subject<string> = new Subject();
@@ -22,21 +23,33 @@ export class LocalStringsService  {
     ) {
         this.string = {};
         this.locals = {};
+        this.list = [];
 
-        var userLang = navigator.language || navigator.userLanguage;
-        var cached = this.cookie.get("locals");
+        let userLang = navigator.language || navigator.userLanguage;
+        let cached = this.cookie.get("locals");
+        this.localKey = null;
+        let localKey = "";
         if (cached) {
-            this.localKey = cached;
+            localKey = cached;
         } else {
             switch (userLang.substr(0,2)) {
                 case "es":
-                    this.localKey = "es_ES";
+                    localKey = "es_ES";
                     break;
                 default:
-                    this.localKey = "en_US";
+                    localKey = "en_US";
             }    
         }
-        this.waitReady = this.fetchLocals(this.localKey);
+
+        this.fetchLocalsList();
+        this.setLocal(localKey);
+    }
+
+    
+    fetchLocalsList() {
+        return this.http.get<LocalList>("assets/locals/list.json").subscribe((response) => {
+            this.list = response;
+        });
     }
 
     async fetchLocals(localKey:string) {

@@ -1,20 +1,28 @@
 
 http://raw.githack.com/MrRio/jsPDF/master/docs/jsPDF.html
 
--- BUGS --
-- /canvas o /selection: cuando cambiás las cartas con los botones prev y next la carta se achica de tamaño y rompe la estética
-- 
+
+
 
 ----------- TODO -----------
-- Canvas
-  - agregar al pdf un stick-note con el nombre de la industria
-  - Nombre del archivo:  canvas-pivot.pdf
-  - En la versión mobile, tal vez la perilla "Canvas completo" lo dejaría junto al Canvas de modo que se pueda ver en la misma pantalla cuando se hace el cambio.
-  - En principio, dejar remarcado en azul el botón de Comprar a modo de "call to action"
++ El editor de pitch que tenga máximo 500 caracteres
++ BUG: si el texto está cambiado, pero entrás y salís, entonces te muestra el texto calculado y no el editado. Sin embargo entrás a editar y el editado sigue ahi.
++ Canvas: sacar el botón "ampliar cartas" y poner dejar el "ver descripción en las cartas" y que aplique a todas las cartas
+- PDF: cambiar www.pivot.com.uy por www.pivot.uy
 
-- Mobile:
-  - todo el diseño para mobile  
+-- lo nuevo --
+- dificultar el scrapping: query ocultar las cartas, kimpedir el click derecho, no permitir selección de los textos.
+  - https://stackoverflow.com/questions/6647392/how-to-stop-user-from-printing-webpages-using-javascript-or-jquery
+- Dinámica 3. el botón Hold puede desapretarse
+- no mostrar el inglés
+- formulario? https://www.youtube.com/watch?v=xV4duATsvfs
+- Deshabilitar botones mientras no se registre:: Print canvas, Dinámicas 1 y 3
+- coordinar con ellos para que funcione el sitio en su dominio
 
+
+-- Wishlist --
+- averiguar si se puede solucionar el problema del dark theme con este tag que está en el index.html:
+  <meta name="color-scheme" content="light dark" />
 
 
 

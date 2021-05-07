@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Subscriber } from 'rxjs';
 import { DeckService, Deck, Card } from 'src/app/services/deck.service';
 import { AppPage, AppService } from 'src/app/services/common/app.service';
+import { LocalStringsService } from 'src/app/services/common/common.services';
 
 @Component({
     selector: 'cartas-page',
@@ -21,7 +22,8 @@ export class CartasPage implements AppPage, OnDestroy {
     constructor(
         public router: Router,
         public deck: DeckService,
-        public app: AppService
+        public app: AppService,
+        public local: LocalStringsService,
     ) {
         this.app.subscribeOnEnterPage(this);
     }

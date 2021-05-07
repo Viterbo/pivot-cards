@@ -4,6 +4,7 @@ import { Subscriber } from 'rxjs';
 import { DeckService } from 'src/app/services/deck.service';
 import { AppPage, AppService } from 'src/app/services/common/app.service';
 import { CardSlotComponent } from 'src/app/components/card-slot/card-slot.component';
+import { LocalStringsService } from 'src/app/services/common/common.services';
 
 
 @Component({
@@ -22,6 +23,7 @@ export class SlotsPage implements AppPage, OnDestroy {
         public router: Router,
         public deck: DeckService,
         public app: AppService,
+        public local: LocalStringsService,
     ) {
         this.interactionAllowed = true;
         this.app.subscribeOnEnterPage(this);

@@ -2,22 +2,19 @@
     <span class="navbar-toggler-icon"></span>
 </button>
 <mat-menu #main_menu="matMenu" xPosition="before">
-
-
-
     <!-- -------------------------- 
     <button color="red" mat-menu-item (click)="onDebug()">Debug</button>
      -------------------------- -->
+    <button mat-menu-item color="blue" (click)="goLanding()">{{local.string.sidemenu_buy}}</button>
+    <button *ngIf="!delegate" mat-menu-item (click)="gotoHome()">{{local.string.sidemenu_home}}</button> 
+    <button mat-menu-item (click)="gotoCartas()">{{local.string.sidemenu_cards}}</button> 
+    <button mat-menu-item (click)="onDinamica(1)">{{local.string.menu_din_1}}</button>
+    <button mat-menu-item (click)="onDinamica(2)">{{local.string.menu_din_2}}</button>
+    <button mat-menu-item (click)="onDinamica(3)">{{local.string.menu_din_3}}</button>
+    <button mat-menu-item (click)="goLanding()" >{{local.string.sidemenu_about}}</button>
+    <hr class="mt-1 mb-1">
 
-    
-
-    <button mat-menu-item color="blue" (click)="goLanding()">Comprar</button>
-    <button *ngIf="!delegate" mat-menu-item (click)="gotoHome()">Inicio</button> 
-    <button mat-menu-item (click)="gotoCartas()">Cartas</button> 
-    <button mat-menu-item (click)="onDinamica(1)">1 - Selección manual</button>
-    <button mat-menu-item (click)="onDinamica(2)">2 - Selección por filtros</button>
-    <button mat-menu-item (click)="onDinamica(3)">3 - ¡Probá suerte!</button>
-    <button mat-menu-item (click)="goLanding()" >Sobre Pivot</button>
+    <button mat-menu-item *ngFor="let loc of local.list" (click)="setLang(loc)" > {{loc.text}} </button>
 </mat-menu>
 
 <div class="collapse navbar-collapse">
@@ -30,30 +27,42 @@
         </li>
          -------------------------- -->
         
-        
-        
         <li class="nav-item">
-            <button mat-button color="blue" (click)="goLanding()">Comprar</button>
+            <button mat-button color="blue" (click)="goLanding()">{{local.string.topmenu_buy}}</button>
         </li>
         <li class="nav-item" *ngIf="!delegate">
-            <button mat-button (click)="gotoHome()">Inicio</button> 
+            <button mat-button (click)="gotoHome()">{{local.string.topmenu_home}}</button> 
         </li>
         <li class="nav-item">
-            <button mat-button (click)="gotoCartas()">Cartas</button> 
+            <button mat-button (click)="gotoCartas()">{{local.string.topmenu_cards}}</button> 
         </li>
         <li class="nav-item dropdown">
             <button mat-button [matMenuTriggerFor]="din_menu">
-                Dinámicas
+                {{local.string.topmenu_dins}}
                 <i class="material-icons">expand_more</i>
             </button>
             <mat-menu #din_menu="matMenu" xPosition="before">
-                <button mat-menu-item (click)="onDinamica(1)">1 - Selección manual</button>
-                <button mat-menu-item (click)="onDinamica(2)">2 - Selección por filtros</button>
-                <button mat-menu-item (click)="onDinamica(3)">3 - ¡Probá suerte!</button>
+                <button mat-menu-item (click)="onDinamica(1)">{{local.string.menu_din_1}}</button>
+                <button mat-menu-item (click)="onDinamica(2)">{{local.string.menu_din_2}}</button>
+                <button mat-menu-item (click)="onDinamica(3)">{{local.string.menu_din_3}}</button>
             </mat-menu>
         </li>
+        <li class="nav-item dropdown">
+            <button mat-button [matMenuTriggerFor]="lang_menu">
+                {{local.string.topmenu_lang}}
+                <i class="material-icons">expand_more</i>
+            </button>
+            <mat-menu #lang_menu="matMenu" xPosition="before">
+                <button mat-menu-item
+                    *ngFor="let loc of local.list"
+                    (click)="setLang(loc)"
+                >
+                    {{loc.text}}
+                </button>
+            </mat-menu>
+        </li>        
         <li class="nav-item">
-            <button (click)="goLanding()" mat-button> Sobre Pivot</button>
+            <button (click)="goLanding()" mat-button>{{local.string.topmenu_about}}</button>
         </li>
     </ul>
 </div>

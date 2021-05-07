@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, forwardRef, OnChanges, HostBinding, E
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { AppPage } from 'src/app/services/common/app.service';
+import { LocalStringsService, LocalLang } from 'src/app/services/common/common.services';
 import { DeckService, Card } from 'src/app/services/deck.service';
 import { VpeAbstractComponent } from '../vpe-components.service';
 import { ResizeHandler, ResizeEvent } from '../vpe-resize-detector.directive';
@@ -23,6 +24,8 @@ export class PivotHeaderComponent extends VpeAbstractComponent implements Resize
         public service: DeckService,
         public elem: ElementRef,
         public router: Router,
+        public local: LocalStringsService
+        
     ) {
         super();
     }
@@ -58,6 +61,10 @@ export class PivotHeaderComponent extends VpeAbstractComponent implements Resize
             case 2: return this.router.navigate(['/filter']); 
             case 3: return this.router.navigate(['/slots']); 
         }
+    }
+
+    setLang(loc: LocalLang) {
+        this.local.setLocal(loc.key);
     }
 
     onDebug() {

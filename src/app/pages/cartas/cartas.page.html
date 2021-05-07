@@ -16,39 +16,40 @@
             
             <ion-row class="ion-padding">
                 <ion-col>
-                    <h1>Nuestras cartas</h1>
-                    <p>Te invitamos a que conozcas nuestras cartas, con las que además te invitamos a participar de algunas de las dinámicas que tenemos para construir modelos denegocios innovadores.</p>
-                    <p>Podrás deslizar las cartas para verlas o podrás hacer <b>click sobre alguno de los botones</b> para filtrarlas según el <b>color</b></p>
+                    <h1>{{local.string.cards_h_1}}</h1>
+                    <p>{{local.string.cards_h_2}}.</p>
+                    <p>{{local.string.cards_h_3_1}} <b>{{local.string.cards_h_3_b}}</b> {{local.string.cards_h_3_2}} <b>{{local.string.cards_h_3_b2}}</b></p>
                 </ion-col>
             </ion-row>  
         
             <ion-row  class="ion-padding">
                 <ion-col size="4">
                     <button mat-raised-button color="dark" (click)="filterColor('all')">
-                        Ver todas las cartas
+                        {{local.string.cards_b_1}}
                     </button>                    
                 </ion-col>
                 <ion-col size="8" class="ion-text-right">
                     <button mat-raised-button color="red" (click)="filterColor('red')">
-                        Qué?
+                        {{local.string.what}}
                     </button>&nbsp;
                     <button mat-raised-button color="blue" (click)="filterColor('blue')">
-                        Quién?
+                        {{local.string.who}}
                     </button>&nbsp;
                     <button mat-raised-button color="green" (click)="filterColor('green')">
-                        Cómo?
+                        {{local.string.how}}
                     </button>&nbsp;
                     <button mat-raised-button color="yellow" (click)="filterColor('yellow')">
-                        Cuánto?
+                        {{local.string.howmuch}}
                     </button>             
                 </ion-col>
             </ion-row>
 
             <ion-row  class="ion-padding">
-                <pivot-deck
-                    [cardWidth]="350"
-                    [deck]="availables"
-                ></pivot-deck>
+                <ion-col size-sm="6" size-lg="3" *ngFor="let card of availables">
+                    <pivot-card
+                        [card]="card"
+                    ></pivot-card>
+                </ion-col>
             </ion-row>
             
 

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, OnChanges, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { Subject, Subscriber } from 'rxjs';
+import { LocalStringsService } from 'src/app/services/common/common.services';
 import { Deck, DeckService, Pitch } from 'src/app/services/deck.service';
 
 
@@ -25,6 +26,7 @@ export class PivotCounterComponent implements OnInit, OnDestroy, OnChanges {
     count: {[key:string]:number};
 
     constructor(
+        public local: LocalStringsService,
         public service: DeckService
     ) {
         

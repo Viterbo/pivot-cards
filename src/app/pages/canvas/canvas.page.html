@@ -8,52 +8,25 @@
 </ion-header> 
 
 <ion-content [fullscreen]="true">
-    <div style="display: none"><img id="pivot-azul" src="assets/img/Pívot-azul.png"></div>
+    <div style="display: none">
+        <img id="pivot-azul" src="assets/img/Pívot-azul.png">
+        <img id="sticky-note" src="assets/img/Sticky-note.png">
+    </div>
     <div class="container">
 
         <ion-grid class="flex-grow">
 
             <ion-row class="ion-padding header">
-                <ion-col size-md="8" size-sm="12">
-                    <h1>Canvas</h1>
+                <ion-col size-md="12" size-sm="12">
+                    <h1>{{local.string.canvas_h_1}}</h1>
                     <ul>
-                        <li>Las <strong>cartas</strong> que se encuentren <strong>sobre el canvas</strong> definirán un nuevo modelo de negocio.</<li>
-                        <li [hidden]="lockcanvas">Puedes hacer <strong>click sobre el las cartas</strong> para ponerlas o secarlas del canvas.</li>
-                        <li>Puedes hacer <strong>click sobre el texto del pitch</strong>, si quieres modificarlo.</li>
+                        <li>{{local.string.canvas_h_2_1}} <strong>{{local.string.canvas_h_2_b}}</strong> {{local.string.canvas_h_2_2}} <strong>{{local.string.canvas_h_2_b2}}</strong> {{local.string.canvas_h_2_3}}.</li>
+                        <li [hidden]="lockcanvas">{{local.string.canvas_h_3_1}} <strong>{{local.string.canvas_h_3_b}}</strong> {{local.string.canvas_h_3_2}}.</li>
+                        <li>{{local.string.canvas_h_4_1}} <strong>{{local.string.canvas_h_4_b}}</strong>, {{local.string.canvas_h_4_2}}.</li>
                     </ul>
                     <ion-item class="d-none d-md-block">
-                        <pivot-industria-input style="margin-bottom: 27px;" (onInit)="onIndustriaInit($event)"></pivot-industria-input>
+                        <pivot-industria-input style="width: 100%; margin-bottom: 27px;" (onInit)="onIndustriaInit($event)"></pivot-industria-input>
                     </ion-item>
-                </ion-col>
-                <ion-col size="4" class="d-none d-md-flex flex-column ion-justify-content-end">
-                    <ion-item [hidden]="lockcanvas">
-                        <mat-slide-toggle
-                        color="default"
-                        [checked]="useOverlappingCards"
-                        (change)="useOverlappingCards = $event.checked; "
-                        >
-                            cartas superpuestas
-                        </mat-slide-toggle>
-                    </ion-item>
-                    <ion-item [hidden]="lockcanvas">
-                        <mat-slide-toggle
-                        color="default"
-                        [checked]="useCardsExtended"
-                        (change)="useCardsExtended = $event.checked; "
-                        >
-                            ampliar cartas
-                        </mat-slide-toggle>
-                    </ion-item>
-                    <ion-item>
-                        <mat-slide-toggle
-                        color="primary"
-                        [checked]="useCanvasExtended"
-                        (change)="useCanvasExtended = $event.checked; "
-                        >
-                            canvas completo
-                        </mat-slide-toggle>
-                    </ion-item> 
-
                 </ion-col>
             </ion-row>
 
@@ -82,7 +55,7 @@
                         [checked]="useCardsExtended"
                         (change)="useCardsExtended = $event.checked; "
                         >
-                            ver descripción en las cartas
+                            {{local.string.canvas_op_3}}
                         </mat-slide-toggle>
                     </ion-item>
                 </ion-col>
@@ -102,15 +75,38 @@
 
             <!-- pitch & print -->
             <ion-row class="no-padding">
-                <ion-col size="2" class="d-none d-md-block"></ion-col>
-                <ion-col size-md="8" size-sm="12" class="ion-text-left ion-padding">
+                <ion-col size="3" class="d-none d-md-flex flex-column ion-justify-content-end">
+
+                    
+                        <ion-item [hidden]="lockcanvas">
+                            <mat-slide-toggle
+                            color="default"
+                            [checked]="useOverlappingCards"
+                            (change)="useOverlappingCards = $event.checked; "
+                            >
+                                {{local.string.canvas_op_1}}
+                            </mat-slide-toggle>
+                        </ion-item>
+                        <ion-item [hidden]="lockcanvas">
+                            <mat-slide-toggle
+                            color="default"
+                            [checked]="useCardsExtended"
+                            (change)="useCanvasExtended = $event.checked; "
+                            >
+                                {{local.string.canvas_op_4}}
+                            </mat-slide-toggle>
+                        </ion-item>
+                  
+
+                </ion-col>
+                <ion-col size-md="7" size-sm="12" class="ion-text-left ion-padding">
                     <pivot-pitch
-                        matTooltip="click para editar el texto"
+                        [matTooltip]="local.string.pitch_tooltip"
                         matTooltipPosition="above"
                     ></pivot-pitch>
                     <div class="ion-margin-top ion-text-center d-block d-md-none">
                         <button mat-raised-button [disabled]="!showPrintBtn" color="primary" class="margin-top" (click)="print()">
-                            Imrimir
+                            {{local.string.print}}
                             <i class="material-icons">print</i>
                         </button>
                     </div>                    
@@ -118,7 +114,7 @@
 
                 <ion-col size="2" class="d-none d-md-flex ion-align-items-end ion-justify-content-end" style="padding-bottom: 16px;">
                     <button mat-raised-button [disabled]="!showPrintBtn" color="primary" class="ion-margin-bottom" (click)="print()">
-                        Imrimir
+                        {{local.string.print}}
                         <i class="material-icons">print</i>
                     </button>
                 </ion-col>
@@ -128,22 +124,13 @@
             <!-- switch ver cartas en ekl canvas (visible solo en celulaers) -->
             <ion-row class="ion-padding-bottom d-blck d-md-none">
                 <ion-col>
-                    <ion-item [hidden]="lockcanvas">
-                        <mat-slide-toggle
-                        color="default"
-                        [checked]="useOverlappingCards"
-                        (change)="useOverlappingCards = $event.checked; "
-                        >
-                            cartas superpuestas
-                        </mat-slide-toggle>
-                    </ion-item>
                     <ion-item>
                         <mat-slide-toggle
                         color="primary"
                         [checked]="useCanvasExtended"
                         (change)="useCanvasExtended = $event.checked; "
                         >
-                            canvas completo
+                            {{local.string.canvas_op_4}}
                         </mat-slide-toggle>
                     </ion-item> 
                 </ion-col>

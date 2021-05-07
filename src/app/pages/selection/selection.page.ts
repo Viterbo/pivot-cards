@@ -7,6 +7,7 @@ import { PivotFourSlotsComponent } from 'src/app/components/pivot-four-slots/piv
 import { ColorCardListComponent } from 'src/app/components/color-card-list/color-card-list.component';
 import { AppPage, AppService } from 'src/app/services/common/app.service';
 import { PivotCounterComponent } from 'src/app/components/pivot-counter/pivot-counter.component';
+import { LocalStringsService } from 'src/app/services/common/common.services';
 
 @Component({
     selector: 'selection-page',
@@ -24,7 +25,8 @@ export class SelectionPage implements AppPage, OnDestroy {
     constructor(
         public router: Router,
         public deck: DeckService,
-        public app: AppService
+        public app: AppService,
+        public local: LocalStringsService,
     ) {
         this.onEnterPage();
         this.app.subscribeOnEnterPage(this);
@@ -107,10 +109,10 @@ export class SelectionPage implements AppPage, OnDestroy {
     onCardClick(card:Card) {
         console.debug("PivotDeckComponent.onCardClick()", card);
         setTimeout(_ => {
-            if (this.counter.count[card.color] >= 6) return;
             if (this.deck.isCardSelected(card)) {
                 this.deck.deselectCard(card);
             } else {
+                if (this.counter.count[card.color] >= 6) return;
                 this.deck.selectCard(card);
             }
             this.debug = true;

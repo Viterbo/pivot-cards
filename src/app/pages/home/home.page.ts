@@ -26,6 +26,7 @@ export class HomePage implements AppPage, OnDestroy {
         public app: AppService,
         public router: Router,
         public deck: DeckService,
+        public local: LocalStringsService,
     ) {
         this.toilet_card_fade = "";
         this.class = this.app.device.class;
@@ -75,6 +76,14 @@ export class HomePage implements AppPage, OnDestroy {
         }
     }
 
+
+    debug() {
+        console.log("-- Debug --");
+        console.log(this);
+    }
+
+
+
     // onInput(algo) {
     //     console.log("onInput()", algo);
     // }
@@ -104,4 +113,5 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 
 import { ErrorStateMatcher } from '@angular/material/core';
 import { FormControl, Validators, FormGroupDirective, NgForm } from '@angular/forms';import { PivotIndustriaInputComponent } from 'src/app/components/pivot-industria-input/pivot-industria-input.component';
+import { LocalStringsService } from 'src/app/services/common/common.services';
 

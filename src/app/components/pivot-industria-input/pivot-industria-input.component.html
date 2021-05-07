@@ -3,18 +3,18 @@
 -->
 <form>
     <mat-form-field class="d-block">
-        <mat-label>Producto o Servicio</mat-label>
+        <mat-label>{{local.string.prod_o_serv}}</mat-label>
         
         <input matInput [(ngModel)]="deck.industria" [formControl]="ctrl" [errorStateMatcher]="matcher"
                         (input)="onValueChange($event)"
-                        placeholder="Ej: vestimenta"
+                        [placeholder]="local.string.prod_or_serv_example"
                         #setFocusField
                         >
 
         
 
         <mat-error [hidden]="ctrl.status == 'VALID'">
-            <strong>complete</strong> este campo antes de continuar.
+            <strong>{{local.string.prod_or_serv_err_b}}</strong> {{local.string.prod_or_serv_err_2}}.
         </mat-error>
 
     </mat-form-field>

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, forwardRef, OnChanges, HostBinding, ElementRef } from '@angular/core';
 import { Subject } from 'rxjs';
+import { LocalStringsService } from 'src/app/services/common/common.services';
 import { DeckService, Card } from 'src/app/services/deck.service';
 import { VpeAbstractComponent } from '../vpe-components.service';
 import { ResizeHandler, ResizeEvent } from '../vpe-resize-detector.directive';
@@ -15,18 +16,22 @@ export class PivotLabelBtnComponent extends VpeAbstractComponent implements OnIn
     @Input() label: string;
     @Input() texto: string;
     constructor(
-        public elem: ElementRef
+        public elem: ElementRef,
+        public local: LocalStringsService
     ) {
         super();
+        this.local.onLocalChange.subscribe(key => {
+            this.init();
+        })
     }
 
     init() {
         console.log("PivotLabelBtnComponent.init()", this.color);
         switch(this.color) {
-            case "red": this.label = "Qué?"; break;
-            case "blue": this.label = "Quién?"; break;
-            case "green": this.label = "Cómo?"; break;
-            case "yellow": this.label = "Cuánto?"; break;
+            case "red": this.label = this.local.string.what; break;
+            case "blue": this.label = this.local.string.who; break;
+            case "green": this.label = this.local.string.how; break;
+            case "yellow": this.label = this.local.string.howmuch; break;
         }
     }
 

@@ -10,14 +10,13 @@
 <ion-content [fullscreen]="true">
     <div class="container">
 
-        
         <ion-grid class="flex-grow">
             
             <ion-row class="ion-padding">
                 <ion-col>
-                    <h1>Dinámica de Selección</h1>
-                    <p>En esta propuesta te invitamos a buscar libremente entre las cartas disponibles y elegir un subconjunto para trabajar con ellas posteriormente sobre el canvas para crear un modelo de negocio innovador relacionado con <strong>{{deck.industria}}</strong>.</p>
-                    <p>Para seleccionar o desseleccionar debes hacer <strong>click sobre las cartas</strong>, mientras que los botones <strong>&lt;</strong> y <strong>&gt;</strong> te permitiran rotar las cartas disponibles.</p>
+                    <h1>{{local.string.selec_h_1}}</h1>
+                    <p>{{local.string.selec_h_2}} <strong>{{deck.industria}}</strong>.</p>
+                    <p>{{local.string.selec_h_3_}} <strong>{{local.string.selec_h_3_b}}</strong>, {{local.string.selec_h_3_2}} <strong>&lt;</strong> y <strong>&gt;</strong> {{local.string.selec_h_3_3}}.</p>
                 </ion-col>
             </ion-row>
             
@@ -25,7 +24,7 @@
                 <ion-col size="2"></ion-col>
                 <ion-col size="8">
                     <ion-item>
-                        <ion-label position="floating">Producto o Servicio</ion-label>
+                        <ion-label position="floating">{{local.string.prod_or_serv}}</ion-label>
                         <ion-input ngDefaultControl [(ngModel)]="deck.industria" (keyup)="deck.updatePitch()"></ion-input>
                     </ion-item>
                 </ion-col>
@@ -48,17 +47,17 @@
             
             <ion-row class="counter flex-grow ion-margin-top">
                 <ion-col class="ion-text-left ion-align-items-end d-flex">
-                    <span [hidden]="deck.selection.length != 0">Debes seleccionar al menos una carta de cada color</span>
-                    <span [hidden]="deck.selection.length == 0">Has seleccionado {{deck.selection.length}} {{deck.selection.length == 1 ? 'carta' : 'cartas'}} </span>
+                    <span [hidden]="deck.selection.length != 0">{{local.string.must_select}} </span>
+                    <span [hidden]="deck.selection.length == 0">{{local.string.have_selected}} {{deck.selection.length}} {{deck.selection.length == 1 ? local.string.card : local.string.cards}} </span>
                 </ion-col>
                 <ion-col class="ion-text-right">
                     <button mat-raised-button color="accent" (click)="clearAll()">
-                        <span class="d-none d-md-inline">Limpiar</span>
+                        <span class="d-none d-md-inline">{{local.string.clean}}</span>
                         <i class="material-icons">delete</i>
                     </button>
                     &nbsp;                    
                     <button mat-raised-button [disabled]="!showGoToCanvas" color="primary" (click)="goToCanvas()">
-                        <span class="d-none d-md-inline">Canvas</span>
+                        <span class="d-none d-md-inline">{{local.string.canvas}}</span>
                         <i class="material-icons">navigate_next</i>
                     </button>
                 </ion-col>
@@ -106,25 +105,7 @@
                     ></color-card-list>
                 </ion-col>                                                
             </ion-row>
-
             
-
-            <!-- TEMP: seleccion -->
-            <!--
-            <ion-row class="flex-grow ion-align-items-center ion-justify-content-center ion-margin-top">
-                <ion-col class="ion-align-self-center ion-text-center">
-                    
-                    <pivot-deck
-                        [cardWidth]="350"
-                        [deck]="deck.selection"
-                        (onCardClick)="onCardClick($event)"
-                    ></pivot-deck>
-    
-    
-                </ion-col>
-            </ion-row>
-            -->
-
         </ion-grid>        
 
     </div>

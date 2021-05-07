@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { HomePage } from './pages/home/home.page';
-import { WelcomePage } from './pages/welcome/welcome.page';
 import { SelectionPage } from './pages/selection/selection.page';
 import { FilterPage } from './pages/filter/filter.page';
 import { SlotsPage } from './pages/slots/slots.page';
@@ -11,16 +10,12 @@ import { CartasPage } from './pages/cartas/cartas.page';
 const routes: Routes = [
     {
         path: '',
-        redirectTo: 'welcome',
+        redirectTo: 'home',
         pathMatch: 'full'
     },
     {
         path: 'home',
         component: HomePage
-    },
-    {
-        path: 'welcome',
-        component: WelcomePage
     },
     {
         path: 'selection',

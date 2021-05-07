@@ -1,9 +1,11 @@
 import { Component, OnInit, Input, Output, OnChanges, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { Subject, Subscriber } from 'rxjs';
+import { LocalStringsService } from 'src/app/services/common/common.services';
 import { DeckService, Pitch } from 'src/app/services/deck.service';
 
 
 const MDEO_EXTENT = [-6358249.62941, -4213839.90042, -6226491.30192, -4114146.90629 ];
+const MAX_CHARS = 500;
 
 interface ToiletFeature {
     get(string): any;
@@ -31,7 +33,8 @@ export class PivotPitchComponent implements OnInit, OnChanges, OnDestroy {
 
     htmlStr:string;
     constructor(
-        public deck: DeckService
+        public deck: DeckService,
+        public local: LocalStringsService
     ) {
         this.onPitchSubscriber = new Subscriber<Pitch>(this.handleNewPitch.bind(this));
         this.editting = false;
@@ -39,6 +42,11 @@ export class PivotPitchComponent implements OnInit, OnChanges, OnDestroy {
         setTimeout(_ => {
             this.handleNewPitch(this.deck.pitch);
         }, 0);
+    }
+
+    get remainingChars() {
+        if(!this.current) return 500;
+        return MAX_CHARS - this.current.length;
     }
     
     ngOnInit() {
@@ -74,9 +82,24 @@ export class PivotPitchComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     endEdition() {
+        console.log("endEdition()", this.current);
         this.editting = false;
         this.deck.setPitch(this.current);
-        console.log("endEdition()", this.editting);
+    }
+
+    onNewChar(e) {
+        // console.log("onNewChar()", e);
+        switch(e.code) {
+            case "Backspace":
+                return; // todo bien porque no agrega texto sino que lo saca.
+        }
+
+        if (this.remainingChars <= 0) {
+            e.preventDefault();
+            if (this.current.length > MAX_CHARS) {
+                this.current = this.current.substr(0, MAX_CHARS);
+            }
+        }
     }
 
     onTextChange() {

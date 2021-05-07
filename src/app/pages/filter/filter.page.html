@@ -16,9 +16,9 @@
             <!-- bienvenida -->
             <ion-row class="ion-padding">
                 <ion-col>
-                    <h1>Dinámica de Flitros</h1>
-                    <p>En esta propuesta podrás filtrar las cartas según unos criterios que hemos preparado para y así conseguir un subconjunto de cartas que mejor se adapten a tu negocio, con las que ṕodrás trabajar posteriormente sobre el canvas para crear un modelo de negocio innovador relacionado con <strong>{{deck.industria}}</strong>.</p>
-                    <p><strong>Cambia las opciones del formulario</strong> para aplicar diferentes <strong>filtros</strong> sobre las cartas.</p>
+                    <h1>{{local.string.filt_h_1}}</h1>
+                    <p>{{local.string.filt_h_2}} <strong>{{deck.industria}}</strong>.</p>
+                    <p><strong>{{local.string.filt_h_3_b}}</strong> {{local.string.filt_h_3_1}} <strong>{{local.string.filters}}</strong> {{local.string.filt_h_3_2}}.</p>
                 </ion-col>
             </ion-row>
 
@@ -26,7 +26,7 @@
                 <ion-col size="2"></ion-col>
                 <ion-col size="8">
                     <ion-item>
-                        <ion-label position="floating">Producto o Servicio</ion-label>
+                        <ion-label position="floating">{{local.string.prod_or_serv}}</ion-label>
                         <ion-input ngDefaultControl [(ngModel)]="deck.industria" (keyup)="deck.updatePitch()"></ion-input>
                     </ion-item>
                 </ion-col>
@@ -36,13 +36,13 @@
             <!-- formulario -->
             <ion-row class="ion-padding-horizontal" *ngFor="let q of deck.filters; let n = index">
                 <ion-col size="8" class="no-padding d-flex ion-align-self-center ion-justify-content-start ion-text-left">
-                    <span>{{q.text}}:</span>
+                    <span>{{local.string[q.text]}}:</span>
                 </ion-col>
                 <ion-col size="4" class="no-padding d-flex flex-column ion-align-self-center ion-justify-content-end ion-text-right">
                     <form>
                         <mat-form-field appearance="fill" class="no-padding d-block">
                             <mat-select (selectionChange)="onSelectionChange(n,$event)">
-                                <mat-option *ngFor="let opt of q.options; let i = index" value="{{i}}">{{opt.text}}</mat-option>
+                                <mat-option *ngFor="let opt of q.options; let i = index" value="{{i}}">{{local.string[opt.text]}}</mat-option>
                             </mat-select>
                         </mat-form-field>
                     </form>
@@ -52,17 +52,17 @@
             <!-- goto canvas -->
             <ion-row class="counter flex-grow ion-margin-vertical">
                 <ion-col class="ion-text-left ion-align-items-end d-flex">
-                    <span [hidden]="deck.selection.length != 0">Debes seleccionar al menos una carta de cada color</span>
-                    <span [hidden]="deck.selection.length == 0">Has seleccionado {{deck.selection.length}} {{deck.selection.length == 1 ? 'carta' : 'cartas'}} </span>
+                    <span [hidden]="deck.selection.length != 0">{{local.string.must_select}} </span>
+                    <span [hidden]="deck.selection.length == 0">{{local.string.have_selected}} {{deck.selection.length}} {{deck.selection.length == 1 ? local.string.card : local.string.cards}} </span>
                 </ion-col>
                 <ion-col class="ion-text-right">
                     <button mat-raised-button color="accent" (click)="clearAll()">
-                        <span class="d-none d-md-inline">Limpiar</span>
+                        <span class="d-none d-md-inline">{{local.string.clean}}</span>
                         <i class="material-icons">delete</i>
                     </button>
                     &nbsp;
                     <button mat-raised-button [disabled]="!showGoToCanvas" color="primary" (click)="goToCanvas()">
-                        <span class="d-none d-md-inline">Canvas</span>
+                        <span class="d-none d-md-inline">{{local.string.canvas}}</span>
                         <i class="material-icons">navigate_next</i>
                     </button>
                 </ion-col>

@@ -8,6 +8,7 @@ import { jsPDF, jsPDFOptions } from "jspdf";
 import { LoadingController } from '@ionic/angular';
 import { PivotCounterComponent } from 'src/app/components/pivot-counter/pivot-counter.component';
 import { PivotIndustriaInputComponent } from 'src/app/components/pivot-industria-input/pivot-industria-input.component';
+import { LocalStringsService } from 'src/app/services/common/common.services';
 
 
 
@@ -36,7 +37,8 @@ export class CanvasPage implements AppPage, OnDestroy {
         public route: ActivatedRoute,
         public deck: DeckService,
         public app: AppService,
-        public loadingController: LoadingController
+        public loadingController: LoadingController,
+        public local: LocalStringsService,
     ) {
         this.lockcanvas = false;
         this.useOverlappingCards = false;
@@ -64,7 +66,7 @@ export class CanvasPage implements AppPage, OnDestroy {
                 this.deck.updatePitch();
                 this.deck.resetCanvas();
 
-                // this.aux();
+                this.aux();
 
                 this.deck.sortDeck(this.deck.subset);
             }
@@ -102,29 +104,29 @@ export class CanvasPage implements AppPage, OnDestroy {
         let pitch_title_offset;
         let pitch_text_offset;
         let titlesize;
-        if (this.useOverlappingCards) {
+        //if (this.useOverlappingCards) {
+        //    this.top = 10;
+        //    this.left = 5;
+        //    this.cellw = 90;
+        //    this.cellh = 70;
+        //    this.canvasl = 10;
+        //    this.canvast = 60;
+        //    canvas_title_offset = 10;
+        //    pitch_title_offset = 10;
+        //    pitch_text_offset = 10;
+        //    titlesize = 20;
+        //} else {
             this.top = 10;
             this.left = 5;
             this.cellw = 90;
-            this.cellh = 70;
+            this.cellh = 100;
             this.canvasl = 10;
-            this.canvast = 60;
-            canvas_title_offset = 10;
-            pitch_title_offset = 10;
-            pitch_text_offset = 10;
-            titlesize = 20;
-        } else {
-            this.top = 10;
-            this.left = 5;
-            this.cellw = 90;
-            this.cellh = 90;
-            this.canvasl = 10;
-            this.canvast = 50;
+            this.canvast = 30;
             canvas_title_offset = 10;
             pitch_title_offset = 8;
             pitch_text_offset = 8;
             titlesize = 20;
-        }
+        //}
 
         if (!this.deck.industria) {
             this.input.showErrors();
@@ -143,6 +145,7 @@ export class CanvasPage implements AppPage, OnDestroy {
         const element = document.getElementById('canvas');
 
         const pivotAzul:HTMLImageElement = <HTMLImageElement>document.getElementById('pivot-azul');
+        const stickyNote:HTMLImageElement = <HTMLImageElement>document.getElementById('sticky-note');
         var canvas = document.createElement("canvas");
         canvas.width = 10;
         canvas.height = 10;
@@ -156,45 +159,64 @@ export class CanvasPage implements AppPage, OnDestroy {
         let pdf:jsPDF = new jsPDF();
         console.log(pdf, pdf.fromHTML);
 
-        // auxiliar --------------------------------------
-        // creamos una imagen de 10x10 de fondo rojo -------------
-        /* 
-        var red = this.auxGetImage(canvas, "red");
-        var green = this.auxGetImage(canvas, "green");
-        var blue = this.auxGetImage(canvas, "blue");
-        var grey = this.auxGetImage(canvas, "grey");
-        var black = this.auxGetImage(canvas, "black");
-        var white = this.auxGetImage(canvas, "white");
-        // width:  210;
-        // height: 297;
+        // // auxiliar --------------------------------------
+        // // creamos una imagen de 10x10 de fondo rojo -------------
+        // //* 
+        // var red = this.auxGetImage(canvas, "red");
+        // var green = this.auxGetImage(canvas, "green");
+        // var blue = this.auxGetImage(canvas, "blue");
+        // var grey = this.auxGetImage(canvas, "grey");
+        // var black = this.auxGetImage(canvas, "black");
+        // var white = this.auxGetImage(canvas, "white");
+        // // width:  210;
+        // // height: 297;
+        // // 
+// 
         // 
-
-        
-        pdf.addImage(grey,    'PNG',    0,   0, 210, 297); // tapo la hoja de grey
-        pdf.addImage(white,   'PNG', this.left, this.top, 200, 280); // pinto de blanco sólo la zona usable
-
-        // horizontal
-        pdf.addImage(black,     'PNG', this.left+  0, this.top-1, 20, 1);
-        pdf.addImage(black,     'PNG', this.left+ 40, this.top-1, 20, 1);
-        pdf.addImage(black,     'PNG', this.left+ 80, this.top-1, 20, 1);
-        pdf.addImage(black,     'PNG', this.left+120, this.top-1, 20, 1);
-        pdf.addImage(black,     'PNG', this.left+160, this.top-1, 20, 1);
-
-        // vertical
-        pdf.addImage(black,     'PNG', this.left-1, this.top+ 20, 1, 20);
-        pdf.addImage(black,     'PNG', this.left-1, this.top+ 60, 1, 20);
-        pdf.addImage(black,     'PNG', this.left-1, this.top+100, 1, 20);
-        pdf.addImage(black,     'PNG', this.left-1, this.top+140, 1, 20);
-        pdf.addImage(black,     'PNG', this.left-1, this.top+180, 1, 20);
-        pdf.addImage(black,     'PNG', this.left-1, this.top+220, 1, 20);
-        pdf.addImage(black,     'PNG', this.left-1, this.top+260, 1, 20);
-        //*/
-        // -----------------------------------------------
-
-
+        // pdf.addImage(grey,    'PNG',    0,   0, 210, 297); // tapo la hoja de grey
+        // pdf.addImage(white,   'PNG', this.left, this.top, 200, 280); // pinto de blanco sólo la zona usable
+// 
+        // // horizontal
+        // pdf.addImage(black,     'PNG', this.left+  0, this.top-1, 20, 1);
+        // pdf.addImage(black,     'PNG', this.left+ 40, this.top-1, 20, 1);
+        // pdf.addImage(black,     'PNG', this.left+ 80, this.top-1, 20, 1);
+        // pdf.addImage(black,     'PNG', this.left+120, this.top-1, 20, 1);
+        // pdf.addImage(black,     'PNG', this.left+160, this.top-1, 20, 1);
+// 
+        // // vertical
+        // pdf.addImage(black,     'PNG', this.left-1, this.top+ 20, 1, 20);
+        // pdf.addImage(black,     'PNG', this.left-1, this.top+ 60, 1, 20);
+        // pdf.addImage(black,     'PNG', this.left-1, this.top+100, 1, 20);
+        // pdf.addImage(black,     'PNG', this.left-1, this.top+140, 1, 20);
+        // pdf.addImage(black,     'PNG', this.left-1, this.top+180, 1, 20);
+        // pdf.addImage(black,     'PNG', this.left-1, this.top+220, 1, 20);
+        // pdf.addImage(black,     'PNG', this.left-1, this.top+260, 1, 20);
+        // //*/
+        // // -----------------------------------------------
+// 
+// 
 
         // title image
-        pdf.addImage(pivotAzul, 'PNG', this.left+10, this.top+5, 40, 16.34);
+        // pdf.addImage(pivotAzul, 'PNG', this.left+10, this.top+5, 40, 16.34);
+        pdf.addImage(pivotAzul, 'PNG', this.left+this.canvasl+2*this.cellw-40, this.top+5, 40, 16.34);
+
+
+        pdf.setTextColor("#032f9a");
+        pdf.setFontSize(14);
+
+
+        // pdf.textWithLink('www.pivot.uy', this.left+this.canvasl+2*this.cellw-40, this.top+27,
+        // pdf.textWithLink('www.pivot.uy', this.left+this.canvasl+2*this.cellw-38, this.top+25,
+        // pdf.textWithLink('www.pivot.uy', this.left+this.canvasl+2*this.cellw-36, this.top+22,
+        // pdf.textWithLink('www.pivot.uy', this.left+this.canvasl+2*this.cellw-26, this.top+22,
+        // pdf.textWithLink('www.pivot.uy', this.left+this.canvasl+2*this.cellw-28, this.top+23,
+        pdf.textWithLink('www.pivot.uy', this.left+this.canvasl+2*this.cellw-29, this.top+23,
+            {
+                url: 'http://www.pivot.uy/'
+            }
+        );
+
+
 
         // pdf.setFillColor(56, 128, 255); // blue
         // pdf.setFillColor(235, 68, 90); // red
@@ -205,12 +227,14 @@ export class CanvasPage implements AppPage, OnDestroy {
         
 
         // paint canvas ------------
+        pdf.setTextColor("black");
         pdf.setFontSize(titlesize);
-        pdf.text(
-            "Canvas:",
-            this.left+this.canvasl+margin,
-            this.top+this.canvast-canvas_title_offset
-        );        
+        // pdf.text(
+        //     "Canvas:",
+        //     this.left+this.canvasl+margin,
+        //     this.top+this.canvast-canvas_title_offset
+        // );    
+
         pdf.setFillColor(251, 217, 222); // light-red
         pdf.rect(this.left+this.canvasl, this.top+this.canvast, this.cellw, this.cellh, 'F');
         pdf.setFillColor(215, 230, 255); // light-blue
@@ -220,6 +244,22 @@ export class CanvasPage implements AppPage, OnDestroy {
         pdf.setFillColor(255, 243, 205); // light-yellow
         pdf.rect(this.left+this.canvasl+this.cellw, this.top+this.canvast+this.cellh, this.cellw, this.cellh, 'F');
 
+
+        pdf.setFontSize(24);
+
+        pdf.setTextColor("f2a0a8"); // rojo
+        pdf.text(this.local.string.what,    this.left+this.canvasl+3,              this.top+this.canvast+10 );
+
+        pdf.setTextColor("9bb8ff"); // azul
+        pdf.text(this.local.string.who,     this.left+this.canvasl+2*this.cellw-3, this.top+this.canvast+10, {align: "right"} );
+
+        pdf.setTextColor("a0dbb3"); // verde
+        pdf.text(this.local.string.how,     this.left+this.canvasl+3,              this.top+this.cellh+this.canvast+10 );
+
+        pdf.setTextColor("ffde96"); // amarillo
+        pdf.text(this.local.string.howmuch, this.left+this.canvasl+2*this.cellw-3, this.top+this.cellh+this.canvast+10, {align: "right"} );
+
+
         var colors = ["red", "blue", "green", "yellow"];
         for (let c=0; c<colors.length; c++) {
             let color = colors[c];
@@ -228,7 +268,7 @@ export class CanvasPage implements AppPage, OnDestroy {
                 this.printCard(pdf, card, color, i);
             }
         }
-        
+
         // pitch ----------------
         pdf.setFontSize(titlesize);
         pdf.text(
@@ -260,13 +300,33 @@ export class CanvasPage implements AppPage, OnDestroy {
         );
         //*/ 
 
+
+
+        // sticky note
+        let left = this.left+this.canvasl+this.cellw;
+        let top  = this.top+this.canvast+this.cellh;
+        pdf.addImage(stickyNote, 'PNG', left-20, top-23, 40, 40);        
+
+
+        pdf.setTextColor("black");
+        pdf.setFontSize(15);
+        pdf.text(
+            this.deck.industria,
+            left,
+            top-5,
+            {
+                maxWidth: 30,
+                align: 'center'
+            }
+        );
+
         loading.dismiss();
-        pdf.save("canvas.pdf");
+        pdf.save("canvas-pivot.pdf");
     }
 
     printCard(pdf:jsPDF, card:Card, color:string, i:number) {
 
-        let x=this.left+this.canvasl,y=this.top+this.canvast;
+        let x=this.left+this.canvasl,y=this.top+this.canvast+10;
         let w=70, h=40, r=1;
         let top = 24, left = 9;
         let head = 10;
@@ -276,17 +336,21 @@ export class CanvasPage implements AppPage, OnDestroy {
         let text_offset_left = 3;
         let factor = 0.25;
 
-        if (this.useOverlappingCards) {
-            x=this.left+this.canvasl,y=this.top+this.canvast;
-            w=70, h=40, r=1;
-            top = 14, left = 9;
-            head = 10;
-            card_offset_top = 9;
-            text_size = 15;
-            text_offset_top = 7;
-            text_offset_left = 3;
-            factor = 0.45;
-        }
+
+        // ---------------
+        
+
+        // if (this.useOverlappingCards) {
+        //     x=this.left+this.canvasl,y=this.top+this.canvast;
+        //     w=70, h=40, r=1;
+        //     top = 14, left = 9;
+        //     head = 10;
+        //     card_offset_top = 9;
+        //     text_size = 15;
+        //     text_offset_top = 7;
+        //     text_offset_left = 3;
+        //     factor = 0.45;
+        // }
 
 
         // relativo a la esquina superior izq del cuadrante
@@ -360,7 +424,7 @@ export class CanvasPage implements AppPage, OnDestroy {
                 pdf.setTextColor("black");
                 break;
         }
-        let title = card.card + " - " + card.name;
+        let title = card.card + " - " + this.local.string[card.name];
         let size = text_size;
         top = text_offset_top;
         left = text_offset_left;
@@ -383,7 +447,7 @@ export class CanvasPage implements AppPage, OnDestroy {
 
         // descripcion
         pdf.setFontSize(10);
-        pdf.text(card.desc, x+left, y+top+head-1, {maxWidth: w-left-left}); 
+        pdf.text(this.local.string[card.desc], x+left, y+top+head-1, {maxWidth: w-left-left}); 
 
     }
     // print PDF (end) ------------------------------------------------
@@ -443,7 +507,7 @@ export class CanvasPage implements AppPage, OnDestroy {
 
 
     // -----------------------------------------------
-    /*/
+    //*/
     async aux() {}
     /*/
     async aux() {
