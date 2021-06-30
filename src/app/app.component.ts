@@ -29,7 +29,7 @@ export class AppComponent {
         this.platform.ready().then(() => {
             this.statusBar.styleDefault();
             this.splashScreen.hide();
-            this.app.init("v1.0.0");
+            this.app.init();
         });
 
         this.app.onWindowResize.subscribe(d => {

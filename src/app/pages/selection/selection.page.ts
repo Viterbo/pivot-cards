@@ -1,11 +1,11 @@
-import { Component, HostBinding, OnDestroy } from '@angular/core';
+import { Component, ElementRef, HostBinding, OnDestroy } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { Subscriber } from 'rxjs';
+import { Subscriber, Subscription } from 'rxjs';
 import { DeckService, Deck, Card } from 'src/app/services/deck.service';
 import { CardSlotComponent } from 'src/app/components/card-slot/card-slot.component';
 import { PivotFourSlotsComponent } from 'src/app/components/pivot-four-slots/pivot-four-slots.component';
 import { ColorCardListComponent } from 'src/app/components/color-card-list/color-card-list.component';
-import { AppPage, AppService } from 'src/app/services/common/app.service';
+import { VpeAppPage, AppService, OnEnterPageHandler } from 'src/app/services/common/app.service';
 import { PivotCounterComponent } from 'src/app/components/pivot-counter/pivot-counter.component';
 import { LocalStringsService } from 'src/app/services/common/common.services';
 
@@ -14,10 +14,10 @@ import { LocalStringsService } from 'src/app/services/common/common.services';
     templateUrl: 'selection.page.html',
     styleUrls: ['selection.page.scss'],
 })
-export class SelectionPage implements AppPage, OnDestroy {
+export class SelectionPage implements VpeAppPage, OnDestroy {
 
-    public path: RegExp = /\/selection/i;;
-    page: AppPage;
+    
+    
     filter_color: string;
     availables_filtered: Deck;
     selection_filtered: Deck;
@@ -27,16 +27,30 @@ export class SelectionPage implements AppPage, OnDestroy {
         public deck: DeckService,
         public app: AppService,
         public local: LocalStringsService,
+        public elementRef: ElementRef,
     ) {
         this.onEnterPage();
-        this.app.subscribeOnEnterPage(this);
     }
 
-    onEnterPage() {
+    // Page common code block -------
+    onResizeSuscriber: Subscriber<any> = null;
+    page: OnEnterPageHandler;
+    path: RegExp = /\/selection/i;
+    sub: Subscription;
+    async ngOnInit() {
+        this.app.subscribePage(this);
+    }
+    async ngOnDestroy() {
+        this.app.unsubscribePage(this);
+    }
+    onResize() {}
+    async onEnterPage() {
         if (this.app.prev_path == "/canvas") return;
         console.log("SelectionPage.onEnterPage()");
         this.clearAll();
     }
+    // --------------------------------
+
 
     clearAll() {
         this.deck.resetSelection();
@@ -45,9 +59,6 @@ export class SelectionPage implements AppPage, OnDestroy {
         this.updateCounter();  
     }
 
-    ngOnDestroy() {
-        this.app.unsubscribeOnEnterPage(this);
-    }
 
 
     //*/

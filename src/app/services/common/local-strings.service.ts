@@ -10,7 +10,6 @@ export interface StringMap {[key:string]: string};
 
 @Injectable()
 export class LocalStringsService  {
-    // public waitReady:Promise<any>;
     public string: LocalString;
     list:LocalList;
     locals:Locals;

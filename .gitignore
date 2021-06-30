@@ -28,6 +28,6 @@ npm-debug.log*
 /node_modules
 /platforms
 /plugins
-/www
+#/www a propósito queremos subir esto porque lo usame s en prod XD
 
 /pivot

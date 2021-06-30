@@ -1,14 +1,15 @@
-import { Component, HostBinding, AfterViewInit, OnInit, AfterViewChecked, OnDestroy } from '@angular/core';
+import { Component, HostBinding, AfterViewInit, OnInit, AfterViewChecked, OnDestroy, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DeckService, Card } from 'src/app/services/deck.service';
 import { PivotFourSlotsComponent } from 'src/app/components/pivot-four-slots/pivot-four-slots.component';
-import { AppPage, AppService } from 'src/app/services/common/app.service';
+import { VpeAppPage, AppService, OnEnterPageHandler } from 'src/app/services/common/app.service';
 
 import { jsPDF, jsPDFOptions } from "jspdf";
 import { LoadingController } from '@ionic/angular';
 import { PivotCounterComponent } from 'src/app/components/pivot-counter/pivot-counter.component';
 import { PivotIndustriaInputComponent } from 'src/app/components/pivot-industria-input/pivot-industria-input.component';
 import { LocalStringsService } from 'src/app/services/common/common.services';
+import { Subscriber, Subscription } from 'rxjs';
 
 
 
@@ -19,11 +20,8 @@ import { LocalStringsService } from 'src/app/services/common/common.services';
     templateUrl: 'canvas.page.html',
     styleUrls: ['canvas.page.scss'],
 })
-export class CanvasPage implements AppPage, OnDestroy {
+export class CanvasPage implements VpeAppPage, OnDestroy {
 
-    public path: RegExp = /\/canvas/i;
-    page: AppPage;
-    // slots: {[name:string]:CardSlotComponent};
     
     // initialized: boolean;
     lockcanvas: boolean;
@@ -39,13 +37,31 @@ export class CanvasPage implements AppPage, OnDestroy {
         public app: AppService,
         public loadingController: LoadingController,
         public local: LocalStringsService,
+        public elementRef: ElementRef,
     ) {
         this.lockcanvas = false;
         this.useOverlappingCards = false;
         this.useCanvasExtended = true;
         this.useCardsExtended = true;
-        this.app.subscribeOnEnterPage(this);
     }
+
+    // Page common code block -------
+    onResizeSuscriber: Subscriber<any> = null;
+    page: OnEnterPageHandler;
+    path: RegExp = /\/canvas/i;
+    sub: Subscription;
+    async ngOnInit() {
+        this.app.subscribePage(this);
+    }
+    async ngOnDestroy() {
+        this.app.unsubscribePage(this);
+    }
+    onResize() {}
+    async onEnterPage() {
+        this.init();
+    }
+    // --------------------------------
+
 
     get showPrintBtn() {
         return this.deck.isCanvasOK();
@@ -71,14 +87,6 @@ export class CanvasPage implements AppPage, OnDestroy {
                 this.deck.sortDeck(this.deck.subset);
             }
         });
-    }
-
-    onEnterPage() {
-        this.init();
-    }
-
-    ngOnDestroy() {
-        this.app.unsubscribeOnEnterPage(this);
     }
 
     auxGetImage(canvas: HTMLCanvasElement, color: string) {

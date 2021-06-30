@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, forwardRef, OnChanges, HostBinding, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
-import { AppPage } from 'src/app/services/common/app.service';
+import { VpeAppPage } from 'src/app/services/common/app.service';
 import { LocalStringsService, LocalLang } from 'src/app/services/common/common.services';
 import { DeckService, Card } from 'src/app/services/deck.service';
 import { VpeAbstractComponent } from '../vpe-components.service';
@@ -18,7 +18,7 @@ import { ResizeHandler, ResizeEvent } from '../vpe-resize-detector.directive';
 export class PivotHeaderComponent extends VpeAbstractComponent implements ResizeHandler {
 
     @Input() public delegate:boolean;
-    @Input() public page:AppPage;
+    @Input() public page:VpeAppPage;
     @Output() public ondinamica:Subject<number> = new Subject();
     constructor(
         public service: DeckService,
@@ -35,7 +35,7 @@ export class PivotHeaderComponent extends VpeAbstractComponent implements Resize
     }
 
     goLanding() {
-        window.open('https://saramendia.wixsite.com/misitio' , '_blank');
+        window.open('://pivot.com.uy' , '_blank');
     }
 
     gotoHome() {

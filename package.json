@@ -1,16 +1,14 @@
 {
   "name": "pivot-cards",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "author": "Ionic Framework",
   "homepage": "https://ionicframework.com/",
   "scripts": {
-    "serve": "ionic serve",
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "pre-build": "node ./build/pre-build.js",
+    "start": "npm run pre-build && ng serve",
+    "build-dev": "npm run pre-build && ng build --base-href /",
+    "build": "npm run pre-build && ng build --base-href / --prod",
+    "serve": "npm run pre-build && ng serve -o --live-reload"
   },
   "private": true,
   "dependencies": {

@@ -1,8 +1,8 @@
-import { Component, HostBinding, OnDestroy } from '@angular/core';
+import { Component, ElementRef, HostBinding, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscriber } from 'rxjs';
+import { Subscriber, Subscription } from 'rxjs';
 import { DeckService, Deck, Card } from 'src/app/services/deck.service';
-import { AppPage, AppService } from 'src/app/services/common/app.service';
+import { VpeAppPage, AppService, OnEnterPageHandler } from 'src/app/services/common/app.service';
 import { LocalStringsService } from 'src/app/services/common/common.services';
 
 @Component({
@@ -10,10 +10,8 @@ import { LocalStringsService } from 'src/app/services/common/common.services';
     templateUrl: 'cartas.page.html',
     styleUrls: ['cartas.page.scss'],
 })
-export class CartasPage implements AppPage, OnDestroy {
+export class CartasPage implements VpeAppPage, OnDestroy {
 
-    public path: RegExp = /\/cartas/i;
-    page: AppPage;
     filter_color: string;
     availables_filtered: Deck;
     selection_filtered: Deck;
@@ -24,9 +22,31 @@ export class CartasPage implements AppPage, OnDestroy {
         public deck: DeckService,
         public app: AppService,
         public local: LocalStringsService,
+        public elementRef: ElementRef,
     ) {
-        this.app.subscribeOnEnterPage(this);
+        
     }
+
+    // Page common code block -------
+    onResizeSuscriber: Subscriber<any> = null;
+    page: OnEnterPageHandler;
+    path: RegExp = /\/cartas/i;
+    sub: Subscription;
+    async ngOnInit() {
+        this.app.subscribePage(this);
+    }
+    async ngOnDestroy() {
+        this.app.unsubscribePage(this);
+    }
+    onResize() {}
+    async onEnterPage() {
+        console.log("CartasPage.onenterPage()");
+        this.availables_filtered = [];
+        this.selection_filtered = [];
+        this.filterColor('all');
+    }
+    // --------------------------------
+
 
     //*/
     get availables(): Deck {
@@ -35,17 +55,6 @@ export class CartasPage implements AppPage, OnDestroy {
 
     get selection(): Deck {
         return this.selection_filtered;
-    }
-
-    onEnterPage() {
-        console.log("CartasPage.onenterPage()");
-        this.availables_filtered = [];
-        this.selection_filtered = [];
-        this.filterColor('all');
-    }
-
-    ngOnDestroy() {
-        this.app.unsubscribeOnEnterPage(this);
     }
 
     get showGoToCanvas() {

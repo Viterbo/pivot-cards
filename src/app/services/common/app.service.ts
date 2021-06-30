@@ -1,10 +1,10 @@
-import { Injectable, Component } from '@angular/core';
+import { Injectable, Component, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { AnalyticsService } from './analytics.service';
 import { DomService } from './dom.service';
-import { Subject } from 'rxjs';
-import { CookieService } from 'ngx-cookie-service';
-import { computeStackId } from '@ionic/angular/directives/navigation/stack-utils';
+import { fromEvent, Subject, Subscriber } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 export interface Device {
     fullhd?:boolean, // >= 1600px
@@ -21,29 +21,23 @@ export interface Device {
     class?: string
 }
 
-export interface AppPage {
-    path:RegExp;
-    page: AppPage;
-    onEnterPage: () => void;
-}
-
 @Injectable({
     providedIn: 'root'
 })
 export class AppService {
-    public path: string;
-    public prev_path: string;
+    _id: Number = Math.floor(Math.random() * 100);
+    public path: string = "";
+    public prev_path: string = "";
     public onStateChange:Subject<string> = new Subject();
     public onWindowResize:Subject<Device> = new Subject();
     // router : Router;
     // route : ActivatedRoute;
     public global: {[key:string]:any} = {};
-    state : string;
+    state : string = "";
     prev_state : string = "none";
     device: Device = {};
-    loading: boolean;
-    countdown: number;
-    _verison: string;
+    loading: boolean = false;
+    countdown: number = 0;
     public history: History;
 
     constructor(
@@ -51,47 +45,59 @@ export class AppService {
         private route: ActivatedRoute, 
         private analytics: AnalyticsService,
         private dom: DomService,
-        public cookie: CookieService
+        public http: HttpClient
     ) {
         this.history = window.history;
         this.router.events.subscribe((event) => {
+            // console.log("this.router.events.subscribe",  [event]);
             if (event instanceof NavigationEnd) {
                 this.prev_state = this.state;
                 this.prev_path = this.path;
                 this.path = this.router.url;
                 this.state = this.getDeepestChild(this.route.root).snapshot.data.state;
-                console.log("AppService.onRoute()", [this.state], [this]);
+                console.log("AppService.onRoute()", this._id, this.path, [this]);
                 this.analytics.sendPageView(window.location.href);
+                if (!this.state) {
+                    this.state = this.path.split("/").join("");
+                }
                 this.onStateChange.next(this.state);
                 if (this.state != this.prev_state) {
-                    window.document.body.classList.remove(this.prev_state);
+                    if (window.document.body.classList.contains(this.prev_state)) {
+                        window.document.body.classList.remove(this.prev_state);
+                    }                    
                     window.document.body.classList.add(this.state);
                 }
                 for (let i in this.pages) {
                     let page = this.pages[i];
+                    // console.debug("AppService.onEnterPage()", page.path.toString(), this.path, this.path.match(page.path));
                     if (this.path.match(page.path)) {
-                        console.log("AppService -> page.onEnterPage()", this.state, this.path, [this]);
+                        console.debug("AppService -> Page.onEnterPage()", page.path.toString(), this.path, this.path.match(page.path));
                         page.onEnterPage();
                         break;
                     }
                 }
             }
         });
+        
         window.document.body.removeAttribute("loading");
         // console.error('window.document.body.removeAttribute("loading");');
     }
 
     get version() {
-        return this._verison;
+        return environment.version;
     }
 
-    isOpera:boolean;
-    isFirefox:boolean;
-    isSafari:boolean;
-    isIE:boolean;
-    isEdge:boolean;
-    isChrome:boolean;
-    isBlink:boolean;
+    get name() {
+        return environment.name;
+    }
+
+    isOpera:boolean = false;
+    isFirefox:boolean = false;
+    isSafari:boolean = false;
+    isIE:boolean = false;
+    isEdge:boolean = false;
+    isChrome:boolean = false;
+    isBlink:boolean = false;
 
     detectBrowser() {
         var _window:any = <any>window;
@@ -116,16 +122,16 @@ export class AppService {
         // Blink engine detection
         this.isBlink = (this.isChrome || this.isOpera) && !!_window.CSS;
 
-        console.log("isOpera", this.isOpera);
-        console.log("isFirefox", this.isFirefox);
-        console.log("isSafari", this.isSafari);
-        console.log("isIE", this.isIE);
-        console.log("isEdge", this.isEdge);
-        console.log("isChrome", this.isChrome);
-        console.log("isBlink", this.isBlink);
+        console.debug("isOpera", this.isOpera);
+        console.debug("isFirefox", this.isFirefox);
+        console.debug("isSafari", this.isSafari);
+        console.debug("isIE", this.isIE);
+        console.debug("isEdge", this.isEdge);
+        console.debug("isChrome", this.isChrome);
+        console.debug("isBlink", this.isBlink);
     }
 
-    private triggerOnInit: Function;
+    private triggerOnInit: Function = ()=>{};
     public onInit: Promise<any> = new Promise((resolve) => {
         this.triggerOnInit = resolve;
     });
@@ -141,7 +147,7 @@ export class AppService {
     toggleSideMenu() {
         if (this.skipSideMenu()) return;
         this.sidemenu.opened = !this.sidemenu.opened;
-        console.log("toggleSideMenu()", this.sidemenu.opened);
+        console.debug("toggleSideMenu()", this.sidemenu.opened);
     }
     openSideMenu() {
         if (this.skipSideMenu()) return;
@@ -152,27 +158,18 @@ export class AppService {
         this.sidemenu.opened = false;
     }
 
-    // global variables ---------
-    getGlobal(key, defautl:any = undefined): any {
+    // global variable (ini) ---------
+    getGlobal(key:string, defautl:any = undefined): any {
         if (!this.global) this.global = {};
-        if (!this.global[key]) {
-            var cached = this.cookie.get(key);
-            if (cached) {
-                this.global[key] = cached;
-                return cached;
-            } else {
-                return defautl;
-            }
+        if (typeof this.global[key] == "undefined") {
+            return defautl;
         }
         return this.global[key];
     }
 
-    setGlobal(key:string, value:any, persist:boolean = false) {
+    setGlobal(key:string, value:any) {
         if (!this.global) this.global = {};
         this.global[key] = value;
-        if (persist) {
-            this.cookie.set(key, value);
-        }
     }
 
     toggleGlobal(key:string) {
@@ -186,9 +183,22 @@ export class AppService {
         delete this.global[key];
         return aux;
     }
+    // global variables (end) ---------
 
-    init(version:string) {
-        this._verison = version;
+    init() {
+        console.debug("AppService.init()");
+        
+        this.http.get<any>("assets/app.json?_="+Math.random()).toPromise().then((appjson) => {
+            if (this.version != appjson.version) {
+                console.error(appjson, "ERROR: version missmatch. Reloading site...");
+                alert("load version " + appjson.version);
+                window.location.href = 
+                    window.location.protocol + "//" + window.location.hostname + ":" + window.location.port + "/?_="+Math.random();
+            } else {
+                console.log("APP: ", appjson);
+            }
+        });        
+        
         this.detectBrowser();
         this.dom.appendComponentToBody(LoadingOverall);
         this.triggerOnInit();
@@ -261,7 +271,7 @@ export class AppService {
             this.device.wide = false;
             this.device.class += "portrait ";
         }
-        // console.log("onWindowsResize()", this.device);
+        // console.debug("onWindowsResize()", this.device);
         this.device.class = this.device.class.trim();
         this.onWindowResize.next(this.device);
     }
@@ -278,9 +288,9 @@ export class AppService {
         this.navigate(path);
     }
 
-    navigate(path) {
+    navigate(path:string) {
         if (path != this.path) {
-            console.log("AppService.navigate()", path);
+            console.debug("AppService.navigate()", path);
             this.router.navigate([path]);
         }
         return path;
@@ -336,8 +346,8 @@ export class AppService {
     }
 
     getStateData(name?:string) {
-        name = name || this.getDeepestChild(this.route.root).snapshot.data.state;
-        var data = this.getRouteData(name, this.router.config);
+        let _name = name = name || this.getDeepestChild(this.route.root).snapshot.data.state;
+        var data = this.getRouteData(_name, this.router.config);
         return data;
     }
 
@@ -353,21 +363,63 @@ export class AppService {
         return found;
     }
 
-    // AppPage onEnterPage solution -----------------------------
-    pages:{[key:string]:AppPage} = {};
-    subscribeOnEnterPage(page:AppPage) {
+    // OnResizeHandler onResize solution -----------------------------
+    subscribeOnResize(listener:OnResizeHandler) {    
+        listener.onResizeSuscriber = new Subscriber<any>(listener.onResize.bind(listener));
+        this.onWindowResize.subscribe(listener.onResizeSuscriber);
+    }
+    unsubscribeOnResize(listener:OnResizeHandler) {
+        if (listener.onResizeSuscriber) listener.onResizeSuscriber.unsubscribe();
+    }
+
+
+    // OnEnterPageHandler onEnterPage solution -----------------------------
+    pages:{[key:string]:OnEnterPageHandler} = {};
+    subscribePage(page:VpeAppPage) {
+        console.log("AppService.subscribePage()", page.path.toString());
         page.page = page;
-        console.assert(typeof this.pages[page.path.toString()] == "undefined", "ERROR: AppPage already subscribed: " + page.path.toString());
+        console.assert(typeof this.pages[page.path.toString()] == "undefined", "ERROR: OnEnterPageHandler already subscribed: " + page.path.toString());
         this.pages[page.path.toString()] = page;
+        this.subscribeOnResize(page);
     }
     
-    unsubscribeOnEnterPage(page:AppPage) {
+    unsubscribePage(page:VpeAppPage) {
+        console.log("AppService.unsubscribePage()", page.path.toString());
         delete this.pages[page.path.toString()];
+        this.unsubscribeOnResize(page);
     }
-    // AppPage onEnterPage solution -----------------------------
+
+
+    // wait milisec
+    async sleep(milisec: number): Promise<void> {
+        console.log("sleep " + milisec + "...");
+        return new Promise(r => {
+            setTimeout(_ => r(), milisec);
+        });
+    }
+
 }
 
+export interface OnEnterPageHandler {
+    path: RegExp;
+    page: OnEnterPageHandler;
+    onEnterPage: () => void;
+}
 
+export interface OnResizeHandler {
+    onResizeSuscriber: Subscriber<any>;
+    onResize: () => void;
+}
+
+export interface VpeAppPage {
+    onResizeSuscriber: Subscriber<any>;
+    onResize: () => void;
+
+    path: RegExp;
+    page: OnEnterPageHandler;
+    elementRef: ElementRef;
+    onEnterPage: () => void;    
+}
 
 
 

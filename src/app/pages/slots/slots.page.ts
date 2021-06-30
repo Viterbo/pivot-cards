@@ -1,8 +1,8 @@
-import { Component, HostBinding, OnDestroy, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostBinding, OnDestroy, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscriber } from 'rxjs';
+import { Subscriber, Subscription } from 'rxjs';
 import { DeckService } from 'src/app/services/deck.service';
-import { AppPage, AppService } from 'src/app/services/common/app.service';
+import { VpeAppPage, AppService, OnEnterPageHandler } from 'src/app/services/common/app.service';
 import { CardSlotComponent } from 'src/app/components/card-slot/card-slot.component';
 import { LocalStringsService } from 'src/app/services/common/common.services';
 
@@ -12,10 +12,10 @@ import { LocalStringsService } from 'src/app/services/common/common.services';
     templateUrl: 'slots.page.html',
     styleUrls: ['slots.page.scss'],
 })
-export class SlotsPage implements AppPage, OnDestroy {
+export class SlotsPage implements VpeAppPage, OnDestroy {
 
-    public path: RegExp = /\/slots/i;;
-    page: AppPage;
+    
+
     slots: {[name:string]:CardSlotComponent} = {};
     holds: {[name:string]:boolean} = {};
     interactionAllowed: boolean;
@@ -24,21 +24,30 @@ export class SlotsPage implements AppPage, OnDestroy {
         public deck: DeckService,
         public app: AppService,
         public local: LocalStringsService,
+        public elementRef: ElementRef,
     ) {
         this.interactionAllowed = true;
-        this.app.subscribeOnEnterPage(this);
     }
+
+    // Page common code block -------
+    onResizeSuscriber: Subscriber<any> = null;
+    page: OnEnterPageHandler;
+    path: RegExp = /\/slots/i;;
+    sub: Subscription;
+    async ngOnInit() {
+        this.app.subscribePage(this);
+    }
+    async ngOnDestroy() {
+        this.app.unsubscribePage(this);
+    }
+    onResize() {}
+    async onEnterPage() {
+        this.clearAll();
+    }
+    // --------------------------------
 
     get showGoToCanvas() {
         return this.deck.isCanvasOK();
-    }
-
-    onEnterPage() {
-        this.clearAll();
-    }
-
-    ngOnDestroy() {
-        this.app.unsubscribeOnEnterPage(this);
     }
 
     addSlotsToCanvas(until: number) {

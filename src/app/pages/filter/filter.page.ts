@@ -1,8 +1,8 @@
-import { Component, HostBinding, OnDestroy } from '@angular/core';
+import { Component, ElementRef, HostBinding, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscriber } from 'rxjs';
+import { Subscriber, Subscription } from 'rxjs';
 import { DeckService, Card, Deck } from 'src/app/services/deck.service';
-import { AppPage, AppService } from 'src/app/services/common/app.service';
+import { VpeAppPage, AppService, OnEnterPageHandler } from 'src/app/services/common/app.service';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { ColorCardListComponent } from 'src/app/components/color-card-list/color-card-list.component';
 import { PivotCounterComponent } from 'src/app/components/pivot-counter/pivot-counter.component';
@@ -13,10 +13,9 @@ import { LocalStringsService } from 'src/app/services/common/common.services';
     templateUrl: 'filter.page.html',
     styleUrls: ['filter.page.scss'],
 })
-export class FilterPage implements AppPage, OnDestroy {
+export class FilterPage implements VpeAppPage, OnDestroy {
 
-    public path: RegExp = /\/filter/i;
-    page: AppPage;
+
     answers:string[];
     render_selectors:boolean;
     constructor(
@@ -24,29 +23,37 @@ export class FilterPage implements AppPage, OnDestroy {
         public deck: DeckService,
         public app: AppService,
         public fb: FormBuilder,
+        public elementRef: ElementRef,
         public local: LocalStringsService,
 
     ) {
         this.clearAnswers();
-        this.app.subscribeOnEnterPage(this);
     }
+
+    // Page common code block -------
+    onResizeSuscriber: Subscriber<any> = null;
+    page: OnEnterPageHandler;
+    path: RegExp = /\/filter/i;
+    sub: Subscription;
+    async ngOnInit() {
+        this.app.subscribePage(this);
+    }
+    async ngOnDestroy() {
+        this.app.unsubscribePage(this);
+    }
+    onResize() {}
+    async onEnterPage() {
+        if (this.app.prev_path == "/canvas") return;
+        console.log("FilterPage.onenterPage()");
+        this.clearAll();
+    }
+    // --------------------------------
+    
 
     get showGoToCanvas() {
         return this.enoughAnswers() && this.deck.isSelectionOK();
     }
 
-    onEnterPage() {
-        if (this.app.prev_path == "/canvas") return;
-        console.log("FilterPage.onenterPage()");
-        this.clearAll();
-    }
-
-
-    ngOnDestroy() {
-        this.app.unsubscribeOnEnterPage(this);
-    }
-
-    
     goToCanvas() {
         this.router.navigate(['/canvas']); 
     }

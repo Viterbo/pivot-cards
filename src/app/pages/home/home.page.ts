@@ -1,21 +1,21 @@
-import { Component, HostBinding, OnDestroy } from '@angular/core';
+import { Component, ElementRef, HostBinding, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscriber } from 'rxjs';
+import { Subscriber, Subscription } from 'rxjs';
 import { DeckService } from 'src/app/services/deck.service';
-import { AppPage, AppService } from 'src/app/services/common/app.service';
+import { VpeAppPage, AppService, OnEnterPageHandler } from 'src/app/services/common/app.service';
 
 @Component({
     selector: 'home-page',
     templateUrl: 'home.page.html',
     styleUrls: ['home.page.scss'],
 })
-export class HomePage implements AppPage, OnDestroy {
+export class HomePage implements VpeAppPage, OnDestroy {
 
 
     @HostBinding('class') class = 'box';
 
-    public path: RegExp = /\/home/i;
-    page: AppPage;
+    
+    
     toilet_card_fade:string;
     private onWindowResize: Subscriber<any>;
     show_errors:boolean;
@@ -26,39 +26,43 @@ export class HomePage implements AppPage, OnDestroy {
         public app: AppService,
         public router: Router,
         public deck: DeckService,
+        public elementRef: ElementRef,
         public local: LocalStringsService,
     ) {
         this.toilet_card_fade = "";
         this.class = this.app.device.class;
         console.log("HomePage.constructor()",this.class);
         this.onWindowResize = new Subscriber<any>(this.handleWindowResize.bind(this));
-        this.app.subscribeOnEnterPage(this);
+        this.app.subscribePage(this);
     }
 
-    handleWindowResize() {
-        this.class = this.app.device.class;
-        console.log("HomePage.handleWindowResize()",this.class);
-    }
-
+    // Page common code block -------
+    onResizeSuscriber: Subscriber<any> = null;
+    page: OnEnterPageHandler;
+    path: RegExp = /\/home/i;
+    sub: Subscription;
     async ngOnInit() {
         this.show_errors = false;
         this.app.onWindowResize.subscribe(this.onWindowResize);
         await this.deck.waitLoaded;
     }
-    
     async ngOnDestroy() {
         this.onWindowResize.unsubscribe();
         this.onEnterPage();
-        this.app.unsubscribeOnEnterPage(this);
+        this.app.unsubscribePage(this);
     }
-
+    onResize() {}
     async onEnterPage() {
         await this.deck.waitLoaded;
         this.deck.resetCanvas();
         this.deck.resetSelection();
     }
-    
+    // --------------------------------
 
+    handleWindowResize() {
+        this.class = this.app.device.class;
+        console.log("HomePage.handleWindowResize()",this.class);
+    }  
     
     onDinamica(dinamica:number) {
         console.log("onDinamica",dinamica);
