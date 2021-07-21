@@ -40,6 +40,9 @@ export class LocalStringsService  {
             }    
         }
 
+
+        // ESPAÑOL ----------------------
+        localKey = "es_ES";
         this.fetchLocalsList();
         this.setLocal(localKey);
     }
