@@ -218,9 +218,9 @@ export class CanvasPage implements VpeAppPage, OnDestroy {
         // pdf.textWithLink('www.pivot.uy', this.left+this.canvasl+2*this.cellw-36, this.top+22,
         // pdf.textWithLink('www.pivot.uy', this.left+this.canvasl+2*this.cellw-26, this.top+22,
         // pdf.textWithLink('www.pivot.uy', this.left+this.canvasl+2*this.cellw-28, this.top+23,
-        pdf.textWithLink('www.pivot.uy', this.left+this.canvasl+2*this.cellw-29, this.top+23,
+        pdf.textWithLink('http://xn--pvot-vpa.com', this.left+this.canvasl+2*this.cellw-29, this.top+23,
             {
-                url: 'http://www.pivot.uy/'
+                url: 'http://pívot.uy/'
             }
         );
 

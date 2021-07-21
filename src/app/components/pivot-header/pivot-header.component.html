@@ -5,7 +5,7 @@
     <!-- -------------------------- 
     <button color="red" mat-menu-item (click)="onDebug()">Debug</button>
      -------------------------- -->
-    <button mat-menu-item color="blue" (click)="goLanding()">{{local.string.sidemenu_buy}}</button>
+    <button mat-menu-item color="blue" (click)="goBuy()">{{local.string.sidemenu_buy}}</button>
     <button *ngIf="!delegate" mat-menu-item (click)="gotoHome()">{{local.string.sidemenu_home}}</button> 
     <button mat-menu-item (click)="gotoCartas()">{{local.string.sidemenu_cards}}</button> 
     <button mat-menu-item (click)="onDinamica(1)">{{local.string.menu_din_1}}</button>
@@ -28,7 +28,7 @@
          -------------------------- -->
         
         <li class="nav-item">
-            <button mat-button color="blue" (click)="goLanding()">{{local.string.topmenu_buy}}</button>
+            <button mat-button color="blue" (click)="goBuy()">{{local.string.topmenu_buy}}</button>
         </li>
         <li class="nav-item" *ngIf="!delegate">
             <button mat-button (click)="gotoHome()">{{local.string.topmenu_home}}</button> 

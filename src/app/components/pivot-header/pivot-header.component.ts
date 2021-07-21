@@ -35,7 +35,13 @@ export class PivotHeaderComponent extends VpeAbstractComponent implements Resize
     }
 
     goLanding() {
-        window.open('://pivot.com.uy' , '_blank');
+        console.log("PivotHeaderComponent.goLanding()");
+        window.open('https://www.pivot.com.uy/' , '_blank');
+    }
+
+    goBuy() {
+        console.log("PivotHeaderComponent.goBuy()");
+        window.open('https://www.pivot.com.uy/product-page/mazo-1' , '_blank');
     }
 
     gotoHome() {

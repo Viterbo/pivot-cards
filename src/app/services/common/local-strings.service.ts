@@ -32,11 +32,11 @@ export class LocalStringsService  {
             localKey = cached;
         } else {
             switch (userLang.substr(0,2)) {
-                case "es":
-                    localKey = "es_ES";
+                case "en":
+                    localKey = "en_US";
                     break;
                 default:
-                    localKey = "en_US";
+                    localKey = "es_ES";
             }    
         }
 

@@ -16,8 +16,8 @@ eval $EXECUTE
 
 if [ "$1" == "prod" ]; then    
     echo "--------------------"
-    git add -A
-    git commit -m 'save'
-    git push
-    amazon_server_console pivot
+    echo git add -A
+    echo git commit -m 'save'
+    echo git push
+    echo amazon_server_console pivot
 fi
