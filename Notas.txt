@@ -19,7 +19,6 @@ http://raw.githack.com/MrRio/jsPDF/master/docs/jsPDF.html
 - Deshabilitar botones mientras no se registre:: Print canvas, Dinámicas 1 y 3
 - coordinar con ellos para que funcione el sitio en su dominio
 
-
 -- Wishlist --
 - averiguar si se puede solucionar el problema del dark theme con este tag que está en el index.html:
   <meta name="color-scheme" content="light dark" />
